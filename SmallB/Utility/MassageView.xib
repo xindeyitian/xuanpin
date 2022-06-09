@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MassageView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wu6-Jp-sHb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="440"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-gy-3oB">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notice" translatesAutoresizingMaskIntoConstraints="NO" id="MeV-wM-U0R">
+                                    <rect key="frame" x="0.0" y="-10" width="375" height="160"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OX7-7Z-AZq">
+                                    <rect key="frame" x="15" y="20" width="98" height="29"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBN-Wy-0tE">
+                                    <rect key="frame" x="15" y="59" width="0.0" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="0iY-Lr-bMp"/>
+                                <constraint firstAttribute="trailing" secondItem="MeV-wM-U0R" secondAttribute="trailing" id="3dQ-gg-VWO"/>
+                                <constraint firstItem="OX7-7Z-AZq" firstAttribute="leading" secondItem="1UW-gy-3oB" secondAttribute="leading" constant="15" id="KaJ-AC-NcG"/>
+                                <constraint firstItem="MeV-wM-U0R" firstAttribute="leading" secondItem="1UW-gy-3oB" secondAttribute="leading" id="VrD-70-3AY"/>
+                                <constraint firstItem="OX7-7Z-AZq" firstAttribute="top" secondItem="1UW-gy-3oB" secondAttribute="top" constant="20" id="Yxk-YX-ivX"/>
+                                <constraint firstItem="aBN-Wy-0tE" firstAttribute="top" secondItem="OX7-7Z-AZq" secondAttribute="bottom" constant="10" id="cYv-sW-bBp"/>
+                                <constraint firstItem="aBN-Wy-0tE" firstAttribute="leading" secondItem="1UW-gy-3oB" secondAttribute="leading" constant="15" id="e0b-tb-SYy"/>
+                                <constraint firstItem="MeV-wM-U0R" firstAttribute="top" secondItem="1UW-gy-3oB" secondAttribute="top" constant="-10" id="fou-3I-eS2"/>
+                                <constraint firstAttribute="bottom" secondItem="MeV-wM-U0R" secondAttribute="bottom" id="zpI-ha-8Ac"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0d-QP-Yy4">
+                            <rect key="frame" x="10" y="160" width="355" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="V0d-QP-Yy4" firstAttribute="top" secondItem="1UW-gy-3oB" secondAttribute="bottom" constant="10" id="4f5-sK-KxX"/>
+                        <constraint firstItem="1UW-gy-3oB" firstAttribute="leading" secondItem="wu6-Jp-sHb" secondAttribute="leading" id="4uf-3c-dfg"/>
+                        <constraint firstItem="V0d-QP-Yy4" firstAttribute="leading" secondItem="wu6-Jp-sHb" secondAttribute="leading" constant="10" id="DPG-ab-mqr"/>
+                        <constraint firstAttribute="trailing" secondItem="1UW-gy-3oB" secondAttribute="trailing" id="HVB-lx-O5N"/>
+                        <constraint firstAttribute="height" constant="440" id="PeO-Ed-EC1"/>
+                        <constraint firstAttribute="trailing" secondItem="V0d-QP-Yy4" secondAttribute="trailing" constant="10" id="U1x-Gz-KUi"/>
+                        <constraint firstItem="1UW-gy-3oB" firstAttribute="top" secondItem="wu6-Jp-sHb" secondAttribute="top" id="wF2-GZ-xja"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZ0-iG-pyK">
+                    <rect key="frame" x="169.5" y="460" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="36" id="PAL-hy-Q6R"/>
+                        <constraint firstAttribute="height" constant="36" id="kBd-wE-pEE"/>
+                    </constraints>
+                    <state key="normal" image="tan_guanbi"/>
+                    <connections>
+                        <action selector="dismissButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="HXT-is-Rn9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="wu6-Jp-sHb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="07o-lU-Kn7"/>
+                <constraint firstItem="wu6-Jp-sHb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="CA0-Si-Wx1"/>
+                <constraint firstItem="eZ0-iG-pyK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Dgc-b9-D8x"/>
+                <constraint firstItem="eZ0-iG-pyK" firstAttribute="top" secondItem="wu6-Jp-sHb" secondAttribute="bottom" constant="20" id="KoQ-I5-ee0"/>
+                <constraint firstAttribute="trailing" secondItem="wu6-Jp-sHb" secondAttribute="trailing" id="fmk-Og-jGa"/>
+            </constraints>
+            <connections>
+                <outlet property="cancelButton" destination="eZ0-iG-pyK" id="jtx-UO-b7t"/>
+                <outlet property="contentLabel" destination="V0d-QP-Yy4" id="3dJ-OF-qip"/>
+                <outlet property="contentViewH" destination="PeO-Ed-EC1" id="EHi-4y-6f4"/>
+                <outlet property="secondTitleLable" destination="aBN-Wy-0tE" id="ww5-sI-APp"/>
+                <outlet property="titleLabel" destination="OX7-7Z-AZq" id="oDG-5r-Jzb"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="152"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="notice" width="300" height="130"/>
+        <image name="tan_guanbi" width="36" height="36"/>
+    </resources>
+</document>

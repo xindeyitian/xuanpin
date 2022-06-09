@@ -1,0 +1,309 @@
+//
+//  PrefixHeader.pch
+//  SmallB
+//
+//  Created by 张昊男 on 2022/3/23.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <SVProgressHUD.h>
+#import <MBProgressHUD.h>
+#import "THUserManager.h"
+#import "ThBaseTableViewCell.h"
+#import "THAPPService.h"
+#import <MJExtension.h>
+#import "THBaseNoNavViewController.h"
+#import "SCMessageHelper.h"
+#import "UIImageView+WebCache.h"
+#import "UIColor+SCHexColor.h"
+#import "UIColor+Category.h"
+#import "UIViewController+CustomTransitionAnimation.h"
+#import "UIScrollView+ThroughScroll.h"
+#import "CALayer+SCFrame.h"
+#import "UIView+SCFrame.h"
+#import "UIColor+Extension.h"
+#import "UIButton+Extension.h"
+#import "NSString+SCCommon.h"
+#import "UIView+SDAutoLayout.h"
+#import "THHttpManager.h"
+#import "LCountdownButton.h"
+#import "model.h"
+#import "SDWebImage.h"
+#import "MJRefresh.h"
+#import "SSProgressHUD.h"
+#import "UpLoadUserpicTool.h"
+#import "UIImageView+WebCache.h"
+#import "DHCCToolsMethod.h"
+#import "UIView+AZGradient.h"
+#import <WebKit/WebKit.h>
+#import "BaseButton.h"
+#import "KLCPopup.h"
+#import "SDCycleScrollView.h"
+#import "WGTableViewInScrollView.h"
+#import "MyLayout.h"
+#import "THHttpHelper.h"
+#import "UIFont+YH.h"
+#import "UIColor+YH.h"
+#import "JXCategoryTitleView.h"
+#import "JXCategoryTitleSortView.h"
+#import "JXCategoryIndicatorAlignmentLineView.h"
+#import <JXCategoryView.h>
+#import <JXPagerView.h>
+#import "XMTool.h"
+#import "UILabel+YBAttributeTextTapAction.h"
+#import "UIButton+Extension.h"
+#import "THBaseView.h"
+#import "JXCategoryIndicatorLineView.h"
+#import "BRPickerView.h"
+#import "NWTableViewNullView.h"
+#import <YYModel/NSObject+YYModel.h>
+#import "DKSButton.h"
+#import "TextViewLable.h"
+#import "SCCalendarDay.h"
+#import "UIImage+SCPureColor.h"
+#import "LoginViewController.h"
+#import "UILabel+SCCommon.h"
+#import "LSTPopView.h"
+#import "TZImagePickerController.h"
+#import "YBIBImageData.h"
+#import "YBImageBrowser.h"
+#import "CusteInputAccessoryView.h"
+#import "UIImage+GIF.h"
+#import "LSTPopViewqqtopView.h"
+#import "AllNoticePopUtility.h"
+#import "LMJVerticalFlowLayout.h"
+#import "THSearchBaseViewController.h"
+#import <Masonry/Masonry.h>
+#import "UIButton+ImageTitleSpacing.h"
+#import "UILabel+CJCreate.h"
+#import "BaseAlertViewController.h"
+#import "AppTool.h"
+#import "ProductsCommentCell.h"
+#import "THFlowLayout.h"
+#import "XHPageControl.h"
+#import "BaseTopSelectView.h"
+#import "BaseSearchNavBarView.h"
+#import "ProductShareViewController.h"
+#import "GCPlaceholderTextView.h"
+#import "JZLStarView.h"
+#import "HomeMoreViewController.h"
+#import "NSObject+toJSON.h"
+#import "NSObject+MJKeyValue.h"
+#import "HomeDataModel.h"
+#import "CJNoDataView.h"
+#import "XHToast.h"
+#import "YinsiFuwuViewController.h"
+#import "TopImageBtn.h"
+
+#define allIsSecret YES
+
+// 日志输出
+#ifdef DEBUG
+#define PLog(...) NSLog(__VA_ARGS__)
+#define PMethod() NSLog(@"%s", __func__)
+#else
+#define PLog(...)
+#define debugMethod()
+#endif
+//网络状态变化
+#define KNotificationNetWorkStateChange @"KNotificationNetWorkStateChange"
+
+//微信授权相关
+#define KNotificationWXLOGIN_AUTHORIZED @"KNotificationWXLOGIN_AUTHORIZED"
+#define KNotificationWXLOGIN_USERCANCELLED @"KNotificationWXLOGIN_USERCANCELLED"
+#define KNotificationWXMIN_WXLaunchMiniProgramResp @"KNotificationWXMIN_WXLaunchMiniProgramResp"
+
+//屏幕相关
+
+#define ScreenWidth     ([UIScreen mainScreen].bounds.size.width)//屏幕宽
+
+#define ScreenHeight    ([UIScreen mainScreen].bounds.size.height)//屏幕高
+
+#define TabbarSafeBottomMargin         (IS_IPHONEX_SERIE ? 34.f : 0.f)
+//宽高
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define IS_IPHONEX (([[UIScreen mainScreen] bounds].size.height - 812) ? NO : YES)
+//判断是否为iPhone X系列
+#define IS_IPHONEX_SERIE \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+//View 圆角和加边框
+#define ViewBorderRadius(View, Radius, Width, Color)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];\
+[View.layer setBorderWidth:(Width)];\
+[View.layer setBorderColor:[Color CGColor]]
+
+//定义UIImage对象
+#define ImageWithFile(_pointer) [UIImage imageWithContentsOfFile:([[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@@%dx", _pointer, (int)[UIScreen mainScreen].nativeScale] ofType:@"png"])]
+#define IMAGE_NAMED(name) [UIImage imageNamed:name]
+
+//发送通知
+#define KPostNotification(name,obj) [[NSNotificationCenter defaultCenter] postNotificationName:name object:obj];
+
+//拼接字符串
+#define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
+
+//高度相关
+#define KTabBarHeight ((IS_IPHONEX_SERIE) ? 83 : 49) //tabbar高度
+#define KStatusBarHeight ((IS_IPHONEX_SERIE) ? (44) : (20)) //状态栏高度
+#define KNavBarHeight (KStatusBarHeight + 44) //导航栏高
+
+
+//add   by  hui
+#define getPointX(x)         ScreenWidth*x/375.0f
+#define getPointY(y)         ScreenHeight*y/667.0f
+
+// RGB颜色
+#define kRGBA(r, g, b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+// RGB颜色
+#define kRGB(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+// 随机色
+#define kRandomColor kRGB(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+// 4通道色
+#define kRGBColor16Bit(RGB) [UIColor colorWithRed:((float)((RGB & 0xFF0000) >> 16)) / 255.0 \
+green:((float)((RGB & 0xFF00) >> 8)) / 255.0 \
+blue:((float)((RGB & 0xFF))) / 255.0 \
+alpha:1.0]
+
+//高度相关
+
+#define KTabBarHeight ((IS_IPHONEX_SERIE) ? 83 : 49) //tabbar高度
+
+#define KSafeAreaBottomHeight (IS_IPHONEX_SERIE ? 34 : 0)
+
+#define KStatusBarHeight ((IS_IPHONEX_SERIE) ? (44) : (20)) //状态栏高度
+#define KNavBarHeight (KStatusBarHeight + 44) //导航栏高
+#define RootStatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height //系统方法状态栏高度
+
+//解耦
+#define weakSelf(a)  __weak typeof(a) weakSelf = a;
+
+#define UserDefaults                             [NSUserDefaults standardUserDefaults]
+#define THUserManagerShareTHUserManager            [THUserManager shareTHUserManager]
+#define CurrentWindowRootViewController          [THAPPService WindowRootViewController]
+#define SetCurrentWindowRootViewController(VC)   [THAPPService setWindowRootViewController:(VC)]
+#define kAppDelegate                             [AppDelegate shareAppDelegate]
+#define kRootViewController [UIApplication sharedApplication].delegate.window.rootViewController
+
+//抖动一个view
+#define shakeView(layer) \
+\
+CAKeyframeAnimation *shakeAnim = [CAKeyframeAnimation animation]; \
+\
+shakeAnim.keyPath = @"transform.translation.x";\
+\
+shakeAnim.duration = 0.15;\
+\
+CGFloat delta = 10;\
+\
+shakeAnim.values = @[@0, @(-delta), @(delta), @0];\
+\
+shakeAnim.repeatCount = 2;\
+\
+[layer addAnimation:shakeAnim forKey:nil];\
+\
+
+
+
+//定义一下 键盘收回  所有的响应的键盘收回
+#define ShareWeichatSucess    @"shareWeichatSucess"
+
+//单例化一个类
+#define SINGLETON_FOR_HEADER(className) \
+\
++ (className *)shared##className;
+
+
+
+#define SINGLETON_FOR_CLASS(className) \
+\
++ (className *)shared##className { \
+static className *shared##className = nil; \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+shared##className = [[self alloc] init]; \
+}); \
+return shared##className; \
+}
+
+#define CJWeakSelf() CJWeakify(self)
+#define CJStrongSelf() CJStrongify(self)
+
+#define CJWeakify(var) __weak typeof(var) CJWeak_##var = var;
+#define CJStrongify(var) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+__strong typeof(var) var = CJWeak_##var; \
+_Pragma("clang diagnostic pop")
+
+#define SetIOS13 if (@available(iOS 13.0, *)) {UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];[appearance configureWithOpaqueBackground];appearance.backgroundColor = UIColor.whiteColor;self.navigationController.navigationBar.standardAppearance = appearance;self.navigationController.navigationBar.scrollEdgeAppearance =self.navigationController.navigationBar.standardAppearance;} else {}
+
+//字体
+#define DEFAULT_FONT_R(s)     [UIFont fontWithName:@"PingFangSC-Regular" size:s * KScreenW_Ratio]
+#define DEFAULT_FONT_M(s)     [UIFont fontWithName:@"PingFangSC-Medium" size:s * KScreenW_Ratio]
+#define BOLD_FONT_R(s)     [UIFont boldSystemFontOfSize:s * KScreenW_Ratio]
+
+#define FONTWEIGHT_BOLD_FONT_R(s)     [UIFont systemFontOfSize:s * KScreenW_Ratio weight:UIFontWeightSemibold]
+#define FONTWEIGHT_MEDIUM_FONT_R(s)     [UIFont systemFontOfSize:s * KScreenW_Ratio weight:UIFontWeightMedium]
+#define FONTWEIGHT_REGULAR_FONT_R(s)     [UIFont systemFontOfSize:s * KScreenW_Ratio weight:UIFontWeightRegular]
+
+#define DIN_Medium_FONT_R(s)     [UIFont fontWithName:@"DIN-Medium" size:s]
+#define DIN_Bold_FONT_R(s)     [UIFont fontWithName:@"DIN-Bold" size:s]
+#define DIN_Black_FONT_R(s)     [UIFont fontWithName:@"DIN-Black" size:s]
+#define DIN_Euro_FONT_R(s)     [UIFont fontWithName:@"DIN-Euro" size:s]
+#define DIN_Regular_FONT_R(s)     [UIFont fontWithName:@"DIN-Regular" size:s]
+#define DIN_Light_FONT_R(s)     [UIFont fontWithName:@"DIN-Light" size:s]
+
+//字体颜色
+#define KBlack333TextColor kRGB(51,51,51)
+#define KBlack666TextColor kRGB(102,102,102)
+#define KBlack999TextColor kRGB(153,153,153)
+
+#define KWhiteTextColor kRGB(255,255,255)
+
+//颜色
+#define KMaintextColor [UIColor colorWithHexString:@"#FA172D"] //主色字体颜色
+#define KJianBianTextColor [UIColor colorWithHexString:@"#FF6010"]//字体颜色
+#define KOrangeTextColor [UIColor colorWithHexString:@"#FF7332"]
+
+#define  KColor(color) [UIColor colorWithHexString:[NSString stringWithFormat:@"#%@",color]]
+
+#define KMainBGColor [UIColor colorWithHexString:@"#FA172D"]//主色背景色
+#define KJianBianBGColor [UIColor colorWithHexString:@"#FF6010"]//渐变色起始颜色
+#define KOrangeBGtColor [UIColor colorWithHexString:@"#FF7332"]
+
+//线条
+#define KBlackLineColor [UIColor colorWithHexString:@"#EEEEEE"]
+
+//背景色
+#define KBGColor [UIColor colorWithHexString:@"#EEEEEE"]
+#define KWhiteBGColor kRGB(255,255,255)
+
+#define KViewBGColor kRGB(245,245,245)
+
+#define KScreenW_Ratio ScreenWidth/375.0
+
+#define KBGLightColor [UIColor colorWithHexString:@"#F5F5F5"]
+#define CJColorFromHexA(s,a)  [UIColor colorWithRed:(((s & 0xFF0000) >> 16))/255.0 green:(((s & 0xFF00) >> 8))/255.0 blue:((s & 0xFF))/255.0  alpha:a]
+
+#define K_NotNull(obj) (obj != nil ? true : false)
+#define K_NotNullHolder(obj, holder) ((obj != nil ? true : false) ? obj : holder)
+
+#define K_BaseModel @"BaseInfoModel"
+
+#define KPlaceholder_DefaultImage [UIImage imageNamed:@""]
+
+#define weChatAppID @"wx2a13459e7ffbd403"
+#define weChatAppSecret @"27a6a314dd551a71930c0833b384586f"
+
+#endif /* PrefixHeader_pch */

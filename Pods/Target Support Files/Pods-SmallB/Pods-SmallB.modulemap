@@ -1,0 +1,6 @@
+module Pods_SmallB {
+  umbrella header "Pods-SmallB-umbrella.h"
+
+  export *
+  module * { export * }
+}

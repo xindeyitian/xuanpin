@@ -1,0 +1,11 @@
+
+source 'http://192.168.5.143:1180/ios/cjspecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+use_frameworks!
+target 'CJNetworkProj' do
+  pod 'CJPNetwork', :path => '../'
+
+  pod 'YYModel', '~> 1.0.4'
+  
+end

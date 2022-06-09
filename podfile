@@ -1,0 +1,39 @@
+platform:ios,'9.0'
+source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+install! 'cocoapods', :disable_input_output_paths => true
+target 'SmallB' do
+
+pod 'YYWebImage'
+pod 'JXCategoryView'
+pod 'JXPagingView/Pager'
+pod 'TZImagePickerController'
+pod 'MJExtension'
+pod 'MJRefresh'
+pod 'SDCycleScrollView'
+pod 'YYModel'
+pod 'IQKeyboardManager'
+pod 'HBDNavigationBar'
+pod 'SVProgressHUD'
+pod 'SDAutoLayout'
+pod 'pop','~>1.0'
+pod 'AFNetworking'
+pod 'TMCache', '~> 2.1.0'
+pod 'MBProgressHUD'
+pod 'YYModel'
+pod 'AZTools'
+pod 'SDWebImage'
+pod 'MyLayout'
+pod 'lottie-ios'
+pod 'Masonry', '~> 1.1.0'
+pod "Qiniu", "~> 8.4.1"
+
+pod 'WechatOpenSDK'
+#pod 'AlipaySDK-iOS'
+
+#pod 'UMCommon'
+#pod 'UMDevice'
+#pod 'UMLink'
+#pod 'UMShare/Social/WeChat'
+#pod 'UMShare/Social/AlipayShare'
+
+end

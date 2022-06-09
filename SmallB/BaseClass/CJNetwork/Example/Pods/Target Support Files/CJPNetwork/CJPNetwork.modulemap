@@ -1,0 +1,6 @@
+framework module CJPNetwork {
+  umbrella header "CJPNetwork-umbrella.h"
+
+  export *
+  module * { export * }
+}

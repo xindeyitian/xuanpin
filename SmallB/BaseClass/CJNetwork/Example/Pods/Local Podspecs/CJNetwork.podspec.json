@@ -1,0 +1,30 @@
+{
+  "name": "CJNetwork",
+  "version": "0.1.0",
+  "summary": "CJNetwork.",
+  "description": "CJNetworking",
+  "homepage": "https://github.com/architray/CJNetwork",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "architray": "architray163@163.com"
+  },
+  "source": {
+    "git": "",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "CJNetwork/Classes/**/*",
+  "dependencies": {
+    "AFNetworking": [
+      "~> 3.2"
+    ],
+    "CJSupport": [
+      "~> 0.0.9"
+    ]
+  }
+}
