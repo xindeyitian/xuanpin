@@ -23,11 +23,12 @@
         [self.noDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.centerX.equalTo(self);
-            make.size.mas_equalTo(CGSizeMake(110, 110));
+            make.size.mas_equalTo(CGSizeMake(278, 145));
         }];
         [self.noDataTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
             make.top.equalTo(self.noDataImageView.mas_bottom).offset(12);
+            make.height.mas_equalTo(20);
         }];
     }
     return self;
@@ -36,14 +37,14 @@
 #pragma mark----- LazyLoad
 - (UIImageView *)noDataImageView {
     if(!_noDataImageView) {
-        _noDataImageView =[[UIImageView alloc]initWithImage:nil];
+        _noDataImageView =[[UIImageView alloc]initWithImage:IMAGE_NAMED(@"all_noData_image")];
     }
     return _noDataImageView;
 }
 
 - (UILabel *)noDataTitleLabel {
     if(!_noDataTitleLabel) {
-        _noDataTitleLabel = [UILabel creatLabelWithTitle:@"暂无数据" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(16)];
+        _noDataTitleLabel = [UILabel creatLabelWithTitle:@"暂无数据" textColor:KBlack666TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(15)];
         _noDataTitleLabel.numberOfLines = 2;
     }
     return _noDataTitleLabel;

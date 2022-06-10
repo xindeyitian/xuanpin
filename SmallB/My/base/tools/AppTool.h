@@ -94,7 +94,6 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
  */
 + (NSString *)currentdateInterval;
 
-
 + (NSString *)changeTimpStampFormate:(NSString *)timpStamp;
 
 +(void)shareWebPageToPlatformTypeWithData:(UIImage *)image WXScene:(NSInteger)WXScene;

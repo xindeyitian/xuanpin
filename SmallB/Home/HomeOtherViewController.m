@@ -312,8 +312,8 @@
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.homeCollection.centerY).offset(30*KScreenW_Ratio);
             make.left.mas_equalTo(self.homeCollection).offset(ScreenWidth/2.0 -  100);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(235);
+            make.width.mas_equalTo(278);
+            make.height.mas_equalTo(177);
         }];
     }
     return _emptyView;

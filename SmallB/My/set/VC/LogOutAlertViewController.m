@@ -48,7 +48,7 @@
     [self.bgView addSubview:warning];
     [warning mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(iconView).offset(30);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo(80);
         make.left.mas_equalTo(self.bgView).offset(14);
         make.right.mas_equalTo(self.bgView).offset(-14);
     }];

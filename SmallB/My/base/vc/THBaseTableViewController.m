@@ -145,8 +145,8 @@
         [self.tableView addSubview:_emptyDataView];
         [_emptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.tableView);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(235);
+            make.width.mas_equalTo(278);
+            make.height.mas_equalTo(177);
         }];
     }
     return _emptyDataView;

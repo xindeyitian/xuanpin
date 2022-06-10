@@ -39,15 +39,20 @@
     [[UITabBar appearance] setBarTintColor:UIColor.blackColor];
     [UITabBar appearance].translucent = NO;
     self.selectedIndex = 0;
-    
+
     if (@available(iOS 15.0, *)) {
         UITabBarAppearance *appearance = [UITabBarAppearance new];
         [appearance configureWithOpaqueBackground];
-        appearance.backgroundColor= UIColor.whiteColor;
+        appearance.backgroundColor= [UIColor colorWithHexString:@"#FFFFFF"];
         self.tabBar.standardAppearance= appearance;
         self.tabBar.scrollEdgeAppearance = self.tabBar.standardAppearance;
     }
-    
+    if (@available(iOS 13.0, *)) {
+        UITabBarAppearance *appearance = [UITabBarAppearance new];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor= [UIColor colorWithHexString:@"#FFFFFF"];
+        self.tabBar.standardAppearance= appearance;
+    }
 }
 - (UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleDefault;

@@ -273,8 +273,8 @@
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
             make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  100);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(235);
+            make.width.mas_equalTo(278);
+            make.height.mas_equalTo(177);
         }];
     }
     return _emptyView;
@@ -289,8 +289,8 @@
         [_collecEmptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.collectionView.centerY).offset(30*KScreenW_Ratio);
             make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  100);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(235);
+            make.width.mas_equalTo(278);
+            make.height.mas_equalTo(177);
         }];
     }
     return _collecEmptyView;

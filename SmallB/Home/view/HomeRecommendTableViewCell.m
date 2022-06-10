@@ -33,7 +33,9 @@
     maskLayer.path = maskPath.CGPath;
     self.BGView.layer.mask = maskLayer;
     
-    UIScrollView *scrol = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth - 24, 230)];
+    float height = 252 - 76 + 76*KScreenW_Ratio - 28;
+    
+    UIScrollView *scrol = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth - 24, height)];
     scrol.contentSize = CGSizeMake((ScreenWidth - 24)*3, 0);
     scrol.delegate = self;
     scrol.showsHorizontalScrollIndicator = NO;
@@ -41,7 +43,7 @@
     scrol.userInteractionEnabled = YES;
     [bgView addSubview:scrol];
     for (int i =0; i < 3; i ++) {
-        HomeRecommendStoreView *storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake((ScreenWidth-24)*i, 0, ScreenWidth-24, 230)];
+        HomeRecommendStoreView *storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake((ScreenWidth-24)*i, 0, ScreenWidth-24, height)];
         storeV.haveBtn = self.haveBtn;
         [scrol addSubview:storeV];
     }
@@ -63,7 +65,9 @@
 
 - (void)setModel:(BlockDefineGoodsVosModel *)model{
     _model = model;
-    self.BGView.frame = CGRectMake(12, 0, ScreenWidth - 24, 263);
+    
+    float height = 252 - 76 + 76*KScreenW_Ratio;
+    self.BGView.frame = CGRectMake(12, 0, ScreenWidth - 24, height);
     
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.BGView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -72,7 +76,6 @@
     self.BGView.layer.mask = maskLayer;
     
     self.scrolView.hidden = self.pageControl.hidden = NO;
-    
     NSMutableArray *array = [NSMutableArray arrayWithArray:model.brandConceptVos];
     
     [self.scrolView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -83,7 +86,7 @@
     
     for (int i =0; i < array.count; i ++) {
         BrandConceptVosModel *goodModel = array[i];
-        HomeRecommendStoreView *storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake((ScreenWidth-24)*i, 0, ScreenWidth-24, 210)];
+        HomeRecommendStoreView *storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake((ScreenWidth-24)*i, 0, ScreenWidth-24, height - 28)];
         storeV.haveBtn = YES;
         storeV.goodModel = goodModel;
         [self.scrolView addSubview:storeV];
@@ -153,9 +156,9 @@
     [btn addTarget:self action:@selector(detailClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
     
-    float width = (ScreenWidth - 24 - 24 - 24)/4.0;
+    float width = 76*KScreenW_Ratio;
     for (int i =0; i < 4; i ++) {
-        StoreProductView *view = [[StoreProductView alloc]initWithFrame:CGRectMake(12+(width + 8)*i, 66, width, width +76)];
+        StoreProductView *view = [[StoreProductView alloc]initWithFrame:CGRectMake(12*KScreenW_Ratio+(width + 8*KScreenW_Ratio)*i, 73, width, width +76)];
         view.tag = 200+i;
         [self addSubview:view];
     }
