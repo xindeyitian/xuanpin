@@ -301,7 +301,7 @@
         [self.homeCollection addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.homeCollection.centerY).offset(112*KScreenW_Ratio);
-            make.left.mas_equalTo(self.homeCollection).offset(ScreenWidth/2.0 -  100);
+            make.centerX.mas_equalTo(self.homeCollection.mas_centerX);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(177);
         }];

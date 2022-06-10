@@ -245,7 +245,7 @@
         [self.tableView addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.tableView.centerY).offset(10*KScreenW_Ratio);
-            make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  100);
+            make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  139);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(177);
         }];
@@ -261,7 +261,7 @@
         [self.collectionView addSubview:_collecemptyView];
         [_collecemptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.collectionView.centerY).offset(10*KScreenW_Ratio);
-            make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  100);
+            make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  139);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(177);
         }];
