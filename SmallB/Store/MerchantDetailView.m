@@ -46,7 +46,8 @@
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectview.alpha = 0.1;
     effectview.frame = CGRectMake(0, 0, ScreenWidth, self.frame.size.height);
-    [self.bgImageV insertSubview:effectview atIndex:0];
+    //[self.bgImageV insertSubview:effectview atIndex:0];
+    self.bgImageV.backgroundColor = UIColor.blackColor;
     
     JZLStarView *starView = [self viewWithTag:11];
     starView.currentScore = [storeModel.stars integerValue];
