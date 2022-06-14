@@ -345,7 +345,7 @@
         }
         [sectionOneAry addObject:model];
     }
-    
+     
     NSMutableArray *sectionTwoAry = [NSMutableArray array];
     {
         //是否实名 0未实名,1已实名,2待审核,-1审核不通过

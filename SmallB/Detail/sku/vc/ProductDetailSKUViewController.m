@@ -167,6 +167,8 @@
         model.salePrice = self.model.salePrice;
         
         [AppTool roleBtnClickWithID:self.model.goodsId withModel:model];
+    }else{
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]]];
     }
 }
 

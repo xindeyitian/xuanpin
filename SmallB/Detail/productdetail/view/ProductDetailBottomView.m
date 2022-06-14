@@ -154,6 +154,9 @@
 
         [AppTool roleBtnClickWithID:self.model.goodsId withModel:productModel];
     }
+    if (btn.tag == 115) {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]]];
+    }
 }
 
 @end

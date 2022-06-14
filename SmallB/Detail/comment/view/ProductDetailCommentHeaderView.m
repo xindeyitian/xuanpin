@@ -49,7 +49,7 @@
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(17) range:range];
     title.attributedText = attributeMarket;
 
-    rightPushView *rightV = [[rightPushView alloc]initWithFrame:CGRectMake(ScreenWidth-36 - 90, 0, 90, 20)];
+    rightPushView *rightV = [[rightPushView alloc]initWithFrame:CGRectMake(ScreenWidth-36 - 120, 0, 120, 20)];
     rightV.centerY = title.centerY;
     rightV.imageNameString = @"my_right_gray";
     rightV.titleL.textColor = KMaintextColor;
@@ -80,9 +80,6 @@
         [attributeM addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:rang];
         self.rightView.titleL.attributedText = attributeM;
     }
-    
-    
-   
 }
 
 @end

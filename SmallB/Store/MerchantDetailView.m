@@ -22,6 +22,7 @@
 @property (strong, nonatomic)UIView *searchView;
 @property (strong, nonatomic)UILabel *titleL;
 @property (strong, nonatomic)UIImageView *bgImageV;
+@property (strong, nonatomic)UIImageView *bgBlackV;
 
 @end
 
@@ -41,13 +42,9 @@
     self.numL.text = [NSString stringWithFormat:@"共%@件产品",storeModel.goodsCount];
     [self.merchantImg sd_setImageWithURL:[NSURL URLWithString:storeModel.logImgUrl] placeholderImage:KPlaceholder_DefaultImage];
     
-    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:storeModel.logImgUrl] placeholderImage:[UIImage imageNamed:@"img"]];
-    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-    UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effectview.alpha = 0.1;
-    effectview.frame = CGRectMake(0, 0, ScreenWidth, self.frame.size.height);
-    //[self.bgImageV insertSubview:effectview atIndex:0];
-    self.bgImageV.backgroundColor = UIColor.blackColor;
+    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:storeModel.bgImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    self.bgBlackV.backgroundColor = UIColor.blackColor;
+    self.bgBlackV.alpha = 0.7;
     
     JZLStarView *starView = [self viewWithTag:11];
     starView.currentScore = [storeModel.stars integerValue];
@@ -76,6 +73,10 @@
     [self addSubview:imageV];
     imageV.userInteractionEnabled = YES;
     self.bgImageV = imageV;
+    
+    self.bgBlackV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, self.frame.size.height)];
+    [self.bgImageV addSubview:self.bgBlackV];
+    self.bgBlackV.userInteractionEnabled = YES;
     
     UIButton *backBtn = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(backClcik) Font:DEFAULT_FONT_R(10) Frame:CGRectMake(12, KStatusBarHeight + 10, 24, 24) Alignment:NSTextAlignmentCenter Tag:0 BackgroundImage:@"bar_back" HeightLightBackgroundImage:@"bar_back"];
     backBtn.backgroundColor = UIColor.clearColor;
@@ -120,13 +121,13 @@
     self.merchantName.numberOfLines = 2;
     [imageV addSubview:self.merchantName];
 
-    UILabel *starLable = [[UILabel alloc] initWithFrame:CGRectMake(66, KStatusBarHeight + 77, 50, 20)];
+    UILabel *starLable = [[UILabel alloc] initWithFrame:CGRectMake(66, KStatusBarHeight + 77, 50*KScreenW_Ratio, 20)];
     starLable.text = @"店铺星级";
     starLable.font = DEFAULT_FONT_R(12);
     starLable.textColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:0.8];
     [imageV addSubview:starLable];
     
-    JZLStarView *starView = [[JZLStarView alloc] initWithFrame:CGRectMake(125, KStatusBarHeight + 81, 67, 11) starCount:5 starStyle:WholeStar isAllowScroe:YES];
+    JZLStarView *starView = [[JZLStarView alloc] initWithFrame:CGRectMake(71+50*KScreenW_Ratio, KStatusBarHeight + 81, 67, 11) starCount:5 starStyle:WholeStar isAllowScroe:YES];
     starView.tag = 11;
     starView.userInteractionEnabled = NO;
     [imageV addSubview:starView];
