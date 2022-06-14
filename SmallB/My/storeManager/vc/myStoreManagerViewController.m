@@ -60,7 +60,7 @@
     self.navigationController.delegate = self;
     self.navigationItem.title = @"";
     oneWidth = (ScreenWidth - 48)/3.0;
-    self.titleAry = [@[@"",@"店铺名称 (好的名字能让人记忆深刻)",@"店铺简介 (建议尺寸比例 16:9)",@"店铺简介",@"您所在的服务区",@"详细地址"] mutableCopy];
+    self.titleAry = [@[@"",@"店铺名称 (好的名字能让人记忆深刻)",@"店铺招牌图 (建议尺寸比例 16:9)",@"店铺简介",@"您所在的服务区",@"详细地址"] mutableCopy];
     self.otherImgAry = [NSMutableArray array];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -155,7 +155,7 @@
         return;
     }
     if (self.bgImgUrl.length == 0 && !self.bgImg) {
-        [self showMessageWithString:@"请选择店铺简介"];
+        [self showMessageWithString:@"请选择店铺招牌图"];
         return;
     }
     if (self.shopDesc.length == 0 ) {
@@ -222,7 +222,7 @@
         }
     }];
 }
-
+ 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.titleAry.count;
 }
@@ -361,7 +361,7 @@
         lable.textColor = KBlack666TextColor;
         lable.font = DEFAULT_FONT_R(13);
         NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:self.titleAry[section]];
-        NSRange range = NSMakeRange(0,4);
+        NSRange range = NSMakeRange(0,5);
         [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:range];
         [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
         lable.attributedText = attributeMarket;

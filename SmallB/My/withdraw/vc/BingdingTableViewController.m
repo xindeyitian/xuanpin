@@ -234,7 +234,7 @@
         cell.contentView.backgroundColor = KWhiteBGColor;
         cell.bgView.backgroundColor = kRGB(245, 245, 245);
         NSString *userPhone = [[NSUserDefaults standardUserDefaults] objectForKey:@"userPhone"];
-        if (userPhone.length == 0) {
+        if (userPhone.length) {
             cell.fieldT.text = userPhone;
             cell.fieldT.userInteractionEnabled = NO;
             self.phone = userPhone;

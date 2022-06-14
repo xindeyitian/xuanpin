@@ -143,7 +143,7 @@
     GoodsListVosModel *currentModel = [[GoodsListVosModel alloc]init];
     for (BlockDefineGoodsVosModel *model in self.dataModel.blockDefineGoodsVos) {
         if ([model.blockId isEqualToString:@"8"]) {
-            currentModel =  model.goodsListVos[indexPath.section];
+            currentModel =  model.goodsListVos[indexPath.row];
         }
     }
     [AppTool GoToProductDetailWithID:currentModel.goodsId];

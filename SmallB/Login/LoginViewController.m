@@ -135,11 +135,33 @@
              [self showMessageWithString:@"请输入手机号"];
              return;
          }
-         SMSCodeViewController *vc =  [[SMSCodeViewController alloc]init];
-         vc.phoneStr = [self.userNameTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];;
-         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-         [self presentViewController:vc animated:YES completion:nil];
+         [self checkPhoneNum];
      }
+}
+
+- (void)checkPhoneNum{
+    
+    [self startLoadingHUD];
+    NSString *phone = [self.userNameTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [THHttpManager GET:@"system/login/checkPhoneNum" parameters:@{@"phoneNumber":phone} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 10015) {
+            RegistOrForgetViewController *vc = [[RegistOrForgetViewController alloc] init];
+            vc.phoneStr = self.userNameTF.text;
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            CJWeakSelf()
+            vc.currentVCBlock = ^(NSString *string) {
+                CJStrongSelf()
+                self.userNameTF.text = string;
+            };
+            [self presentViewController:vc animated:YES completion:nil];
+        }else{
+            SMSCodeViewController *vc =  [[SMSCodeViewController alloc]init];
+            vc.phoneStr = phone;
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+    }];
 }
 
 - (IBAction)regist:(id)sender {

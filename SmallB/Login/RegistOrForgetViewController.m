@@ -53,7 +53,7 @@
     self.phoneTF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.phoneTF addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldChange:) name:@"UITextFieldTextDidChangeNotification" object:self.phoneTF];
-    
+   
     NSMutableParagraphStyle *style1 = [[NSMutableParagraphStyle alloc] init];
     NSAttributedString *attributedString1 = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14], NSParagraphStyleAttributeName : style1}];
     self.smsTF.attributedPlaceholder = attributedString1;
@@ -78,6 +78,11 @@
     [self.agreeBtn setImage:IMAGE_NAMED(@"choosed") forState:UIControlStateSelected];
     [self.sureBtn setBackgroundColor:[UIColor colorWithHexString:@"FA776D" alpha:1.0]];
     self.sureBtn.enabled = YES;
+    if (self.phoneStr.length) {
+        self.phoneTF.text = self.phoneStr;
+        [self.smsBtn setBackgroundColor:[UIColor colorWithHexString:@"FA776D" alpha:1.0]];
+        self.smsBtn.enabled = YES;
+    }
 }
 - (void)textFieldDidEditing:(UITextField *)textField{
     

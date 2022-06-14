@@ -348,13 +348,14 @@
     
     NSMutableArray *sectionTwoAry = [NSMutableArray array];
     {
+        //是否实名 0未实名,1已实名,2待审核,-1审核不通过
         mySetDataModel *model = [[mySetDataModel alloc]init];
         model.titleStr = @"实名认证";
-        if (infoModel.ifAuth.integerValue == 0) {
-            model.detailStr = @"未认证";
-        }else{
+        if (infoModel.ifAuth.integerValue == 1) {
             model.detailStr = @"已认证";
             model.detailColor = KMaintextColor;
+        }else{
+            model.detailStr = @"未认证";
         }
         [sectionTwoAry addObject:model];
     }
