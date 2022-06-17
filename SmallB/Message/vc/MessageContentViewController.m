@@ -19,6 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+    self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
+    
     self.tableView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - KNavBarHeight - 44);
     [self.tableView registerClass:[MessageOrderTableViewCell class] forCellReuseIdentifier:[MessageOrderTableViewCell description]];
     [self.tableView registerClass:[MessageSystemTableViewCell class] forCellReuseIdentifier:[MessageSystemTableViewCell description]];

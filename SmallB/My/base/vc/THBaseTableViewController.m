@@ -146,7 +146,7 @@
         [_emptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.tableView);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyDataView;
@@ -155,14 +155,12 @@
 - (CJNoDataView *)noNetView {
     if (!_noNetView) {
         _noNetView = [[CJNoDataView alloc] initWithFrame:CGRectZero];
-        _noNetView.noDataImageView.image = [UIImage imageNamed:@"common_nonetwork_img_normal"];
-        _noNetView.noDataTitleLabel.text = @"暂无网络";
         [self.tableView addSubview:_noNetView];
         _noNetView.hidden = YES;
         [_emptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.tableView);
-            make.width.mas_equalTo(200);
-            make.height.mas_equalTo(235);
+            make.width.mas_equalTo(278);
+            make.height.mas_equalTo(170);
         }];
 //        CJWeakSelf()
 //        _noNetView.reloadRequestBlock = ^{

@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
  清除token
  */
 +(void)cleanLocalToken;
+
++(NSString *)getLocalDataWithKey:(NSString *)key;
 /**
  清除缓存的角色 头像 名称
  */
@@ -97,6 +99,10 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 + (NSString *)changeTimpStampFormate:(NSString *)timpStamp;
 
 +(void)shareWebPageToPlatformTypeWithData:(UIImage *)image WXScene:(NSInteger)WXScene;
+
++ (UIImage *)createQRImageWithString:(NSString *)string;
+
++ (UIImage *)getCodeMaWithContent:(NSString *)content;
 
 @end
 

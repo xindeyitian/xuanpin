@@ -27,8 +27,8 @@
         }];
         [self.noDataTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.top.equalTo(self.noDataImageView.mas_bottom).offset(12);
-            make.height.mas_equalTo(20);
+            make.top.equalTo(self.noDataImageView.mas_bottom).offset(7);
+            make.height.mas_equalTo(18);
         }];
     }
     return self;
@@ -44,7 +44,7 @@
 
 - (UILabel *)noDataTitleLabel {
     if(!_noDataTitleLabel) {
-        _noDataTitleLabel = [UILabel creatLabelWithTitle:@"暂无数据" textColor:KBlack666TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(15)];
+        _noDataTitleLabel = [UILabel creatLabelWithTitle:@"暂无商品哦～" textColor:KBlack999TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(13)];
         _noDataTitleLabel.numberOfLines = 2;
     }
     return _noDataTitleLabel;

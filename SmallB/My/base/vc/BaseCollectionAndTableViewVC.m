@@ -242,7 +242,7 @@
         [_emptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.tableView);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyDataView;

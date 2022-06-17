@@ -60,7 +60,7 @@
     
     float width = (ScreenWidth - 12 * 6)/5.0;
     
-    UIView *whiteV = [[UIView alloc]initWithFrame:CGRectMake(12, 172, ScreenWidth - 24, 80)];
+    UIView *whiteV = [[UIView alloc]initWithFrame:CGRectMake(12, 140*KScreenW_Ratio + 32, ScreenWidth - 24, 80)];
     whiteV.backgroundColor = UIColor.clearColor;
     [self addSubview:whiteV];
     
@@ -97,6 +97,7 @@
         DKSButton *btn = [self viewWithTag:100+i];
         [btn setTitle:model.blockName forState:UIControlStateNormal];
         [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateNormal];
+        [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateHighlighted];
     }
 }
 
@@ -112,25 +113,6 @@
     vc.blockId = model.blockId;
     
     [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - action -
-- (void)xinren{
-    
-    
-}
-- (void)rankList{
-    
-    
-}
-- (void)addShopWindow:(UIButton *)sender{
-    
-    
-}
-
-- (void)addProductShopWindow:(UIButton *)sender{
-    
-    
 }
 
 @end

@@ -11,6 +11,8 @@
 #import "BingdingFailViewController.h"
 #import <AFServiceSDK/AFServiceSDK.h>
 #import "WXApi.h"
+#import "BasePhoneTableViewCell.h"
+#import "BaseCommonPhoneCell.h"
 
 @interface BingdingTableViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -19,6 +21,8 @@
 
 @property (nonatomic , copy) NSString*openID;
 @property (nonatomic , copy) NSString*realName;
+
+@property (nonatomic , copy) NSString*accountNo;
 
 @end
 
@@ -38,6 +42,12 @@
     self.phone = @"";
     self.code = @"";
     self.openID = @"";
+    self.realName = @"";
+    self.accountNo = @"";
+    NSString *userPhone = [[NSUserDefaults standardUserDefaults] objectForKey:@"userPhone"];
+    if (userPhone.length) {
+        self.phone = userPhone;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wxLoginSuccess:)  name:@"wxLoginSuccess" object:nil];
     
@@ -45,6 +55,8 @@
     self.tableView.backgroundColor = KWhiteBGColor;
     [self.tableView registerClass:[BaseFieldTableViewCell class] forCellReuseIdentifier:[BaseFieldTableViewCell description]];
     [self.tableView registerClass:[BasePhoneCodeTableViewCell class] forCellReuseIdentifier:[BasePhoneCodeTableViewCell description]];
+    [self.tableView registerClass:[BasePhoneTableViewCell class] forCellReuseIdentifier:[BasePhoneTableViewCell description]];
+    [self.tableView registerClass:[BaseCommonPhoneCell class] forCellReuseIdentifier:[BaseCommonPhoneCell description]];
     
     [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom);
@@ -60,7 +72,7 @@
 - (void)creatFirstFooterView{
     UIView *footerView =  [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 58)];
     footerView.backgroundColor = KWhiteBGColor;
-    BaseButton *btn = [BaseButton CreateBaseButtonTitle:self.index == 0 ?@"获取支付宝信息":@"获取微信信息" Target:self Action:@selector(btnClick) Font:DEFAULT_FONT_M(17) BackgroundColor:KMainBGColor Color:KWhiteTextColor Frame:CGRectMake(12, 8, ScreenWidth - 24, 50) Alignment:NSTextAlignmentCenter Tag:1];
+    BaseButton *btn = [BaseButton CreateBaseButtonTitle:self.index == 0 ?@"确定绑定":@"获取微信信息" Target:self Action:@selector(btnClick) Font:DEFAULT_FONT_M(17) BackgroundColor:KMainBGColor Color:KWhiteTextColor Frame:CGRectMake(12, 8, ScreenWidth - 24, 50) Alignment:NSTextAlignmentCenter Tag:1];
     btn.layer.cornerRadius = 25;
     btn.clipsToBounds = YES;
     [footerView addSubview:btn];
@@ -107,9 +119,9 @@
     //realName
     NSDictionary *dica;
     if (self.index == 0) {
-        dica = @{@"accountNo":self.openID,@"accountType":[NSString stringWithFormat:@"%ld",2 - self.index],@"realName":self.realName,@"phoneNum":self.phone,@"verificationCode":self.code};
+        dica = @{@"accountNo":self.accountNo,@"accountType":[NSString stringWithFormat:@"%ld",2 - self.index],@"realName":self.realName,@"phoneNum":self.phone,@"verificationCode":self.code};
     }else{
-        dica = @{@"accountNo":self.openID,@"accountType":[NSString stringWithFormat:@"%ld",2 - self.index],@"phoneNum":self.phone,@"verificationCode":self.code};
+        dica = @{@"accountNo":self.openID,@"accountType":[NSString stringWithFormat:@"%ld",2 - self.index],@"phoneNum":self.phone,@"verificationCode":self.code,@"realName":self.realName};
     }
     [THHttpManager FormatPOST:@"user/shopWithdraw/saveWithdrawWay" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
@@ -202,11 +214,18 @@
         [self showMessageWithString:@"请输入验证码"];
         return;
     }
-
+    if (self.realName.length == 0) {
+        [self showMessageWithString:@"请输入真实姓名"];
+        return;
+    }
     if (self.index == 1) {
         [self getWeiXinData];
     }else{
-        [self getAliData];
+        if (self.accountNo.length == 0) {
+            [self showMessageWithString:@"请输入支付宝提现账户"];
+            return;
+        }
+        [self bingDingBtnClick];
     }
     return;
     BingdingFailViewController *alertVC = [BingdingFailViewController new];
@@ -216,7 +235,7 @@
 
 #pragma mark - tableviewDelegate  dataSorce----------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return self.index == 1 ? 3 : 4;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -227,32 +246,41 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (indexPath.section == 0) {
-        BaseFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[BaseFieldTableViewCell description]];
-        cell.fieldT.placeholder = @"手机号码";
-        cell.fieldT.keyboardType = UIKeyboardTypeNumberPad;
+        BaseCommonPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:[BaseCommonPhoneCell description]];
         cell.contentView.backgroundColor = KWhiteBGColor;
-        cell.bgView.backgroundColor = kRGB(245, 245, 245);
+        cell.BGView.backgroundColor = kRGB(245, 245, 245);
         NSString *userPhone = [[NSUserDefaults standardUserDefaults] objectForKey:@"userPhone"];
         if (userPhone.length) {
-            cell.fieldT.text = userPhone;
-            cell.fieldT.userInteractionEnabled = NO;
             self.phone = userPhone;
         }
+        return cell;
+    }
+    
+    if (indexPath.section == 1) {
+        BasePhoneCodeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[BasePhoneCodeTableViewCell description]];
+        cell.phoneType = self.index == 0 ? @"9":@"10";
+        cell.fieldT.placeholder = @"请输入验证码";
+        cell.contentView.backgroundColor = KWhiteBGColor;
+        cell.bgView.backgroundColor = KWhiteBGColor;
+        cell.phone = self.phone;
         cell.viewBlock = ^(NSString * _Nonnull content) {
-            self.phone = content;
-            //[self.tableView reloadData];
+            self.code = content;
         };
         return cell;
     }
-    BasePhoneCodeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[BasePhoneCodeTableViewCell description]];
-    cell.phoneType = self.index == 0 ? @"9":@"10";
-    cell.fieldT.placeholder = @"请输入验证码";
+    BaseFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[BaseFieldTableViewCell description]];
+    cell.fieldT.placeholder = indexPath.section == 2 ? @"请输入真实姓名" : @"请输入支付宝提现账户";
+    cell.fieldT.clearButtonMode = UITextFieldViewModeWhileEditing;
     cell.contentView.backgroundColor = KWhiteBGColor;
-    cell.bgView.backgroundColor = KWhiteBGColor;
-    cell.phone = self.phone;
+    cell.bgView.backgroundColor = kRGB(245, 245, 245);
     cell.viewBlock = ^(NSString * _Nonnull content) {
-        self.code = content;
+        if (indexPath.section == 2) {
+            self.realName = content;
+        }else{
+            self.accountNo = content;
+        }
     };
     return cell;
 }

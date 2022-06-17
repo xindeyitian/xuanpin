@@ -29,7 +29,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "092B6B22-BADE-4BCF-9779-34C43833D21E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SmallB/Home/HomeViewController.m"
@@ -387,16 +387,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F9662F05-865F-41B3-9EB9-302BA6221FC7"
+            uuid = "4F87280F-7E6B-44D6-8C13-FB7A391AEC40"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmallB/Home/HomeViewController.m"
+            startingColumnNumber = "22"
+            endingColumnNumber = "38"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05CC8E35-F3B8-4761-BB9C-0739BCC610DA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SmallB/My/mineVC/View/MyVCInfoTableViewCell.m"
+            filePath = "SmallB/My/withdraw/vc/BingdingTableViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "-creatSubViews"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "-btnClick"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

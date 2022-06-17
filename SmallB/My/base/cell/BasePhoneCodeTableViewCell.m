@@ -106,7 +106,7 @@
                     dispatch_source_cancel(_timer);
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [sender setTitle:@"重新获取" forState:UIControlStateNormal];
-                        [sender setBackgroundColor:[UIColor colorWithHexString:@"FA776D" alpha:1.0]];
+                        [sender setBackgroundColor:KMainBGColor];
                         sender.enabled = YES;
                     });
                 }else{

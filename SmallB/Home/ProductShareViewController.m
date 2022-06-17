@@ -129,6 +129,7 @@
     
     UIImageView *code = [[UIImageView alloc]initWithImage:nil];
     code.frame = CGRectMake(262*KScreenW_Ratio - 70, 390*KScreenW_Ratio - 70, 58, 58);
+    code.image = [AppTool createQRImageWithString:[NSString stringWithFormat:@"https://h5.tuanhuoit.com/goodsShow.html?id=%@&uid=%@",self.model.goodsId,[AppTool getLocalDataWithKey:@"userID"]]];
     [bgWhiteV addSubview:code];
 }
 

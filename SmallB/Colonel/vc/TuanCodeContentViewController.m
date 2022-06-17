@@ -181,12 +181,14 @@
         _emptyView = [[CJNoDataView alloc] init];
         _emptyView.hidden = YES;
         _emptyView.backgroundColor = UIColor.clearColor;
+        _emptyView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+        _emptyView.noDataTitleLabel.text = @"暂无数据哦～";
         [self.tableView addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.tableView.mas_centerX);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyView;

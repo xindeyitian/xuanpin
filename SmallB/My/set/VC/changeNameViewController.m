@@ -37,12 +37,14 @@
     }];
     
     UITextField *field= [[UITextField alloc]init];
-    field.placeholder = @"Name";
+    field.placeholder = @"昵称建议输入8位字符以内";
     field.text = self.nameStr;
     field.backgroundColor = KBGLightColor;
     field.clipsToBounds = YES;
     field.layer.cornerRadius = YES;
     field.layer.cornerRadius = 8;
+    field.clearButtonMode = UITextFieldViewModeWhileEditing;
+    [field addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
     [view addSubview:field];
     self.fieldT = field;
     [field mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,6 +74,12 @@
     }];
 }
 
+- (void)textFieldDidEditing:(UITextField *)field{
+    if (field.text.length > 8) {
+        field.text = [field.text substringToIndex:8];
+    }
+}
+
 - (void)confirmClick:(BaseButton *)btn{
     if (btn.tag == 22) {
         [self dismissViewControllerAnimated:NO completion:nil];
@@ -80,6 +88,10 @@
     if (btn.tag == 23) {
         if(self.fieldT.text.length == 0){
             [self showMessageWithString:@"请输入名字"];
+            return;
+        }
+        if(self.fieldT.text.length > 8){
+            [self showMessageWithString:@"昵称建议输入8位字符以内"];
             return;
         }
         if (_viewBlock) {

@@ -60,7 +60,7 @@
     
     self.view.userInteractionEnabled = YES;
     [code addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(codeOperation)]];
-    [self sendCode];
+    //[self sendCode];
 }
 
 - (void)loginRequest{
@@ -88,8 +88,12 @@
                 if (model.LoginUserVo.storeDisplayType) {
                     [AppTool setCurrentLevalWithData:model.LoginUserVo.storeDisplayType];
                 }
-                
-                    
+                if (model.LoginUserVo.djlsh) {
+                    [AppTool saveToLocalDataWithValue:model.LoginUserVo.djlsh key:@"userID"];
+                }
+                if (model.LoginUserVo.shopId) {
+                    [AppTool saveToLocalDataWithValue:model.LoginUserVo.shopId key:@"shopID"];
+                }
 //                    [UserDefaults setObject:model.LoginUserVo  forKey:K_BaseModel];
 //                    [UserDefaults synchronize];
                     

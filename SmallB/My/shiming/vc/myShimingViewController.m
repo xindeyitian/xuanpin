@@ -110,7 +110,13 @@
             field.text = [dica objectForKey:@"realName"];
         }
         if ([dica objectForKey:@"idCard"] && i == 1) {
-            field.text = [dica objectForKey:@"idCard"];
+            NSString *idCard = [dica objectForKey:@"idCard"];
+            if (idCard.length == 18) {
+                idCard = [idCard stringByReplacingCharactersInRange:NSMakeRange(5, 8) withString:@"********"];
+                field.text = idCard;
+            }else{
+                field.text = idCard;
+            }
         }
     
         if (i == 1) {

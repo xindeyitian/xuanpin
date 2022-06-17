@@ -59,7 +59,7 @@
     [btn setImage:IMAGE_NAMED(@"bar_back") forState:UIControlStateNormal];
     [imgV addSubview:btn];
     
-    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现金额（元）" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现金额" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
     [imgV addSubview:instro];
     [instro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(29);

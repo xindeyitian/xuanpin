@@ -84,13 +84,21 @@
     self.userNameL = [[UILabel alloc]init];
     self.userNameL.font = DEFAULT_FONT_M(17);
     self.userNameL.textColor = KBlack333TextColor;
-   
     [bgImgV addSubview:self.userNameL];
     [self.userNameL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.userLogoImg.mas_right).offset(14);
-        make.right.mas_equalTo(messageBtn.mas_left).offset(-10);
+        //make.right.mas_equalTo(messageBtn.mas_left).offset(-10);
         make.top.mas_equalTo(self.userLogoImg.mas_top).offset(6);
         make.height.mas_equalTo(24);
+    }];
+    BaseButton *eye = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(eyeBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:UIColor.clearColor Color:kRGB(250, 23, 45) Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:3];
+    [eye setImage:IMAGE_NAMED(@"eye_close") forState:UIControlStateNormal];
+    [eye setImage:IMAGE_NAMED(@"eye_open") forState:UIControlStateSelected];
+    [bgImgV addSubview:eye];
+    [eye mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.userNameL.mas_right).offset(4);
+        make.width.height.mas_equalTo(18);
+        make.centerY.mas_equalTo(self.userNameL.mas_centerY);
     }];
     
     UIView *codeView = [[UIView alloc]init];
@@ -104,25 +112,25 @@
         make.height.mas_equalTo(25);
     }];
     
-    UIImageView *codeImgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"my_tuanCode"]];
-    [codeView addSubview:codeImgV];
-    [codeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(codeImgV.superview).offset(12);
-        make.top.mas_equalTo(codeImgV.superview).offset(4);
-        make.height.width.mas_equalTo(18);
-    }];
-    
     UILabel *codeL = [[UILabel alloc] initWithFrame:CGRectZero];
     codeL.backgroundColor = UIColor.clearColor;
     codeL.textColor = kRGB(250, 23, 45);
-    codeL.font = [UIFont systemFontOfSize:13];
+    codeL.font = DEFAULT_FONT_R(13);
     codeL.text = @"我的邀请码12345345";
     [codeView addSubview:codeL];
     [codeL mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(codeImgV.mas_right).offset(3);
-        make.bottom.mas_equalTo(codeImgV.mas_bottom);
-        make.height.mas_equalTo(18);
-        make.right.mas_equalTo(codeL.superview).offset(-8);
+        make.left.mas_equalTo(codeView).offset(12);
+        make.bottom.mas_equalTo(codeView.mas_bottom);
+        make.height.mas_equalTo(25);
+    }];
+    
+    BaseButton *btn = [BaseButton CreateBaseButtonTitle:@"复制" Target:self Action:@selector(copyBtnClick) Font:DEFAULT_FONT_R(13) BackgroundColor:UIColor.clearColor Color:kRGB(250, 23, 45) Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:3];
+    [codeView addSubview:btn];
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(codeView.mas_bottom);
+        make.right.mas_equalTo(codeView).offset(-8);
+        make.left.mas_equalTo(codeL.mas_right).offset(10);
+        make.height.mas_equalTo(25);
     }];
     
     NSArray *titleAry = @[@"商品收藏",@"我的关注",@"浏览记录"];
@@ -167,6 +175,20 @@
     if (userLogo.length) {
         [self.userLogoImg sd_setImageWithURL:[NSURL URLWithString:userLogo] placeholderImage:KPlaceholder_DefaultImage];
     }
+}
+
+- (void)eyeBtnClick:(BaseButton *)btn{
+    btn.selected = !btn.selected;
+    NSString *userPhone = [[NSUserDefaults standardUserDefaults] objectForKey:@"userPhone"];
+    if (userPhone.length) {
+        NSString *name = [userPhone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+        self.userNameL.text = btn.selected ? userPhone : name;
+    }
+}
+
+- (void)copyBtnClick{
+    [AppTool copyWithString:@""];
+    [XHToast showCenterWithText:[NSString stringWithFormat:@"我的邀请码:%@\n\n复制成功",@"2345678"]];
 }
 
 - (void)messageBtnClick{
@@ -451,7 +473,7 @@
     }];
     
     float whiteWidth = ScreenWidth - 48 - 20;
-    NSArray *titleAry = @[@"可提现金额(元)",@"店铺累计收入(元)",@"待结算收益(元)"];
+    NSArray *titleAry = @[@"可提现金额",@"店铺累计收入",@"待结算积分"];
     NSArray *numAry = @[@"0",@"0",@"0"];
     for (int i =0; i < titleAry.count; i ++) {
         myInfoDetailView *view = [[myInfoDetailView alloc]initWithFrame:CGRectMake(whiteWidth/3.0*i+5*(i+1), 13, whiteWidth/3.0, 52)];

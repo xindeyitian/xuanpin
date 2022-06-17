@@ -240,7 +240,8 @@
         HomeListVosModel *model = self.currentAry[indexPath.section];
         HomeListVosModel *currentModel = model.listVos[indexPath.item];
         cell.goodNameLabel.text = currentModel.categoryName;
-        [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:currentModel.categoryThumb] placeholderImage:KPlaceholder_DefaultImage];
+
+        [cell.goodImageView sd_setImageWithURL:[NSURL URLWithString:[currentModel.categoryThumb stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:KPlaceholder_DefaultImage];
     }
     return cell;
 }

@@ -12,6 +12,7 @@
 #import "QNFixedZone.h"
 #import "QNResponseInfo.h"
 #import "WXApi.h"
+#import <CoreImage/CoreImage.h>
 
 @implementation AppTool
 
@@ -159,6 +160,14 @@
     return token;
 }
 
++(NSString *)getLocalDataWithKey:(NSString *)key{
+    NSString *local = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if(!K_NotNull(local)) {
+        return @"";
+    }
+    return local;
+}
+
 +(void)saveToLocalToken:(NSString *)token{
     if (token.length && K_NotNull(token)) {
         [[NSUserDefaults standardUserDefaults]  setValue:token forKey:@"token"];
@@ -182,6 +191,8 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userLogo"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userPhone"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leval"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"shopID"];
 }
 
 + (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback {
@@ -322,6 +333,106 @@
     [WXApi sendReq:req completion:^(BOOL success) {
         
     }];
+}
+
++ (UIImage *)createQRImageWithString:(NSString *)string{
+    return [self createQRImageWithString:string size:CGSizeMake(80, 80)];
+}
+
+//生成制定大小的黑白二维码
++ (UIImage *)createQRImageWithString:(NSString *)string size:(CGSize)size
+{
+    NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    
+    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [qrFilter setValue:stringData forKey:@"inputMessage"];
+    [qrFilter setValue:@"M" forKey:@"inputCorrectionLevel"];
+    
+    CIImage *qrImage = qrFilter.outputImage;
+    //放大并绘制二维码（上面生成的二维码很小，需要放大）
+    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:qrImage fromRect:qrImage.extent];
+    UIGraphicsBeginImageContext(size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+    //翻转一下图片 不然生成的QRCode就是上下颠倒的
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
+    UIImage *codeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndPDFContext();
+    
+    CGImageRelease(cgImage);
+    
+    //return codeImage;
+    return [self addImageForQRImage:codeImage];
+}
+
+//在二维码中心加一个小图
++ (UIImage *)addImageForQRImage:(UIImage *)qrImage
+{
+    UIGraphicsBeginImageContext(qrImage.size);
+    
+    [qrImage drawInRect:CGRectMake(0, 0, qrImage.size.width, qrImage.size.height)];
+    
+    UIImage *image = [UIImage imageNamed:@"my_share_bottom_logo"];
+    
+    CGFloat imageW = 30;
+    CGFloat imaegX = (qrImage.size.width - imageW) * 0.5;
+    CGFloat imageY = (qrImage.size.height - imageW) * 0.5;
+    
+    [image drawInRect:CGRectMake(imaegX, imageY, imageW, imageW)];
+    
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return result;
+}
+
++ (UIImage *)getCodeMaWithContent:(NSString *)content{
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [filter setDefaults];
+    
+    //存放的信息
+    NSString *info = content;
+    //把信息转化为NSData
+    NSData *infoData = [info dataUsingEncoding:NSUTF8StringEncoding];
+    //滤镜对象kvc存值
+    [filter setValue:infoData forKeyPath:@"inputMessage"];
+    //我们可以打印,看过滤器的 输入属性.这样我们才知道给谁赋值
+     NSLog(@"%@",filter.inputKeys);
+     /*
+        inputMessage,        //二维码输入信息
+        inputCorrectionLevel //二维码错误的等级,就是容错率
+      */
+    CIImage *outImage = [filter outputImage];
+    
+    return [self createNonInterpolatedUIImageFormCIImage:outImage withSize:300];;
+}
+
+/**
+ *  根据CIImage生成指定大小的UIImage
+ *
+ *  @param image CIImage
+ *  @param size  图片宽度以及高度
+ */
++ (UIImage *)createNonInterpolatedUIImageFormCIImage:(CIImage *)image withSize:(CGFloat) size
+{
+  CGRect extent = CGRectIntegral(image.extent);
+  CGFloat scale = MIN(size/CGRectGetWidth(extent), size/CGRectGetHeight(extent));
+  //1.创建bitmap;
+  size_t width = CGRectGetWidth(extent) * scale;
+  size_t height = CGRectGetHeight(extent) * scale;
+  CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
+  CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
+  CIContext *context = [CIContext contextWithOptions:nil];
+  CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
+  CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
+  CGContextScaleCTM(bitmapRef, scale, scale);
+  CGContextDrawImage(bitmapRef, extent, bitmapImage);
+  //2.保存bitmap到图片
+  CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
+  CGContextRelease(bitmapRef);
+  CGImageRelease(bitmapImage);
+  return [UIImage imageWithCGImage:scaledImage];
 }
 
 @end

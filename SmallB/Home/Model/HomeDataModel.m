@@ -65,6 +65,14 @@
     return @{@"listVos":@"HomeListVosModel"};
 }
 
+- (NSMutableArray *)listVos{
+    if (_listVos.count > 10) {
+        NSArray *result = [_listVos subarrayWithRange:NSMakeRange(0, 10)];
+        return [result mutableCopy];
+    }
+    return _listVos;
+}
+
 @end
 
 @implementation HomeListVosModel

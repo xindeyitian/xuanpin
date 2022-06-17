@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+    self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
     self.view.backgroundColor = KBGColor;
     self.tableView.backgroundColor = KBGColor;
     [self.tableView registerClass:[MingXiTableViewCell class] forCellReuseIdentifier:[MingXiTableViewCell description]];

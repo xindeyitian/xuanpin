@@ -130,6 +130,9 @@
             height += 20;
             height += 140*KScreenW_Ratio;
         }
+        if (model.listVos.count && model.bannerUrls.count == 0) {
+            height += 20;
+        }
         height += 44*KScreenW_Ratio;
         THFlowLayout *layout = [[THFlowLayout alloc] init];
         layout.delegate = self;
@@ -313,7 +316,7 @@
             make.centerY.mas_equalTo(self.homeCollection.centerY).offset(30*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.homeCollection.mas_centerX);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyView;

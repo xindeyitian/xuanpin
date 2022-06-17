@@ -7,6 +7,9 @@
 
 #import "BaseSearchNavBarView.h"
 #import "SearchListViewController.h"
+#import "ScanViewController.h"
+#import "MyQRViewController.h"
+#import "BeforeScanSingleton.h"
 
 @interface BaseSearchNavBarView()<UITextFieldDelegate>
 //JXCategoryViewDelegate
@@ -122,10 +125,15 @@
     }
     if (sender.tag == 12) {
         NSLog(@"扫描");
+        [self scan];
         if (_viewClickBlock) {
             _viewClickBlock(2,self.searchField.text);
         }
     }
+}
+
+- (void)scan{
+    [[BeforeScanSingleton shareScan] ShowSelectedType:QQStyle WithViewController:AppTool.currentVC];
 }
 
 - (void)backOperation{

@@ -303,7 +303,7 @@
             make.centerY.mas_equalTo(self.homeCollection.centerY).offset(112*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.homeCollection.mas_centerX);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyView;

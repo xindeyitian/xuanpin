@@ -247,7 +247,7 @@
             make.centerY.mas_equalTo(self.tableView.centerY).offset(10*KScreenW_Ratio);
             make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  139);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyView;
@@ -263,7 +263,7 @@
             make.centerY.mas_equalTo(self.collectionView.centerY).offset(10*KScreenW_Ratio);
             make.left.mas_equalTo(self.tableView).offset(ScreenWidth/2.0 -  139);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _collecemptyView;

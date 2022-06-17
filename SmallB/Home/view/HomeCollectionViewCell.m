@@ -38,7 +38,7 @@
     self.productName.text = model.goodsName;
     [self.productImage sd_setImageWithURL:[NSURL URLWithString:model.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
     self.productSoldNum.text = [NSString stringWithFormat:@"已售%@",K_NotNullHolder(model.saleCount, @"0")];
-    self.commissionNum.text = [NSString stringWithFormat:@" 赚积分%@ ",K_NotNullHolder(model.commission, @"0")];
+    self.commissionNum.text = [NSString stringWithFormat:@" 赚积分%.2f ",[K_NotNullHolder(model.commission, @"0") floatValue]];
     
     NSString *price = [NSString stringWithFormat:@"¥%@",model.salePrice];
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:price];

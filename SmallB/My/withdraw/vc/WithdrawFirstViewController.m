@@ -50,7 +50,7 @@
     image.frame = CGRectMake(12, 0, ScreenWidth - 24, 164);
     [headerV addSubview:image];
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"可提现金额（元）" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"可提现金额" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
     title.frame = CGRectMake(12, 43, ScreenWidth - 48, 20);
     [image addSubview:title];
     

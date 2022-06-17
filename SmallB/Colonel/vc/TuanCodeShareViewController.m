@@ -106,6 +106,7 @@
     UIImageView *codeImg = [[UIImageView alloc]initWithImage:nil];
     codeImg.frame = CGRectMake(0, 173*KScreenW_Ratio, 101*KScreenW_Ratio, 101*KScreenW_Ratio);
     codeImg.centerX = titleL.centerX;
+    codeImg.image = [AppTool createQRImageWithString:[NSString stringWithFormat:@"这里是团长码分享：%@",codeStr]];
     [bgImageV addSubview:codeImg];
 }
 

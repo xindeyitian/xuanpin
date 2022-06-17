@@ -56,6 +56,8 @@
     self.navigationItem.title = self.typeIndex == vcTypeIndexProductCollection ? @"我的收藏" : @"浏览记录";
     if (self.typeIndex == vcTypeIndexStoreAttention) {
         self.navigationItem.title = @"我的关注";
+        self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+        self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
     }
     self.needPullUpRefresh = self.needPullDownRefresh = YES;
     self.view.backgroundColor = [UIColor colorWithHexString:@"#EEEEEE"];

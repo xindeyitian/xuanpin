@@ -6,6 +6,7 @@
 //
 
 #import "myVCGuideView.h"
+#import "shopShareAlertViewController.h"
 
 @interface myVCGuideView ()
 
@@ -44,10 +45,14 @@
     self.bannerCycle.imageURLStringsGroup = _bannerAry;
 }
 
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    [self tapClick];
+}
+
 - (void)tapClick{
-    [[AllNoticePopUtility shareInstance] popViewWithTitle:@"新人引导" AndType:success AnddataBlock:^{
-        
-    }];
+    shopShareAlertViewController *alertVC = [shopShareAlertViewController new];
+    alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
 }
 
 @end

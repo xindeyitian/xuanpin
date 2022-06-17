@@ -152,7 +152,7 @@
             make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.tableView.centerX);
             make.width.mas_equalTo(278);
-            make.height.mas_equalTo(177);
+            make.height.mas_equalTo(170);
         }];
     }
     return _emptyView;
