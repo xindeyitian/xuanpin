@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSString *provinceName;
 @property(nonatomic,strong)NSString *shopId;
 @property(nonatomic,strong)NSString *areaCode;
+@property(nonatomic,strong)NSString *inviteCode;
 
 @end
 

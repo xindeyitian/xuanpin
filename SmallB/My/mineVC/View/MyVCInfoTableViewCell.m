@@ -27,6 +27,7 @@
 @property(nonatomic , strong)UIImageView *userLogoImg;
 @property(nonatomic , strong)UILabel *userNameL;
 @property(nonatomic , strong)UIView *redView;
+@property(nonatomic , strong)UILabel *inviteCodeL;
 
 @end
 
@@ -123,6 +124,7 @@
         make.bottom.mas_equalTo(codeView.mas_bottom);
         make.height.mas_equalTo(25);
     }];
+    self.inviteCodeL = codeL;
     
     BaseButton *btn = [BaseButton CreateBaseButtonTitle:@"复制" Target:self Action:@selector(copyBtnClick) Font:DEFAULT_FONT_R(13) BackgroundColor:UIColor.clearColor Color:kRGB(250, 23, 45) Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:3];
     [codeView addSubview:btn];
@@ -175,6 +177,19 @@
     if (userLogo.length) {
         [self.userLogoImg sd_setImageWithURL:[NSURL URLWithString:userLogo] placeholderImage:KPlaceholder_DefaultImage];
     }
+    NSString *code = [AppTool getLocalDataWithKey:@"inviteCode"];
+    if (code.length) {
+        codeL.text = [NSString stringWithFormat:@"我的邀请码%@",code];
+    }
+}
+
+- (void)setInfoModel:(userInfoModel *)infoModel{
+    _infoModel = infoModel;
+ 
+    if (_infoModel.avatar.length) {
+        [self.userLogoImg sd_setImageWithURL:[NSURL URLWithString:_infoModel.avatar] placeholderImage:KPlaceholder_DefaultImage];
+    }
+    self.inviteCodeL.text = [NSString stringWithFormat:@"我的邀请码%@",_infoModel.inviteCode];
 }
 
 - (void)eyeBtnClick:(BaseButton *)btn{
@@ -187,8 +202,8 @@
 }
 
 - (void)copyBtnClick{
-    [AppTool copyWithString:@""];
-    [XHToast showCenterWithText:[NSString stringWithFormat:@"我的邀请码:%@\n\n复制成功",@"2345678"]];
+    [AppTool copyWithString:self.infoModel.inviteCode];
+    [XHToast showCenterWithText:[NSString stringWithFormat:@"我的邀请码:%@\n\n复制成功",self.infoModel.inviteCode]];
 }
 
 - (void)messageBtnClick{
@@ -285,7 +300,16 @@
                 [AppTool currentVC].tabBarController.selectedIndex = 2;
             }
             if (index == 4) {
-                [selfVC.navigationController pushViewController:[[myToBeSupplierViewController alloc]init] animated:YES];
+                [THHttpManager GET:@"supply/supplyInfo/ifSupplyUser" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+                    if (returnCode == 200 && [data isKindOfClass:[NSNumber class]]) {
+                        if ([data integerValue] == 1) {
+                            THBaseViewController *vc = (THBaseViewController *)AppTool.currentVC;
+                            [vc showSuccessMessageWithString:@"您已经申请过供应商"];
+                        }else{
+                            [selfVC.navigationController pushViewController:[[myToBeSupplierViewController alloc]init] animated:YES];
+                        }
+                    }
+                }];
             }
             if (index == 2) {
                 [selfVC.navigationController pushViewController:[[myShimingViewController alloc]init] animated:YES];

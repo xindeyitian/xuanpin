@@ -109,7 +109,9 @@
         [self stopLoadingHUD];
         [self.tableView.mj_header endRefreshing];
         if ([data isKindOfClass:[NSDictionary class]] && returnCode == 200) {
-            isSiming = YES;
+            if ([data objectForKey:@"checkSign"]) {
+                isSiming = [[data objectForKey:@"checkSign"] integerValue] == 1;
+            }
         }
         if (isSiming) {
             

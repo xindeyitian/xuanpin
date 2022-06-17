@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)void(^btnClickBlock)(NSInteger index);
 @property(nonatomic,strong)incomeStatisticsModel *model;
+@property(nonatomic,strong)userInfoModel *infoModel;
 @end
 
 NS_ASSUME_NONNULL_END

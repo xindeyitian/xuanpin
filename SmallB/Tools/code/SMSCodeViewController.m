@@ -94,6 +94,9 @@
                 if (model.LoginUserVo.shopId) {
                     [AppTool saveToLocalDataWithValue:model.LoginUserVo.shopId key:@"shopID"];
                 }
+                if (model.LoginUserVo.inviteCode) {
+                    [AppTool saveToLocalDataWithValue:model.LoginUserVo.inviteCode key:@"inviteCode"];
+                }
 //                    [UserDefaults setObject:model.LoginUserVo  forKey:K_BaseModel];
 //                    [UserDefaults synchronize];
                     

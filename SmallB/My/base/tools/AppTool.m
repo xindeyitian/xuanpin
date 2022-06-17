@@ -193,6 +193,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"leval"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userID"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"shopID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"inviteCode"];
 }
 
 + (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback {

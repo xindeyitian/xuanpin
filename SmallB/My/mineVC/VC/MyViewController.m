@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
 @interface MyViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) incomeStatisticsModel *myDataModel;
+@property (strong, nonatomic) userInfoModel *infoModel;
 @property (strong, nonatomic) NSMutableArray *bannerAry;
 
 @end
@@ -31,8 +32,7 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:(UITableViewRowAnimationNone)];
-    [self getMyincomeStatistics];
-    [self banner];
+    [self loadNewData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -68,6 +68,16 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
 - (void)loadNewData{
     [self getMyincomeStatistics];
     [self banner];
+    [self getUserInfo];
+}
+
+- (void)getUserInfo{
+    [THHttpManager POST:@"shop/shopUser/queryShopUserInfo" parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 &&  [data isKindOfClass:[NSDictionary class]]) {
+            self.infoModel = [userInfoModel mj_objectWithKeyValues:data];
+        }
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)banner{
@@ -112,8 +122,10 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
             if (self.myDataModel) {
                 cell.model = self.myDataModel;
             }
+            if (self.infoModel) {
+                cell.infoModel = self.infoModel;
+            }
             return cell;
-           
         }
             break;
         case myVCProfits:{

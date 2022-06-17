@@ -66,13 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
  清除token
  */
 +(void)cleanLocalToken;
-
+/**
+ 由key获取本地存储的数据
+ */
 +(NSString *)getLocalDataWithKey:(NSString *)key;
 /**
- 清除缓存的角色 头像 名称
+ 清除缓存的角色 头像 名称 邀请码
  */
 + (void)cleanLocalDataInfo;
-
 
 /// 上传回调
 typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>* keys);
@@ -95,13 +96,21 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
  获取当前时间戳
  */
 + (NSString *)currentdateInterval;
-
+/**
+ 时间戳转为时间
+ */
 + (NSString *)changeTimpStampFormate:(NSString *)timpStamp;
-
+/*
+ 分享到微信平台
+ */
 +(void)shareWebPageToPlatformTypeWithData:(UIImage *)image WXScene:(NSInteger)WXScene;
-
+/**
+ 创建二维码
+ */
 + (UIImage *)createQRImageWithString:(NSString *)string;
-
+/**
+ 阿里创建二维码
+ */
 + (UIImage *)getCodeMaWithContent:(NSString *)content;
 
 @end

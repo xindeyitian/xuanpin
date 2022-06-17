@@ -62,14 +62,23 @@
     if (!self.tableView.mj_header.isRefreshing) {
         [self startLoadingHUD];
     }
+    //审核状态0待审核1审核通过,-1审核失败
     [THHttpManager POST:@"shop/shopIdcardAuth/queryIdCard" parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         [self.tableView.mj_header endRefreshing];
         if ([data isKindOfClass:[NSDictionary class]] && returnCode == 200) {
-            [self creatHeaderViewWithData:data];
-            [self creatFooterView];
+            if ([data objectForKey:@"checkSign"]) {
+                NSInteger checkSign = [[data objectForKey:@"checkSign"] integerValue];
+                if (checkSign == -1) {
+                    [self creatHeaderViewWithDica:data];
+                    [self creatFooterView];
+                }else{
+                    [self creatHeaderViewWithData:data];
+                    [self creatFooterView];
+                }
+            }
         }else{
-            [self creatHeaderView];
+            [self creatHeaderViewWithDica:data];
             [self creatFooterView];
         }
     }];
@@ -127,7 +136,7 @@
     self.tableView.tableHeaderView = headerView;
 }
 
-- (void)creatHeaderView{
+- (void)creatHeaderViewWithDica:(NSDictionary *)dica{
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 500)];
     headerView.backgroundColor = KBGColor;
     
@@ -169,6 +178,7 @@
         field.placeholder = [NSString stringWithFormat:@"请输入%@",titleAry[i]];
         field.font = DEFAULT_FONT_R(15);
         field.delegate = self;
+        [field addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
         field.tag = 111 +i;
         [whiteV addSubview:field];
         if (i == 3) {
@@ -203,6 +213,14 @@
         if (i == 3) {
             maxY = lineV.frame.origin.y + 1;
         }
+        if (i == 0 && [dica objectForKey:@"realName"]) {
+            field.text = [dica objectForKey:@"realName"];
+            self.nameStr = [dica objectForKey:@"realName"];
+        }
+        if (i == 1  && [dica objectForKey:@"idCard"]) {
+            field.text = [dica objectForKey:@"idCard"];
+            self.idCardNum = [dica objectForKey:@"idCard"];
+        }
     }
     
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(12, maxY + 27, ScreenWidth -88, 30)];
@@ -229,7 +247,7 @@
     self.tableView.tableHeaderView = headerView;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+- (void)textFieldDidEditing:(UITextField *)textField{
     if (textField.tag == 111) {
         self.nameStr = textField.text;
     }

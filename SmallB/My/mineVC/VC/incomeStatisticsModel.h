@@ -33,4 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface userInfoModel : THBaseModel
+
+@property (nonatomic , copy)NSString *avatar;
+@property (nonatomic , copy)NSString *inviteCode;
+@property (nonatomic , copy)NSString *realName;
+
+@end
+
 NS_ASSUME_NONNULL_END
