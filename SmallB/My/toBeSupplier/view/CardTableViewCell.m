@@ -99,6 +99,33 @@
     }];
 }
 
+- (void)setImageAry:(NSMutableArray *)imageAry{
+    _imageAry = imageAry;
+    if (self.isEdit) {
+        UIButton *shouchi = [self viewWithTag:111];
+        UIButton *zheng = [self viewWithTag:112];
+        UIButton *fan = [self viewWithTag:113];
+        if ([_imageAry[0] isKindOfClass:[NSString class]]) {
+            [shouchi sd_setImageWithURL:[NSURL URLWithString:_imageAry[0]] forState:UIControlStateNormal];
+            [shouchi sd_setImageWithURL:[NSURL URLWithString:_imageAry[0]] forState:UIControlStateHighlighted];
+        }else{
+            [shouchi setImage:_imageAry[0] forState:UIControlStateNormal];
+        }
+        if ([_imageAry[1] isKindOfClass:[NSString class]]) {
+            [zheng sd_setImageWithURL:[NSURL URLWithString:_imageAry[1]] forState:UIControlStateNormal];
+            [zheng sd_setImageWithURL:[NSURL URLWithString:_imageAry[1]] forState:UIControlStateHighlighted];
+        }else{
+            [zheng setImage:_imageAry[1] forState:UIControlStateNormal];
+        }
+        if ([_imageAry[2] isKindOfClass:[NSString class]]) {
+            [fan sd_setImageWithURL:[NSURL URLWithString:_imageAry[2]] forState:UIControlStateNormal];
+            [fan sd_setImageWithURL:[NSURL URLWithString:_imageAry[2]] forState:UIControlStateHighlighted];
+        }else{
+            [fan setImage:_imageAry[2] forState:UIControlStateNormal];
+        }
+    }
+}
+
 - (void)btnClick:(BaseButton *)btn{
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
     imagePickerVc.allowPickingVideo = NO;
@@ -123,10 +150,6 @@
             if (_viewBlock) {
                 _viewBlock(self.imageAry);
             }
-//            NSData *data = UIImageJPEGRepresentation(photos[0], 0.5);;
-//            [THHttpManager uploadImagePOST:@"system/file/uploadIdCard" parameters:@{@"file":data} withTimeoutInterval:10 block:^(NSInteger returnCode, THRequestStatus status, id data) {
-//
-//            }];
         }
     }];
     imagePickerVc.modalPresentationStyle = UIModalPresentationFullScreen;

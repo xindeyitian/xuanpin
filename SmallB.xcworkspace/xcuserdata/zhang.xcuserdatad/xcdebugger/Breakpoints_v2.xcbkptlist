@@ -168,22 +168,6 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "41567A75-BE89-47B5-858D-3FC1CC79A99A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SmallB/My/applyStore/vc/applyStoreViewController.m"
-            startingColumnNumber = "25"
-            endingColumnNumber = "53"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "-submitClick"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "E0CB89D0-691A-4225-98B7-F1908E377811"
@@ -293,8 +277,8 @@
             filePath = "SmallB/Http/THHttpManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "+responseSuccess:block:"
             landmarkType = "7">
          </BreakpointContent>
@@ -309,8 +293,8 @@
             filePath = "SmallB/Http/THHttpManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
             landmarkName = "+responseSuccess:block:"
             landmarkType = "7">
          </BreakpointContent>
@@ -325,8 +309,8 @@
             filePath = "SmallB/Http/THHttpManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "+allUploadImageWithImageArr:AndImagefrom:Block:Progrss:"
             landmarkType = "7">
          </BreakpointContent>
@@ -341,8 +325,8 @@
             filePath = "SmallB/Http/THHttpManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "+uploadImagePOST:parameters:withFileName:block:"
             landmarkType = "7">
          </BreakpointContent>
@@ -413,6 +397,22 @@
             startingLineNumber = "224"
             endingLineNumber = "224"
             landmarkName = "-btnClick"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8988FD20-565D-4A24-8602-C3B5ADBB74CC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmallB/My/applyStore/vc/applyStoreViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
+            landmarkName = "-updateStoreRequest"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

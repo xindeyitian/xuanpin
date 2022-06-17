@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *shopName;
 @property(nonatomic,copy)NSString *areaCode;
 
+@property(nonatomic,copy)NSString *idCardPath;
+@property(nonatomic,copy)NSString *idCardHand;
+@property(nonatomic,copy)NSString *idCardFront;
+@property(nonatomic,copy)NSString *idCardBack;
+@property(nonatomic,copy)NSString *realName;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,8 @@
 #import <MJExtension.h>
 #import "MainTabarViewController.h"
 #import "CouponChooseViewController.h"
+#import "StoreUnderReviewViewController.h"
+#import "StoreFailAlertViewController.h"
 
 typedef void(^XTHttpCallBackBlock)(NSInteger code, THRequestStatus status, id data);
 @implementation THHttpManager
@@ -178,17 +180,25 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
         }
     }else if(code == 401){
         //情况token
-        [AppTool cleanLocalToken];
-        [AppTool cleanLocalDataInfo];
-        [THHttpManager showHttpMsg:@"请重新登录！"];
-        LoginViewController * tab = [[LoginViewController alloc]init];
-        [UIApplication sharedApplication].delegate.window.rootViewController = tab;
-        if (block) {
-            block(code,status,data1);
-        }
-        return;
+//        [AppTool cleanLocalToken];
+//        [AppTool cleanLocalDataInfo];
+//        [THHttpManager showHttpMsg:@"请重新登录！"];
+//        LoginViewController * tab = [[LoginViewController alloc]init];
+//        [UIApplication sharedApplication].delegate.window.rootViewController = tab;
+//        if (block) {
+//            block(code,status,data1);
+//        }
+//        return;
     }else if (code == 10010){
-        
+        /**
+         NO_SHOP(10010, "您还未开通店铺,请先开通店铺"),
+         UNDER_REVIEW(10011, "店铺审核中,请联系客服"),
+         REJECT(10012, "店铺申请被驳回,请联系客服"),
+         FREEZE(10013, "店铺账号被冻结,请联系客服"),
+         NO_DEPOSIT(10014, "店铺需交押金,请联系客服"),
+         NO_USER(10015, "用户不存在,请先注册"),
+         USER_LOCK(10016, "账号已锁定,请联系管理员"),
+         */
         NSString *token = @"";
         if ([[dictionary allKeys] containsObject:@"result"]) {
             id resultData = [dictionary valueForKey:@"result"];
@@ -204,6 +214,33 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
         alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
         alertVC.token = [AppTool getLocalToken];
         [[AppTool currentVC]  presentViewController:alertVC animated:NO completion:nil];
+        if (block) {
+            block(code,status,data1);
+        }
+        return;
+    }else if(code == 10011){
+        StoreUnderReviewViewController *alertVC = [StoreUnderReviewViewController new];
+        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
+        if (block) {
+            block(code,status,data1);
+        }
+        return;
+    }else if(code == 10012){
+        StoreFailAlertViewController *alertVC = [StoreFailAlertViewController new];
+        if ([[dictionary allKeys] containsObject:@"result"]) {
+            NSDictionary *dica = [dictionary valueForKey:@"result"];
+            alertVC.applyInfoDic = dica;
+            if ([[dica allKeys] containsObject:@"checkMsg"]) {
+                alertVC.content = [dica valueForKey:@"checkMsg"];
+            }
+        }
+        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
+        if (block) {
+            block(code,status,data1);
+        }
+        return;
     }
     
     if (block) {

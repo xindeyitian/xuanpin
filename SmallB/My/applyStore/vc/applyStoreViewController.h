@@ -11,8 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface applyStoreViewController : THBaseTableViewController
 
+@property (nonatomic , assign)BOOL isEdit;//是否是编辑状态
 @property (nonatomic , copy)NSString *token;
 @property (nonatomic , assign)NSInteger typeIndex;
+@property (nonatomic , strong)void(^viewBlock)(void);
 
 @end
 

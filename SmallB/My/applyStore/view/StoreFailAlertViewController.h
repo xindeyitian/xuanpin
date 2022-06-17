@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StoreFailAlertViewController : BaseAlertViewController
 
+@property (nonatomic , strong)NSDictionary *applyInfoDic;
+@property (nonatomic , copy)NSString *content;
+
 @end
 
 NS_ASSUME_NONNULL_END

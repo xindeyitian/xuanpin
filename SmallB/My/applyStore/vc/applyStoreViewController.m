@@ -15,16 +15,13 @@
 #import "OpenStoreAlertViewController.h"
 #import "selectCouponTableViewController.h"
 #import "CouponListModel.h"
+#import "StoreManagerModel.h"
 
 @interface applyStoreViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     float oneWidth;
 }
 @property (nonatomic , strong)NSMutableArray *placeholderAry;
-@property (nonatomic , strong)NSMutableArray *contentAry;
-@property (nonatomic , strong)NSMutableArray *otherImgAry;
-@property (nonatomic , strong)NSMutableArray *otherAssets;
-@property (nonatomic , strong)UIImage *yingyeImg;
 @property (nonatomic , strong)BaseOwnerNavView *nav;
 
 @property (nonatomic , strong)NSMutableArray *dataAry;
@@ -41,6 +38,7 @@
 @property (nonatomic , strong)NSString *address;
 
 @property (nonatomic , strong)NSMutableArray *imageAry;
+@property (nonatomic , strong)StoreManagerModel *storeModel;
 
 @end
 
@@ -62,12 +60,7 @@
     self.imageAry = [NSMutableArray arrayWithObjects:@"1",@"1",@"1",nil];
     
     oneWidth = (ScreenWidth - 48)/3.0;
-    //  self.placeholderAry = [@[@"请输入店铺名称（不超过15个字符）",@"请输入真实姓名",@"请输入手机号",@"请输入验证码",@"所在地区",@"详细地址"] mutableCopy];
     self.placeholderAry = [@[@"请输入店铺名称（不超过15个字符）",@"请输入真实姓名",@"所在地区",@"详细地址"] mutableCopy];
-    self.contentAry = [NSMutableArray arrayWithCapacity:self.placeholderAry.count];
-    
-    self.otherImgAry = [NSMutableArray array];
-    self.otherAssets = [NSMutableArray array];
     self.couponData = @"";
     
     self.view.backgroundColor = self.tableView.backgroundColor = kRGB(245, 245, 245);
@@ -100,8 +93,52 @@
     BaseButton *backBtn = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(btnClick) Font:DEFAULT_FONT_R(15) BackgroundColor:UIColor.clearColor Color:KBlack333TextColor Frame:CGRectMake(0, KStatusBarHeight + 2, 40, 40) Alignment:NSTextAlignmentCenter Tag:1];
     [backBtn setImage:IMAGE_NAMED(@"bar_back") forState:UIControlStateNormal];
     [self.view addSubview:backBtn];
-    [self getCouponList];
+    if (!self.isEdit) {
+        [self getCouponList];
+    }else{
+        [self getMyStoreInfo];
+        [self.tableView reloadData];
+    }
 }
+
+- (void)getMyStoreInfo{
+    
+    [self startLoadingHUD];
+    [THHttpManager GET:@"shop/shopInfo/getShopInfo" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            StoreManagerModel *model = [StoreManagerModel mj_objectWithKeyValues:data];
+            self.storeModel = model;
+            self.provinceModel = [[BRProvinceModel alloc]init];
+            self.provinceModel.code = model.provinceCode;
+            self.provinceModel.name = model.provinceName;
+            
+            self.cityModel = [[BRCityModel alloc]init];
+            self.cityModel.code = model.cityCode;
+            self.cityModel.name = model.cityName;
+         
+            self.areaModel = [[BRAreaModel alloc]init];
+            self.areaModel.code = model.areaCode;
+            self.areaModel.name = model.areaName;
+
+            self.storeName = model.shopName;
+            self.userName = model.realName;
+            self.address = model.address;
+            
+            if (model.idCardHand) {
+                [self.imageAry replaceObjectAtIndex:0 withObject:[NSString stringWithFormat:@"%@%@",model.idCardPath,model.idCardHand]];
+            }
+            if (model.idCardFront) {
+                [self.imageAry replaceObjectAtIndex:1 withObject:[NSString stringWithFormat:@"%@%@",model.idCardPath,model.idCardFront]];
+            }
+            if (model.idCardBack) {
+                [self.imageAry replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"%@%@",model.idCardPath,model.idCardBack]];
+            }
+        }
+        [self.tableView reloadData];
+    }];
+}
+
 
 - (void)getCouponList{
     [self startLoadingHUD];
@@ -126,7 +163,6 @@
 
 - (void)btnClick{
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -141,6 +177,9 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (self.isEdit) {
+        return self.placeholderAry.count + 1;
+    }
     return self.placeholderAry.count + 3;
 }
 
@@ -172,6 +211,20 @@
         }
         cell.fieldT.placeholder = self.placeholderAry[indexPath.section];
         cell.fieldT.userInteractionEnabled = !(indexPath.section == 2);
+        if (indexPath.section == 0) {
+            cell.fieldT.text = self.storeName;
+        }
+        if (indexPath.section == 1) {
+            cell.fieldT.text = self.userName;
+        }
+        if (indexPath.section == 3) {
+            cell.fieldT.text = self.address;
+        }
+        if (indexPath.section == 2) {
+            if (self.provinceModel) {
+                cell.fieldT.text = [NSString stringWithFormat:@"%@ %@ %@",self.provinceModel.name,self.cityModel.name,self.areaModel.name];
+            }
+        }
         CJWeakSelf()
         cell.viewBlock = ^(NSString * _Nonnull content) {
             CJStrongSelf();
@@ -185,17 +238,17 @@
                 self.address = content;
             }
         };
-        if (indexPath.section == 2) {
-            if (self.provinceModel) {
-                cell.fieldT.text = [NSString stringWithFormat:@"%@ %@ %@",self.provinceModel.name,self.cityModel.name,self.areaModel.name];
-            }
-        }
         return cell;
     }
     if (indexPath.section == self.placeholderAry.count) {
         CardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CardTableViewCell description]];
+        cell.isEdit = self.isEdit;
+        if (self.imageAry.count && self.isEdit) {
+            cell.imageAry = self.imageAry;
+        }
         cell.viewBlock = ^(NSMutableArray * _Nonnull array) {
             self.imageAry = array;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
         };
         return cell;
     }
@@ -351,11 +404,24 @@
         [self showMessageWithString:@"请输入详细地址"];
         return;
     }
-    if ([self.imageAry[0] isKindOfClass:[NSString class]] || [self.imageAry[1] isKindOfClass:[NSString class]] || [self.imageAry[2] isKindOfClass:[NSString class]]) {
+    if (self.isEdit) {
         
-        [self showMessageWithString:@"请选择身份证信息"];
-        return;
+    }else{
+        if ([self.imageAry[0] isKindOfClass:[NSString class]] || [self.imageAry[1] isKindOfClass:[NSString class]] || [self.imageAry[2] isKindOfClass:[NSString class]]) {
+            
+            [self showMessageWithString:@"请选择身份证信息"];
+            return;
+        }
     }
+   
+    if (self.isEdit) {
+        [self updateStoreRequest];
+    }else{
+        [self openStoreRequest];
+    }
+}
+
+- (void)openStoreRequest{
     [self startLoadingHUD];
     NSMutableArray *fileAry = [NSMutableArray array];
     __block NSString *idCardPath = @"";
@@ -381,7 +447,6 @@
             if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
                 [fileAry addObject:@"1"];
                 idCardPath = [data objectForKey:@"imgUrl"];
-                NSLog(@"====%@======%@",[data objectForKey:@"imgUrl"],idCardFront = [data objectForKey:@"imgUrlName"]);
                 if (i == 0) {
                     idCardHand = [data objectForKey:@"imgUrlName"];
                 }
@@ -429,6 +494,86 @@
             }
         }];
     }
+}
+
+-(void)updateStoreRequest{
+    __block NSString *idCardPath = self.storeModel.idCardPath;
+    __block NSString *idCardBack = self.storeModel.idCardBack;
+    __block NSString *idCardFront = self.storeModel.idCardFront;
+    __block NSString *idCardHand = self.storeModel.idCardHand;
+    
+    NSMutableArray *resultAry = [NSMutableArray array];
+    for (int i =0; i < self.imageAry.count; i ++) {
+        id imageData = self.imageAry[i];
+        if ([imageData isKindOfClass:[UIImage class]]) {
+            [resultAry addObject:@{@"index":@(i),@"data":imageData}];
+        }
+    }
+    
+    NSMutableArray *fileAry = [NSMutableArray array];
+    if (resultAry.count == 0) {
+        [self updateRequestWithPath:idCardPath hand:idCardHand front:idCardFront back:idCardBack];
+    }
+    for (int i =0; i < resultAry.count; i ++) {
+        UIImage *image = resultAry[i][@"data"];
+        NSInteger index = [resultAry[i][@"index"] integerValue];
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);;
+        NSString *file = @"";
+        if (index == 0) {
+            file = @"Hand";
+        }
+        if (index == 0) {
+            file = @"Front";
+        }
+        if (index == 0) {
+            file = @"Back";
+        }
+        [THHttpManager uploadImagePOST:@"system/file/uploadIdCard" parameters:@{@"file":data} withFileName:file block:^(NSInteger returnCode, THRequestStatus status, id data) {
+            if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+                [fileAry addObject:@"1"];
+                idCardPath = [data objectForKey:@"imgUrl"];
+                if (index == 0) {
+                    idCardHand = [data objectForKey:@"imgUrlName"];
+                }
+                if (index == 1) {
+                    idCardFront = [data objectForKey:@"imgUrlName"];
+                }
+                if (index == 2) {
+                    idCardBack = [data objectForKey:@"imgUrlName"];
+                }
+            }
+            if (fileAry.count == resultAry.count) {
+                [self updateRequestWithPath:idCardPath hand:idCardHand front:idCardFront back:idCardBack];
+            }
+        }];
+    }
+}
+
+- (void)updateRequestWithPath:(NSString *)path hand:(NSString *)hand front:(NSString *)front back:(NSString *)back{
+    NSDictionary *dica = @{@"address":self.address,
+                           @"areaCode":self.areaModel.code,
+                           @"areaName":self.areaModel.name,
+                           @"cityCode":self.cityModel.code,
+                           @"cityName":self.cityModel.name,
+                           @"provinceCode":self.provinceModel.code,
+                           @"provinceName":self.provinceModel.name,
+                           @"shopName":self.storeName,
+                           @"idCardBack":back,
+                           @"idCardFront":front,
+                           @"idCardHand":hand,
+                           @"idCardPath":path,
+                           @"realName":self.userName
+                           
+    };
+    [THHttpManager FormatPOST:@"shop/shopInfo/updateShopInfo" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200) {
+            if (_viewBlock) {
+                _viewBlock();
+            }
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }
+    }];
 }
 
 @end

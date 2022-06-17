@@ -304,7 +304,7 @@
                     if (returnCode == 200 && [data isKindOfClass:[NSNumber class]]) {
                         if ([data integerValue] == 1) {
                             THBaseViewController *vc = (THBaseViewController *)AppTool.currentVC;
-                            [vc showSuccessMessageWithString:@"您已经申请过供应商"];
+                            [vc showSuccessMessageWithString:@"您当前已经是供货商"];
                         }else{
                             [selfVC.navigationController pushViewController:[[myToBeSupplierViewController alloc]init] animated:YES];
                         }

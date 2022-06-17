@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardTableViewCell : BaseTableViewCell
 
+@property (nonatomic , assign)BOOL isEdit;//是否是编辑状态
 @property(nonatomic,strong)UIImage *shouchiImage;
 @property(nonatomic,strong)UIImage *zhengImage;
 @property(nonatomic,strong)UIImage *fanImage;
