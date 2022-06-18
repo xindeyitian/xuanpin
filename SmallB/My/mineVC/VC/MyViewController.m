@@ -75,6 +75,9 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
     [THHttpManager POST:@"shop/shopUser/queryShopUserInfo" parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         if (returnCode == 200 &&  [data isKindOfClass:[NSDictionary class]]) {
             self.infoModel = [userInfoModel mj_objectWithKeyValues:data];
+            if (self.infoModel.inviteCode) {
+                [AppTool saveToLocalDataWithValue:self.infoModel.inviteCode key:@"inviteCode"];
+            }
         }
         [self.tableView reloadData];
     }];

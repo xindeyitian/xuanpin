@@ -46,11 +46,12 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    [self tapClick];
+    [self tapClickWithIndex:index];
 }
 
-- (void)tapClick{
+- (void)tapClickWithIndex:(NSInteger)index{
     shopShareAlertViewController *alertVC = [shopShareAlertViewController new];
+    alertVC.isOpenShop = index == 1;
     alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
 }

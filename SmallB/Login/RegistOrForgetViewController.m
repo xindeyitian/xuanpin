@@ -221,7 +221,7 @@
     [self startLoadingHUD];
     NSString *phone = [self.phoneTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSDictionary *dica = @{
-                           @"areaName": self.areaModel.code ?  self.areaModel.code : @"",
+                           @"areaName": self.areaModel.name ?  self.areaModel.name : @"",
                            @"cityId": self.cityModel.code ?  self.cityModel.code : @"",
                            @"cityName": self.cityModel.name ?  self.cityModel.name : @"",
                            @"phoneNum": phone,
