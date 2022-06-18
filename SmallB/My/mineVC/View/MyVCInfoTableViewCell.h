@@ -30,5 +30,4 @@ NS_ASSUME_NONNULL_END
 
 @property(nonatomic,strong)incomeStatisticsModel *model;
 
-
 @end

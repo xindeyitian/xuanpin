@@ -249,9 +249,7 @@
     }
 }
 
-
 @end
-
 
 @interface  MyVCChatTableViewCell ()
 
@@ -543,7 +541,7 @@
     view1.numString = [NSString stringWithFormat:@"%.2f",model.incomeStaVo.operableIncome];
     
     myInfoDetailView*view2  = [self.contentView viewWithTag:101];
-    view2.numString = K_NotNullHolder(model.incomeStaVo.totalIncome, 0);;
+    view2.numString = K_NotNullHolder(model.incomeStaVo.totalIncome, 0);
     
     myInfoDetailView*view3  = [self.contentView viewWithTag:102];
     view3.numString = K_NotNullHolder(model.incomeStaVo.pendingIncome, 0);
