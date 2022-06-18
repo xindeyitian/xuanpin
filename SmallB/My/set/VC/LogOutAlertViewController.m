@@ -62,7 +62,7 @@
     [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.bgView.mas_bottom).offset(-26);
         make.height.mas_equalTo(44);
-        make.width.mas_equalTo(143);
+        make.width.mas_equalTo(143*KScreenW_Ratio);
         make.left.mas_equalTo(self.bgView).offset(12);
     }];
     
@@ -73,7 +73,7 @@
     [confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.bgView.mas_bottom).offset(-26);
         make.height.mas_equalTo(44);
-        make.width.mas_equalTo(143);
+        make.width.mas_equalTo(143*KScreenW_Ratio);
         make.right.mas_equalTo(self.bgView).offset(-12);
     }];
 }

@@ -46,7 +46,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //self.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    self.modalPresentationStyle = UIModalPresentationOverFullScreen;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

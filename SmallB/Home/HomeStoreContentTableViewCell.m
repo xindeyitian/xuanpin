@@ -18,7 +18,9 @@
 - (void)k_creatSubViews{
     [super k_creatSubViews];
     
-    self.storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake(12, 12, ScreenWidth-24, 210)];
+    float height = 240 - 76 + 76*KScreenW_Ratio;
+
+    self.storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake(12, 12, ScreenWidth-24, height)];
     self.storeV.haveBtn = YES;
     [self addSubview:self.storeV];
 }

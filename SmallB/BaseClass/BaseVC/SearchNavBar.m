@@ -26,8 +26,7 @@
     return self;
 }
 - (void)back{
-    
-    [self.currentViewController.navigationController popViewControllerAnimated:YES];
+    [AppTool.currentVC.navigationController popViewControllerAnimated:YES];
 }
 -(void)initView{
     
