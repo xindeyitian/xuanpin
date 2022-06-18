@@ -496,6 +496,7 @@
     
     [button.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(6, 12))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
+        pvc.agreeType = PrivacyAgreementTypeSupplier;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }];

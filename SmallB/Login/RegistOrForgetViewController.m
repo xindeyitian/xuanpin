@@ -71,6 +71,7 @@
     
     [self.agreeBtn.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(7, 12))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
+        pvc.agreeType = PrivacyAgreementTypeRegist;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }];

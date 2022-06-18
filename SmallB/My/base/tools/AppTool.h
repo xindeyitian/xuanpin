@@ -113,6 +113,16 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
  */
 + (UIImage *)getCodeMaWithContent:(NSString *)content;
 
+/**
+ 处理图片路径
+ */
++ (NSString *)dealURLWithBase:(NSString *)baseUrl withUrlPath:(NSString *)urlPath;
+
+/**
+ 处理带中文图片路径
+ */
++ (NSString *)dealChineseUrl:(NSString *)baseUrl;
+
 @end
 
 NS_ASSUME_NONNULL_END

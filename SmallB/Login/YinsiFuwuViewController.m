@@ -13,6 +13,7 @@
 @property (strong, nonatomic) MyLinearLayout *backLy;
 @property (strong, nonatomic) UIScrollView *backScroll;
 @property (strong, nonatomic) WKWebView    *webView;
+@property (strong, nonatomic) BaseOwnerNavView *navBar;
 
 @end
 
@@ -34,52 +35,61 @@
     nav.backOperation = ^{
         [self dismissViewControllerAnimated:NO completion:nil];
     };
+    self.navBar = nav;
     
-//    self.backLy = [MyLinearLayout linearLayoutWithOrientation:MyOrientation_Vert];
-//    self.backLy.myHorzMargin = 0;
-//    self.backLy.myHeight = MyLayoutSize.wrap;
-//
-//    self.backScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - KNavBarHeight)];
-//    self.backScroll.contentSize = CGSizeMake(0, [self.backLy sizeThatFits:CGSizeMake(ScreenWidth, MAXFLOAT)].height);
-//    self.backLy.backgroundColor = UIColor.groupTableViewBackgroundColor;
-//    [self.view addSubview:self.backScroll];
-//    [self.backScroll addSubview:self.backLy];
-//
-//    UILabel *txt = [[UILabel alloc] initWithFrame:CGRectZero];
-//    txt.myHorzMargin = 10;
-//    txt.myHeight = MyLayoutSize.wrap;
-    
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"海鹭隐私政策8.24" ofType:@"docx"];
-//
-//    NSString *jScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);";
-//    WKUserScript *wkUScript = [[WKUserScript alloc] initWithSource:jScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-//    WKUserContentController *wkUController = [[WKUserContentController alloc] init];
-//    [wkUController addUserScript:wkUScript];
-        
     WKWebViewConfiguration *wkWebConfig = [[WKWebViewConfiguration alloc] init];
-//    wkWebConfig.userContentController = wkUController;
-    
     self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, KNavBarHeight, ScreenWidth, ScreenHeight - KNavBarHeight) configuration:wkWebConfig];
     [self.view addSubview:self.webView];
-    if (_type == 1) {
-        //服务
-        self.title = @"服务条款";
-//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.hailukuajing.cn/agreement/serviceAgreement.html"]]];
-    }else if(_type == 2){
-        self.title = @"隐私条款";
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.hailukuajing.cn/agreement/privacyPolicy.html"]]];
-    }else if (_type == 3){
-        self.title = @"海鹭跨境用户行为公约";
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.hailukuajing.cn/agreement/conventionConduct.html"]]];
-    }else{
-        self.title = @"用户使用许可协议";
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.hailukuajing.cn/agreement/behaviorProtocol.html"]]];
+    [self getContent];
+}
+
+- (void)getContent{
+    NSString *articleCode = @"";
+    switch (self.agreeType) {
+        case PrivacyAgreementTypeLogin:
+            articleCode = @"";
+            break;
+        case PrivacyAgreementTypeRegist:
+            articleCode = @"";
+            break;
+        case PrivacyAgreementTypeUser:
+            articleCode = @"ShopUserAgree";
+            break;
+        case PrivacyAgreementTypePrivacyAgreement:
+            articleCode = @"ShopPrivacy";
+            break;
+        case PrivacyAgreementTypeShiMing:
+            articleCode = @"AuthIdCardDeal";
+            break;
+        case PrivacyAgreementTypeSupplier:
+            articleCode = @"ShopSupply";
+            break;
+            
+        default:
+            break;
     }
+    
+    [THHttpManager GET:@"commons/articleInfo/getArticleInfo" parameters:@{@"articleCode":articleCode} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            NSString *content = @"";
+            if ([data objectForKey:@"content"]) {
+                id contentS = [data objectForKey:@"content"];
+                if (![contentS isEqual:[NSNull null]]) {
+                    content = [data objectForKey:@"content"];
+                    [self.webView loadHTMLString:content baseURL:nil];
+                }
+            }
+            if ([data objectForKey:@"title"]) {
+                id titleS = [data objectForKey:@"title"];
+                if (![titleS isEqual:[NSNull null]]) {
+                    self.navBar.titleL.text = titleS;
+                }
+            }
+        }
+    }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
-    
     return UIStatusBarStyleDefault;
 }
 

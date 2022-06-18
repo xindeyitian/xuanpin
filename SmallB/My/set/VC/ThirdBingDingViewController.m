@@ -103,14 +103,15 @@
             return;
         }
     }
-   
+    //审核状态0待审核1审核通过,-1审核失败
     __block BOOL isSiming = NO;
     [THHttpManager POST:@"shop/shopIdcardAuth/queryIdCard" parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         [self.tableView.mj_header endRefreshing];
         if ([data isKindOfClass:[NSDictionary class]] && returnCode == 200) {
             if ([data objectForKey:@"checkSign"]) {
-                isSiming = [[data objectForKey:@"checkSign"] integerValue] == 1;
+                NSInteger checkSign = [[data objectForKey:@"checkSign"] integerValue];
+                isSiming = checkSign == 1;
             }
         }
         if (isSiming) {

@@ -28,6 +28,8 @@
 @property (nonatomic , strong)BRCityModel *cityModel;
 @property (nonatomic , strong)BRAreaModel *areaModel;
 
+@property (nonatomic , copy)NSString *urlPath;
+@property (nonatomic , copy)NSString *bucket;
 @property (nonatomic , copy)NSString *bgImgUrl;
 @property (nonatomic , copy)NSString *logoImgUrl;
 @property (nonatomic , copy)NSString *shopDesc;
@@ -118,6 +120,8 @@
             self.areaModel.code = model.areaCode;
             self.areaModel.name = model.areaName;
 
+            self.urlPath = model.urlPath;
+            self.bucket = model.bucket;
             self.bgImgUrl = model.bgImgUrl;
             self.logoImgUrl = model.logoImgUrl;
             self.shopDesc = model.shopDesc;
@@ -180,27 +184,31 @@
     [self startLoadingHUD];
     if (imageAry.count) {
         [AppTool uploadImages:imageAry isAsync:YES callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
+            self.urlPath = msg;
+            self.bucket = @"llwf2";
             if (imageAry.count == 1) {
                 if (self.logoImg) {
-                    self.logoImgUrl =  [NSString stringWithFormat:@"%@/%@",msg,keys[0]];
+                    self.logoImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
                 }
                 if (self.bgImg) {
-                    self.bgImgUrl =  [NSString stringWithFormat:@"%@/%@",msg,keys[0]];
+                    self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
                 }
             }
-            if (imageAry.count == 2) {
-                self.logoImgUrl =  [NSString stringWithFormat:@"%@/%@",msg,keys[0]];
-                self.bgImgUrl =  [NSString stringWithFormat:@"%@/%@",msg,keys[1]];
+            if (imageAry.count == 2) { 
+                self.logoImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
+                self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[1]];
             }
-            [self updateShopInfo];
+            [self updateShopInfoWithChange:YES];
         }];
     }else{
-        [self updateShopInfo];
+        self.urlPath = @"";
+        self.bucket = @"";
+        [self updateShopInfoWithChange:NO];
     }
 }
 
--(void)updateShopInfo{
-    NSDictionary *dica = @{@"address":self.address,
+-(void)updateShopInfoWithChange:(BOOL)isChangeImage{
+    NSMutableDictionary *dica = [@{@"address":self.address,
                            @"areaCode":self.areaModel.code,
                            @"areaName":self.areaModel.name,
                            @"bgImgUrl":self.bgImgUrl,
@@ -213,7 +221,11 @@
                            @"shopId":self.shopId,
                            @"shopName":self.shopName,
                            
-    };
+    } mutableCopy];
+    if (isChangeImage) {
+        [dica setValue:self.urlPath forKey:@"urlPath"];
+        [dica setValue:self.bucket forKey:@"bucket"];
+    }
     [THHttpManager FormatPOST:@"shop/shopInfo/updateShopInfo" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200) {
@@ -293,7 +305,6 @@
         }
         cell.viewBlock = ^(NSString * _Nonnull content) {
             self.shopDesc = content;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
         };
         return cell;
     }
@@ -301,7 +312,7 @@
     if (indexPath.section == 2) {
         ShopInstroTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ShopInstroTableViewCell description]];
         if (self.bgImgUrl.length) {
-            cell.imageUrl = self.bgImgUrl;
+            cell.imageUrl = [AppTool dealURLWithBase:self.bgImgUrl withUrlPath:self.urlPath];;
         }
         if (self.bgImg) {
             cell.selectImage = self.bgImg;
@@ -317,7 +328,7 @@
     //店铺logo
     shopInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[shopInfoTableViewCell description]];
     if (self.logoImgUrl.length) {
-        cell.imageUrl = self.logoImgUrl;
+        cell.imageUrl = [AppTool dealURLWithBase:self.logoImgUrl withUrlPath:self.urlPath];
     }
     if (self.logoImg) {
         cell.selectImage = self.logoImg;

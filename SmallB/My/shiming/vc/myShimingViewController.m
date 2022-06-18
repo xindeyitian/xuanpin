@@ -213,13 +213,15 @@
         if (i == 3) {
             maxY = lineV.frame.origin.y + 1;
         }
-        if (i == 0 && [dica objectForKey:@"realName"]) {
-            field.text = [dica objectForKey:@"realName"];
-            self.nameStr = [dica objectForKey:@"realName"];
-        }
-        if (i == 1  && [dica objectForKey:@"idCard"]) {
-            field.text = [dica objectForKey:@"idCard"];
-            self.idCardNum = [dica objectForKey:@"idCard"];
+        if ([dica isKindOfClass:[NSDictionary class]]) {
+            if (i == 0 && [dica objectForKey:@"realName"]) {
+                field.text = [dica objectForKey:@"realName"];
+                self.nameStr = [dica objectForKey:@"realName"];
+            }
+            if (i == 1  && [dica objectForKey:@"idCard"]) {
+                field.text = [dica objectForKey:@"idCard"];
+                self.idCardNum = [dica objectForKey:@"idCard"];
+            }
         }
     }
     
@@ -239,6 +241,7 @@
     
     [button.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(6, 11))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
+        pvc.agreeType = PrivacyAgreementTypeShiMing;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }];

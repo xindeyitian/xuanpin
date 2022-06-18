@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *supplyId;//
 @property (nonatomic , copy)NSString *logImgUrl;//
 @property (nonatomic , copy)NSString *bgImgUrl;//
+@property (nonatomic , copy)NSString *urlPath;
 @property (nonatomic , copy)NSString *afterSaleValue;//售后评分
 @property (nonatomic , copy)NSString *appraisalValue;//评价评分
 @property (nonatomic , copy)NSString *areaName;//

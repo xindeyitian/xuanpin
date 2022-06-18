@@ -266,11 +266,13 @@
     }
     if (indexPath.section == 2 && indexPath.row == 1) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
+        pvc.agreeType = PrivacyAgreementTypeUser;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }
     if (indexPath.section == 2 && indexPath.row == 2) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
+        pvc.agreeType = PrivacyAgreementTypePrivacyAgreement;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }

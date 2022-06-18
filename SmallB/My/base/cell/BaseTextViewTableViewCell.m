@@ -52,17 +52,17 @@
     }else{
         self.numL.text = [NSString stringWithFormat:@"%lu/20",(unsigned long)textView.text.length];
     }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView{
-    if (textView.text.length > 20) {
-        textView.text = [textView.text substringToIndex:20];
-    }else{
-        self.numL.text = [NSString stringWithFormat:@"%lu/20",(unsigned long)textView.text.length];
-    }
     if (_viewBlock) {
         _viewBlock(textView.text);
     }
 }
+
+//- (void)textViewDidEndEditing:(UITextView *)textView{
+//    if (textView.text.length > 20) {
+//        textView.text = [textView.text substringToIndex:20];
+//    }else{
+//        self.numL.text = [NSString stringWithFormat:@"%lu/20",(unsigned long)textView.text.length];
+//    }
+//}
 
 @end

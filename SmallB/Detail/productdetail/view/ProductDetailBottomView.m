@@ -147,7 +147,9 @@
         productModel.commission = self.model.commission;
         productModel.goodsId = self.model.goodsId;
         productModel.goodsName = self.model.goodsName;
-        //productModel.goodsThumb = self.model.productImgAry.count ? self.model.productImgAry[0] : @"";
+        if (self.model.goodsImgs.images.count) {
+            productModel.goodsThumb = self.model.goodsImgs.images[0];
+        }
         productModel.marketPrice = self.model.marketPrice;
         productModel.saleCount = self.model.saleCount;
         productModel.salePrice = self.model.salePrice;

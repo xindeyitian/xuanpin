@@ -248,7 +248,7 @@
         }
         cell.viewBlock = ^(NSMutableArray * _Nonnull array) {
             self.imageAry = array;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
+            //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
         };
         return cell;
     }

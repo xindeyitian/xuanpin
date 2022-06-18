@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *idCardBack;
 @property(nonatomic,copy)NSString *realName;
 
+@property(nonatomic,copy)NSString *urlPath;
+@property(nonatomic,copy)NSString *bucket;
+
 @end
 
 NS_ASSUME_NONNULL_END

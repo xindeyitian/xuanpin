@@ -40,11 +40,13 @@
     self.titleL.text = storeModel.supplyName;
     self.merchantName.text = storeModel.supplyName;
     self.numL.text = [NSString stringWithFormat:@"共%@件产品",storeModel.goodsCount];
-    [self.merchantImg sd_setImageWithURL:[NSURL URLWithString:storeModel.logImgUrl] placeholderImage:KPlaceholder_DefaultImage];
+    NSString *logoUrl = [AppTool dealURLWithBase:storeModel.logImgUrl withUrlPath:storeModel.urlPath];
+    [self.merchantImg sd_setImageWithURL:[NSURL URLWithString:logoUrl] placeholderImage:KPlaceholder_DefaultImage];
     
-    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:storeModel.bgImgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    NSString *bgUrl = [AppTool dealURLWithBase:storeModel.bgImgUrl withUrlPath:storeModel.urlPath];
+    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:bgUrl] placeholderImage:[UIImage imageNamed:@""]];
     self.bgBlackV.backgroundColor = UIColor.blackColor;
-    self.bgBlackV.alpha = 0.7;
+    self.bgBlackV.alpha = 0.3;
     
     JZLStarView *starView = [self viewWithTag:11];
     starView.currentScore = [storeModel.stars integerValue];

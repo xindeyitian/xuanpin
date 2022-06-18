@@ -233,22 +233,21 @@
 }
 
 - (void)setScoreDataWithLable:(UILabel *)lable score:(NSString *)score{
-    lable.text = @"高";
-    lable.backgroundColor = [UIColor colorWithHexString:@"#FA172D" alpha:0.1];
-    lable.textColor = [UIColor colorWithHexString:@"#FA172D" alpha:1];
-    return;
     
-    self.pingjiaLevel.text = @"高";
-    self.pingjiaLevel.backgroundColor = [UIColor colorWithHexString:@"#FA172D" alpha:0.1];
-    self.pingjiaLevel.textColor = [UIColor colorWithHexString:@"#FA172D" alpha:1];
-    
-    self.wuliuLevel.text = @"中";
-    self.wuliuLevel.backgroundColor = [UIColor colorWithHexString:@"#FF7332" alpha:0.1];
-    self.wuliuLevel.textColor = [UIColor colorWithHexString:@"#FF7332" alpha:1];
-    
-    self.shouhouLevel.text = @"低";
-    self.shouhouLevel.backgroundColor = [UIColor colorWithHexString:@"#333333" alpha:0.1];
-    self.shouhouLevel.textColor = [UIColor colorWithHexString:@"#333333" alpha:1];
+    NSInteger scoreInteger = [score integerValue];
+    if (scoreInteger < 3) {
+        lable.text = @"低";
+        lable.backgroundColor = [UIColor colorWithHexString:@"#333333" alpha:0.1];
+        lable.textColor = [UIColor colorWithHexString:@"#333333" alpha:1];
+    }else if((scoreInteger > 3 || scoreInteger == 3) && scoreInteger < 6){
+        lable.text = @"中";
+        lable.backgroundColor = [UIColor colorWithHexString:@"#FF7332" alpha:0.1];
+        lable.textColor = [UIColor colorWithHexString:@"#FF7332" alpha:1];
+    }else{
+        lable.text = @"高";
+        lable.backgroundColor = [UIColor colorWithHexString:@"#FA172D" alpha:0.1];
+        lable.textColor = [UIColor colorWithHexString:@"#FA172D" alpha:1];
+    }
 }
 
 - (void)attentionBtnClicked:(BaseButton *)btn{

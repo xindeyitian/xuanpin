@@ -245,6 +245,13 @@
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataArray.count) {
+        GoodsListVosModel *model = self.dataArray[indexPath.item];
+        [AppTool GoToProductDetailWithID:model.goodsId];
+    }
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle{
 
     if (self.homeMoreCommonType == HomeMoreCommonType_SearchResult) {

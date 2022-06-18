@@ -436,4 +436,22 @@
   return [UIImage imageWithCGImage:scaledImage];
 }
 
++ (NSString *)dealURLWithBase:(NSString *)baseUrl withUrlPath:(NSString *)urlPath{
+    if ([baseUrl containsString:@"http"]) {
+        return baseUrl;
+    }else{
+        NSString *urlPathS = K_NotNullHolder(urlPath, @"");
+        if (urlPathS.length) {
+            return [NSString stringWithFormat:@"%@%@",urlPathS,baseUrl];
+        }
+    }
+    return baseUrl;
+}
+
++ (NSString *)dealChineseUrl:(NSString *)baseUrl{
+    //return [baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [baseUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+}
+
+
 @end

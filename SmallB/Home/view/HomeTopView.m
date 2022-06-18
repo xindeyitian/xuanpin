@@ -64,7 +64,7 @@
             TopImageBtn *imgBtn = [[TopImageBtn alloc]initWithFrame:CGRectMake((jiange+width)*(i%5),12+(12 + 44*KScreenW_Ratio + 30)*(i/5), width, 44*KScreenW_Ratio + 30)];
             imgBtn.bottomTitleL.font = DEFAULT_FONT_R(12*KScreenW_Ratio);
             imgBtn.backgroundColor = UIColor.clearColor;
-            [imgBtn.topImgV sd_setImageWithURL:[NSURL URLWithString:[model.categoryThumb stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            [imgBtn.topImgV sd_setImageWithURL:[NSURL URLWithString:[AppTool dealChineseUrl:model.categoryThumb]]];
             imgBtn.bottomTitleL.text = model.categoryName;
             [imgBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             imgBtn.tag = 200+i;

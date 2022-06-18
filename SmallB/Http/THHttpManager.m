@@ -180,15 +180,15 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
         }
     }else if(code == 401){
         //情况token
-//        [AppTool cleanLocalToken];
-//        [AppTool cleanLocalDataInfo];
-//        [THHttpManager showHttpMsg:@"请重新登录！"];
-//        LoginViewController * tab = [[LoginViewController alloc]init];
-//        [UIApplication sharedApplication].delegate.window.rootViewController = tab;
-//        if (block) {
-//            block(code,status,data1);
-//        }
-//        return;
+        [AppTool cleanLocalToken];
+        [AppTool cleanLocalDataInfo];
+        [THHttpManager showHttpMsg:@"请重新登录！"];
+        LoginViewController * tab = [[LoginViewController alloc]init];
+        [UIApplication sharedApplication].delegate.window.rootViewController = tab;
+        if (block) {
+            block(code,status,data1);
+        }
+        return;
     }else if (code == 10010){
         /**
          NO_SHOP(10010, "您还未开通店铺,请先开通店铺"),
@@ -232,7 +232,10 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
             NSDictionary *dica = [dictionary valueForKey:@"result"];
             alertVC.applyInfoDic = dica;
             if ([[dica allKeys] containsObject:@"checkMsg"]) {
-                alertVC.content = [dica valueForKey:@"checkMsg"];
+                id checkMsg = [dica objectForKey:@"checkMsg"];
+                if (![checkMsg isEqual:[NSNull null]]) {
+                    alertVC.content = K_NotNullHolder(checkMsg, @"");
+                }
             }
         }
         alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -242,7 +245,6 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
         }
         return;
     }
-    
     if (block) {
         if (status == THRequestStatusOK) {
             block(code,status,data1);

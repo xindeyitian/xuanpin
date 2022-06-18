@@ -205,6 +205,13 @@
     return model.height;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataArray.count) {
+        GoodsListVosModel *model = self.dataArray[indexPath.item];
+        [AppTool GoToProductDetailWithID:model.goodsId];
+    }
+}
+
 - (void)attentionBtnClicked:(BaseButton *)btn{
     
 }
