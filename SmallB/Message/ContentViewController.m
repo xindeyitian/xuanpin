@@ -29,6 +29,9 @@
     [super viewDidLoad];
     self.page = 1;
     
+    self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+    self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
+    
     BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     searchV.fieldEnabled = YES;
     searchV.viewClickBlock = ^(NSInteger index, NSString * _Nonnull searchStr) {

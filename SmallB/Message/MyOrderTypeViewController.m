@@ -33,6 +33,11 @@
 
     BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     searchV.fieldEnabled = YES;
+
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"输入订单号" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
+    searchV.searchField.attributedPlaceholder = attrString;
+    
+    searchV.leftSearchImgv.image = IMAGE_NAMED(@"放大镜_black");
     searchV.viewClickBlock = ^(NSInteger index, NSString * _Nonnull searchStr) {
         NSLog(@"%@",searchStr);
     };

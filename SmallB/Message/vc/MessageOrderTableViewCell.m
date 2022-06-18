@@ -32,7 +32,7 @@
         make.height.mas_equalTo(24);
     }];
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"订单号374787573857订单号374787573857订单号374787573857" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(15)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"订单号374787573857" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(15)];
     [self.bgView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(image.mas_top);

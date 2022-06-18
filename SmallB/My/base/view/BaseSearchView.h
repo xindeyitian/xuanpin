@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseSearchView : UIView
 
 @property (strong, nonatomic) UITextField *searchField;
+@property (strong, nonatomic)UIImageView *leftSearchImgv;
 
 @property(nonatomic,strong)void(^viewClickBlock)(NSInteger index,NSString *searchStr);
 

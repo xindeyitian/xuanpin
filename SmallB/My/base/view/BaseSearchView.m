@@ -51,6 +51,7 @@
     UIImageView *img = [[UIImageView alloc] initWithImage:IMAGE_NAMED(@"放大镜")];
     img.frame = CGRectMake(13, 5, 20, 20);
     [searchBgView addSubview:img];
+    self.leftSearchImgv = img;
     
     self.searchField = [[UITextField alloc] initWithFrame:CGRectZero];
     self.searchField.font = [UIFont systemFontOfSize:13];
