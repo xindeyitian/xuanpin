@@ -60,6 +60,7 @@
         field.font = DEFAULT_FONT_R(15);
         field.tag = 111 + i;
         [grayV addSubview:field];
+        [field addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
         [field mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(grayV).insets(UIEdgeInsetsMake(6, 12, 6, 12));
         }];
@@ -69,6 +70,12 @@
     btn.clipsToBounds = YES;
     btn.layer.cornerRadius = 25;
     [footerV addSubview:btn];
+}
+
+- (void)textFieldDidEditing:(UITextField *)field{
+    if (field.text.length > 16) {
+        field.text = [field.text substringToIndex:16];
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -151,6 +158,10 @@
     
     if (field1.text.length == 0) {
         [self showMessageWithString:@"请输入提现密码"];
+        return;
+    }
+    if (field1.text.length < 6 || field2.text.length < 6) {
+        [self showMessageWithString:@"请输入至少6位提现密码"];
         return;
     }
     if (field2.text.length == 0) {

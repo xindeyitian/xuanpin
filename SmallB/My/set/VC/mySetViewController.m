@@ -235,7 +235,7 @@
     }
     if (indexPath.section == 1 && indexPath.row == 2) {
         WithdrawPasswordViewController *vc = [WithdrawPasswordViewController new];
-        vc.isEdit = YES;
+        vc.isEdit = self.myInfoModel.isPassword.integerValue == 1;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section == 1 && indexPath.row == 3) {
