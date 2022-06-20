@@ -181,7 +181,7 @@
         alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:alertVC animated:NO completion:nil];
     }
-    if (indexPath.section == 0 && indexPath.row == 3) {
+    if (indexPath.section == 0 && indexPath.row == 2) {
         //性别
         changeGenderViewController *alertVC = [changeGenderViewController new];
         alertVC.sex = self.myInfoModel.sex;
@@ -193,14 +193,14 @@
         };
         [self  presentViewController:alertVC animated:NO completion:nil];
     }
-    if (indexPath.section == 0 && indexPath.row == 4) {
+    if (indexPath.section == 0 && indexPath.row == 3) {
         //生日
         [BRDatePickerView showDatePickerWithMode:BRDatePickerModeDate title:@"" selectValue:@"" resultBlock:^(NSDate * _Nullable selectDate, NSString * _Nullable selectValue) {
             self.myInfoModel.birthDay = selectValue;
             [self updateMyInfo];
         }];
     }
-    if (indexPath.section == 0 && indexPath.row == 5) {
+    if (indexPath.section == 0 && indexPath.row == 4) {
         if (self.myInfoModel.provinceName.length) {
             
         }else{
@@ -219,7 +219,7 @@
             [pickView show];
         }
     }
-    if (indexPath.section == 0 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
         changeNameViewController *alertVC = [changeNameViewController new];
         alertVC.nameStr = self.myInfoModel.realName;
         alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -288,7 +288,7 @@
             model.detailStr = infoModel.userId;
         }
         model.hiddenRightImgV = YES;
-        [sectionOneAry addObject:model];
+       // [sectionOneAry addObject:model];
     }
     {
         mySetDataModel *model = [[mySetDataModel alloc]init];

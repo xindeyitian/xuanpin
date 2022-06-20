@@ -34,7 +34,8 @@
     [self.productImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.bgView).offset(12);
         make.top.mas_equalTo(self.bgView).offset(12);
-        make.height.width.mas_equalTo(94);
+        make.bottom.mas_equalTo(self.bgView).offset(-12);
+        make.height.mas_equalTo(self.productImgV.mas_width);
     }];
     
     self.topImgV = [[UIImageView alloc]init];
@@ -70,7 +71,7 @@
     [self.bgView addSubview:soldLable];
     [soldLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.productTitleL.mas_left);
-        make.top.mas_equalTo(soldLable.superview).offset(50);
+        make.centerY.mas_equalTo(self.productImgV.mas_centerY);
         make.height.mas_equalTo(20);
     }];
     self.hasSoldLab = soldLable;
@@ -84,7 +85,7 @@
     [self.bgView addSubview:yongjinlable];
     [yongjinlable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.bgView.mas_right).offset(-14);
-        make.top.mas_equalTo(soldLable.mas_top);
+        make.centerY.mas_equalTo(self.productImgV.mas_centerY);
         make.height.mas_equalTo(20);
     }];
     self.yongjinLab = yongjinlable;
@@ -99,7 +100,7 @@
     [addShopwindowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.bgView.mas_right).offset(-12);
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(90);
+        make.width.mas_equalTo(100);
         make.bottom.mas_equalTo(self.productImgV.mas_bottom);
     }];
     
@@ -141,7 +142,7 @@
     }else{
         self.hasSoldLab.text = [NSString stringWithFormat:@"高佣%@%%赚积分%@",model.feeRate,model.commission];
     }
-    self.allpriceLab.font =  isRankList ? BOLD_FONT_R(15) : BOLD_FONT_R(18);
+    self.allpriceLab.font =  isRankList ? BOLD_FONT_R(15) : DIN_Medium_FONT_R(18);
     
     NSString *newprice = [NSString stringWithFormat:@"¥%@",model.salePrice];
     NSString *oldprice = [NSString stringWithFormat:@"¥%@",model.marketPrice];
@@ -150,7 +151,7 @@
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:oldPriceRange];
     [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:oldPriceRange];
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(12) range:NSMakeRange(0, 1)];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(13) range:NSMakeRange(0, 1)];
     self.allpriceLab.attributedText = attributeMarket;
 }
 

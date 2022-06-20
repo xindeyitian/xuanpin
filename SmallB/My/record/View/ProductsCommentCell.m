@@ -116,13 +116,13 @@
     [addShopwindowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.bgView.mas_right).offset(-12);
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(90);
+        make.width.mas_equalTo(100);
         make.bottom.mas_equalTo(self.productImgV.mas_bottom);
     }];
     
     UILabel *priceLable = [[UILabel alloc] initWithFrame:CGRectZero];
     priceLable.textColor = [UIColor colorWithHexString:@"#FF3B30"];
-    priceLable.font = FONTWEIGHT_MEDIUM_FONT_R(16);
+    priceLable.font = DIN_Medium_FONT_R(25);
     priceLable.text = @"";
     [self.bgView addSubview:priceLable];
     [priceLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -140,7 +140,7 @@
     self.productTitleL.text = dataModel.goodsName;
     [self.productImgV sd_setImageWithURL:[NSURL URLWithString:dataModel.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
     
-    self.yongjinL.text = [NSString stringWithFormat:@"高佣%@%@赚%@积分",dataModel.feeRate,@"%",dataModel.commission];
+    self.yongjinL.text = [NSString stringWithFormat:@"高佣%@%@赚积分%@",dataModel.feeRate,@"%",dataModel.commission];
     
     self.selectImgV.image = dataModel.isSelect ? IMAGE_NAMED(@"all_select_selected") : IMAGE_NAMED(@"all_select_select");
     
@@ -150,8 +150,12 @@
     NSRange oldPriceRange = NSMakeRange(newprice.length+1,oldprice.length);
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:oldPriceRange];
     [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:oldPriceRange];
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:oldPriceRange];
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:NSMakeRange(0, 1)];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Regular_FONT_R(12) range:oldPriceRange];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(18) range:NSMakeRange(0, 1)];
+    if ([newprice containsString:@"."]) {
+        NSString *first = [newprice componentsSeparatedByString:@"."].firstObject;
+        [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(18) range:NSMakeRange(first.length, newprice.length - first.length)];
+    }
     self.allpriceLab.attributedText = attributeMarket;
 }
     

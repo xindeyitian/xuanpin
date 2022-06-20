@@ -96,7 +96,7 @@
 - (void)shareBtnClick:(UIControl *)contro{
     
     float oneWidth = ScreenWidth - 70 - 16;
-    UIImage *image = [self shotShareImageFromView:self.BGWhiteV withHeight:390*KScreenW_Ratio];
+    UIImage *image = [self shotShareImageFromView:self.BGWhiteV withHeight:self.BGWhiteV.height];
     if (contro.tag == 120) {
         [AppTool shareWebPageToPlatformTypeWithData:image WXScene:WXSceneTimeline];
     }

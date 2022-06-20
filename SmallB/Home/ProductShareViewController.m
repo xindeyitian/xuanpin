@@ -100,26 +100,26 @@
     titleL.numberOfLines = 2;
     [bgWhiteV addSubview:titleL];
     
-    UILabel *priceL = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Medium_FONT_R(18)];
+    UILabel *priceL = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Regular_FONT_R(11)];
     priceL.frame = CGRectMake(12*KScreenW_Ratio, 298*KScreenW_Ratio, 248*KScreenW_Ratio, 33);
     [bgWhiteV addSubview:priceL];
     
     NSString *price = [NSString stringWithFormat:@"¥%@ ¥%@",self.model.salePrice,self.model.marketPrice];
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:price];
     NSRange range = NSMakeRange(0,1);
-    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(15) range:range];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(18) range:range];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(18) range:NSMakeRange(1,self.model.salePrice.length)];
     
-    NSString *old = [price componentsSeparatedByString:@" "].lastObject;
-    NSRange PriceRange = NSMakeRange(price.length-old.length,old.length);
+    NSRange PriceRange = NSMakeRange(price.length-self.model.marketPrice.length-1,self.model.marketPrice.length+1);
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:PriceRange];
     [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:PriceRange];
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(13) range:PriceRange];
+    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:PriceRange];
     
-    NSString *first = [price componentsSeparatedByString:@" "].firstObject;
-    NSString *firstDian= [first componentsSeparatedByString:@"."].firstObject;
-    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(25) range:NSMakeRange(1,firstDian.length-1)];
-    if ([price containsString:@"."]) {
-        [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(25) range:NSMakeRange(1,price.length-1)];
+    if ([self.model.salePrice containsString:@"."]) {
+        NSString *first = [self.model.salePrice componentsSeparatedByString:@"."].firstObject;
+        [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(25) range:NSMakeRange(1,first.length)];
+    }else{
+        [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(25) range:NSMakeRange(1,self.model.salePrice.length)];
     }
     priceL.attributedText = attributeMarket;
     

@@ -29,7 +29,7 @@
         make.centerX.mas_equalTo(self.bgView.mas_centerX);
     }];
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"客申请已提交，请等待审核！" textColor:KBlack333TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_M(17)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"申请已提交，请等待审核！" textColor:KBlack333TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_M(17)];
     [self.bgView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.bgView).offset(78);

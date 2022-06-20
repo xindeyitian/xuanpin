@@ -35,7 +35,7 @@
     //return @"转发赚钱";
     NSString *leval = [[NSUserDefaults standardUserDefaults] objectForKey:@"leval"];
     if ([leval isEqualToString:@"1"]) {
-        return @"转发赚钱";
+        return @"转发赚积分";
     }
     if ([leval isEqualToString:@"2"]) {
         return @"加入橱窗";

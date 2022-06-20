@@ -10,6 +10,7 @@
 #import "BaseSearchView.h"
 #import "RecordsModel.h"
 #import "HomeCollectionViewCell.h"
+#import "RankListContentTableViewCell.h"
 #import "SearchNavBar.h"
 
 @interface HomeMoreCommonViewController ()
@@ -35,7 +36,6 @@
     [super viewDidLoad];
     
     NSString *title = @"";
-    
     self.page = 1;
     self.dataArray = [NSMutableArray array];
     self.sortType = 0;
@@ -90,6 +90,7 @@
     self.collectionView.frame = CGRectMake(0, topHeight + 10+(haveTypeFlitter ? 50:0), ScreenWidth, ScreenHeight - 20 - (haveTypeFlitter ? 50:0) - topHeight);
     self.tableView.frame = CGRectMake(0,topHeight + 10+(haveTypeFlitter ? 50:0), ScreenWidth, ScreenHeight - 20 - (haveTypeFlitter ? 50:0) - topHeight);
     self.topView.frame = CGRectMake(0, topHeight, ScreenWidth, 50);
+    [self.tableView registerClass:[RankListContentTableViewCell class] forCellReuseIdentifier:[RankListContentTableViewCell description]];
     
     if (ziDingYiNav) {
         UIView *topBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, KStatusBarHeight + 44)];
@@ -228,12 +229,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    ProductsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProductsCommentCell description]];
-    cell.autoCorner = YES;
-    [cell defualtCornerInTableView:tableView atIndexPath:indexPath];
-    cell.showYongJin = YES;
+    if (self.homeMoreCommonType == HomeMoreCommonType_Recommend) {
+        ProductsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProductsCommentCell description]];
+        if (self.dataArray.count) {
+            cell.dataModel = self.dataArray[indexPath.row];
+        }
+        return cell;
+    }
+    
+    RankListContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RankListContentTableViewCell description]];
     if (self.dataArray.count) {
-        cell.dataModel = self.dataArray[indexPath.row];
+        cell.model = self.dataArray[indexPath.row];
     }
     return cell;
 }

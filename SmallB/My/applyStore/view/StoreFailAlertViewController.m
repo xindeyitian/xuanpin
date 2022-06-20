@@ -78,6 +78,7 @@
 
 - (void)btnClick:(BaseButton *)btn{
     if (btn.tag == 4) {
+       
         NSString *token = @"";
         if ([self.applyInfoDic isKindOfClass:[NSDictionary class]] && [[self.applyInfoDic allKeys] containsObject:@"token"])
             token = [self.applyInfoDic objectForKey:@"token"];

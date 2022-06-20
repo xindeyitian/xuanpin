@@ -185,7 +185,7 @@
     [addShopwindowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.mas_right).offset(-12);
         make.height.mas_equalTo(30);
-        make.width.mas_equalTo(90);
+        make.width.mas_equalTo(100);
         make.bottom.mas_equalTo(self.productImgV.mas_bottom);
     }];
     

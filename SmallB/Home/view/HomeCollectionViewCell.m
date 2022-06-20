@@ -134,7 +134,7 @@
     
     NSString *titleStr = [AppTool getCurrentLevalBtnInfo];
     self.addShopWindowBtn = [BaseButton CreateBaseButtonTitle:titleStr Target:self Action:@selector(addShopWindow:) Font:[UIFont systemFontOfSize:12] BackgroundColor:KMainBGColor Color:UIColor.whiteColor Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:1];
-    self.addShopWindowBtn.myWidth = 66;
+    self.addShopWindowBtn.myWidth = 76;
     self.addShopWindowBtn.myHeight = 25;
     self.addShopWindowBtn.layer.cornerRadius = 12.5;
     self.addShopWindowBtn.layer.masksToBounds = YES;

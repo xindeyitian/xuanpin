@@ -16,6 +16,7 @@
 #import "selectCouponTableViewController.h"
 #import "CouponListModel.h"
 #import "StoreManagerModel.h"
+#import "LoginViewController.h"
 
 @interface applyStoreViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -568,10 +569,9 @@
     [THHttpManager FormatPOST:@"shop/shopInfo/updateShopInfo" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200) {
-            if (_viewBlock) {
-                _viewBlock();
-            }
-            [self dismissViewControllerAnimated:NO completion:nil];
+            OpenStoreAlertViewController *alertVC = [OpenStoreAlertViewController new];
+            alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [self  presentViewController:alertVC animated:NO completion:nil];
         }
     }];
 }

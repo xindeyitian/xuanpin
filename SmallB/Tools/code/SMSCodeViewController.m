@@ -53,7 +53,7 @@
         [self loginRequest];
     };
     
-    UILabel *code = [UILabel creatLabelWithTitle:@"60 秒后重新获取验证码" textColor:KMaintextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(12)];
+    UILabel *code = [UILabel creatLabelWithTitle:@"120 秒后重新获取验证码" textColor:KMaintextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(12)];
     code.frame = CGRectMake(50, KNavBarHeight + 238, ScreenWidth - 100, 33);
     [self.view addSubview:code];
     self.codeL = code;
@@ -113,7 +113,7 @@
     [THHttpManager GET:[NSString stringWithFormat:@"%@",@"system/login/sendPhoneCode"] parameters:@{@"phoneNumber":self.phoneStr,@"type":@"2"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200) {
-            __block int timeout=60;
+            __block int timeout = 120;
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
             dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0);
