@@ -42,7 +42,11 @@
 
 - (void)setBannerAry:(NSArray *)bannerAry{
     _bannerAry = bannerAry;
-    self.bannerCycle.imageURLStringsGroup = _bannerAry;
+    NSMutableArray *resultBannerAry = [NSMutableArray array];
+    for (BannerListVosModel *model in _bannerAry) {
+        [resultBannerAry addObject:model.ossImgPath];
+    }
+    self.bannerCycle.imageURLStringsGroup = resultBannerAry;
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
@@ -50,10 +54,14 @@
 }
 
 - (void)tapClickWithIndex:(NSInteger)index{
-    shopShareAlertViewController *alertVC = [shopShareAlertViewController new];
-    alertVC.isOpenShop = index == 1;
-    alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
+    if (self.bannerAry.count && self.bannerAry.count > index) {
+        BannerListVosModel *model = self.bannerAry[index];
+        shopShareAlertViewController *alertVC = [shopShareAlertViewController new];
+        alertVC.isOpenShop = model.linkType.integerValue == 6;
+        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
+    }
+    
 }
 
 @end

@@ -208,7 +208,7 @@
     [self.productImgV sd_setImageWithURL:[NSURL URLWithString:goodModel.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
     self.productTitleL.text = goodModel.goodsName;
     self.hasSoldLab.text = [NSString stringWithFormat:@" 已售%@件 ",goodModel.saleCount];
-    self.yongjinLab.text = [NSString stringWithFormat:@"赚积分%@",goodModel.commission];
+    self.yongjinLab.text = [NSString stringWithFormat:@"赚积分 %@",goodModel.commission];
     
     NSString *newprice = [NSString stringWithFormat:@"¥%@",goodModel.salePrice];
     NSString *oldprice = [NSString stringWithFormat:@"¥%@",goodModel.marketPrice];

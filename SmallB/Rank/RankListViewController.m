@@ -44,7 +44,6 @@
 - (void)creatTopImgV{
     
     UIImageView *topimgV = [[UIImageView alloc]initWithImage:IMAGE_NAMED(@"tab_rank")];
-    topimgV.backgroundColor = UIColor.redColor;
     [self.view addSubview:topimgV];
     [topimgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.view);
@@ -72,11 +71,11 @@
     [whiteBGView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).offset(12);
         make.right.mas_equalTo(self.view).offset(-12);
-        make.top.mas_equalTo(topimgV.mas_bottom).offset(-10);
+        make.top.mas_equalTo(topimgV.mas_bottom).offset(-20);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
     
-    UIView *categoryV = [[UIView alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth-24, 42)];
+    UIView *categoryV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-24, 42)];
     categoryV.backgroundColor = UIColor.clearColor;
     [whiteBGView addSubview:categoryV];
     
@@ -93,7 +92,7 @@
     self.categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectZero];
     self.categoryView.weight = 1;
     self.categoryView.myHeight = 42;
-    self.categoryView.titles = @[@"小莲优选",@"今日榜单榜",@"今日积分榜"];
+    self.categoryView.titles = @[@"今日热销榜",@"今日积分榜",@"热销总榜"];
     self.categoryView.delegate = self;
     self.categoryView.titleSelectedColor = kRGB(250, 23, 45);
     self.categoryView.titleColor = KBlack333TextColor;

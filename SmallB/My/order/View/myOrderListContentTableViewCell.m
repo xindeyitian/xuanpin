@@ -230,7 +230,7 @@
     }else{
         yongjinStr = @"";
     }
-    NSString *yongjin = [NSString stringWithFormat:@"赚积分%@",yongjinStr];
+    NSString *yongjin = [NSString stringWithFormat:@"赚积分 %@",yongjinStr];
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   %@",pay,yongjin]];
     
     NSRange rang = [attributeMarket.string rangeOfString:@"¥"];

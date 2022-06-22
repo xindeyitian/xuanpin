@@ -17,18 +17,69 @@
 
 -(NSMutableArray *)productImgAry{
     
-    if (K_NotNull(self.goodsImgs)) {
+    if (self.goodsImgs.images.length) {
         NSError *err;
-        NSString * jsonString = self.goodsImgs;
-        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                            options:NSJSONReadingMutableContainers error:&err];
-        if ([dic objectForKey:@"images"]) {
-            NSArray *array = (NSArray *)[dic objectForKey:@"images"];
-            return [array mutableCopy];
-        }
+        NSString * jsonString = self.goodsImgs.images;
+        id tmp = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments | NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
+        if (tmp) {
+              if ([tmp isKindOfClass:[NSArray class]]) {
+                  return tmp;
+              } else if([tmp isKindOfClass:[NSString class]]
+                        || [tmp isKindOfClass:[NSDictionary class]]) {
+                  return [@[] mutableCopy];
+              } else {
+                  return [@[] mutableCopy];
+              }
+          } else {
+              return [@[] mutableCopy];
+          }
+      } else {
+          return [@[] mutableCopy];
+      }
+    return [@[] mutableCopy];
+//        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                            options:NSJSONReadingMutableContainers error:&err];
+//        if ([dic objectForKey:@"images"]) {
+//            NSArray *array = (NSArray *)[dic objectForKey:@"images"];
+//            return [array mutableCopy];
+//        }
+//    }
+//    return [@[] mutableCopy];
+//
+//    if (K_NotNull(self.goodsImgs)) {
+//        NSError *err;
+//        NSString * jsonString = self.goodsImgs;
+//        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+//                                                            options:NSJSONReadingMutableContainers error:&err];
+//        if ([dic objectForKey:@"images"]) {
+//            NSArray *array = (NSArray *)[dic objectForKey:@"images"];
+//            return [array mutableCopy];
+//        }
+//    }
+//    return [NSMutableArray array];
+}
+
+- (NSString *)salePrice{
+    if (_salePrice) {
+        _salePrice = [NSString stringWithFormat:@"%.2f",_salePrice.floatValue];
     }
-    return [NSMutableArray array];
+    return _salePrice;
+}
+
+- (NSString *)marketPrice{
+    if (_marketPrice) {
+        _marketPrice = [NSString stringWithFormat:@"%.2f",_marketPrice.floatValue];
+    }
+    return _marketPrice;
+}
+
+- (NSString *)commission{
+    if (_commission) {
+        _commission = [NSString stringWithFormat:@"%.2f",_commission.floatValue];
+    }
+    return _commission;
 }
 
 @end

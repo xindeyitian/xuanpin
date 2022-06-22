@@ -86,7 +86,7 @@
     
     UIButton *shareBtn = [self viewWithTag:114];
     UIButton *buyBtn = [self viewWithTag:115];
-    [shareBtn setTitle:[NSString stringWithFormat:@"转发赚\n¥%@",model.commission] forState:UIControlStateNormal];
+    [shareBtn setTitle:[NSString stringWithFormat:@"转发赚\n%@",model.commission] forState:UIControlStateNormal];
     [buyBtn setTitle:[NSString stringWithFormat:@"立即购买\n¥%@",model.salePrice] forState:UIControlStateNormal];
     if ([AppTool getCurrentLevalIsAdd]) {
         [shareBtn setTitle:@"加入橱窗" forState:UIControlStateNormal];
@@ -147,8 +147,8 @@
         productModel.commission = self.model.commission;
         productModel.goodsId = self.model.goodsId;
         productModel.goodsName = self.model.goodsName;
-        if (self.model.goodsImgs.images.count) {
-            productModel.goodsThumb = self.model.goodsImgs.images[0];
+        if (self.model.productImgAry.count) {
+            productModel.goodsThumb = self.model.productImgAry[0];
         }
         productModel.marketPrice = self.model.marketPrice;
         productModel.saleCount = self.model.saleCount;

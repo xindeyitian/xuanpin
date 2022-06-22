@@ -53,6 +53,27 @@
     }
 }
 
+- (NSString *)salePrice{
+    if (_salePrice) {
+        _salePrice = [NSString stringWithFormat:@"%.2f",_salePrice.floatValue];
+    }
+    return _salePrice;
+}
+
+- (NSString *)marketPrice{
+    if (_marketPrice) {
+        _marketPrice = [NSString stringWithFormat:@"%.2f",_marketPrice.floatValue];
+    }
+    return _marketPrice;
+}
+
+- (NSString *)commission{
+    if (_commission) {
+        _commission = [NSString stringWithFormat:@"%.2f",_commission.floatValue];
+    }
+    return _commission;
+}
+
 @end
 
 @implementation BlockDefineVosModel

@@ -310,7 +310,7 @@
     if ([model.orderState isEqual:@"1"]) {
         pay = @"待付款 ¥199";
     }
-    NSString *yongjin = [NSString stringWithFormat:@"赚积分%@",model.totalMoneyAgent];
+    NSString *yongjin = [NSString stringWithFormat:@"赚积分 %@",model.totalMoneyAgent];
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   %@",pay,yongjin]];
     
     NSRange rang = [attributeMarket.string rangeOfString:@"¥"];

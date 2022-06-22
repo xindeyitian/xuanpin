@@ -69,13 +69,12 @@
 
 - (void)setModel:(ProductDetailModel *)model{
     _model = model;
-    
-    if (_model.goodsImgs.images.count) {
-        [self.imageV sd_setImageWithURL:[NSURL URLWithString:_model.goodsImgs.images[0]] placeholderImage:KPlaceholder_DefaultImage];
+    if (_model.productImgAry.count) {
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:_model.productImgAry[0]] placeholderImage:KPlaceholder_DefaultImage];
     }
     self.nameL.text = model.goodsName;
     self.priceL.text = [NSString stringWithFormat:@"¥ %@",model.salePrice];
-    self.zhuanL.text = [NSString stringWithFormat:@"赚积分%@",model.commission];
+    self.zhuanL.text = [NSString stringWithFormat:@"赚积分 %@",model.commission];
 }
 
 - (void)closeClick{

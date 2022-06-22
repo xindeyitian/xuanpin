@@ -43,7 +43,7 @@
     productV.backgroundColor = KWhiteBGColor;
     [self.view addSubview:productV];
     
-    NSArray *titleAry = @[@"云仓产品",@"自有产品"];
+    NSArray *titleAry = @[@"云仓产品",@"自营产品"];
     for (int i =0; i < 2; i ++) {
         BaseButton *btn = [BaseButton CreateBaseButtonTitle:titleAry[i] Target:self Action:@selector(btnClick:) Font:DEFAULT_FONT_R(16) BackgroundColor:UIColor.clearColor Color:KBlack999TextColor Frame:CGRectMake( i == 0 ? 34*KScreenW_Ratio: ScreenWidth - 164*KScreenW_Ratio, 5, 130*KScreenW_Ratio, 35) Alignment:NSTextAlignmentCenter Tag:50+i];
         [btn setTitleColor:KMaintextColor forState:UIControlStateSelected];

@@ -138,7 +138,7 @@
     self.yongjinLab.hidden = !isRankList;
     if (isRankList) {
         self.hasSoldLab.text = [NSString stringWithFormat:@"已售%@件",model.saleCount];
-        self.yongjinLab.text = [NSString stringWithFormat:@"赚积分%@",model.commission];
+        self.yongjinLab.text = [NSString stringWithFormat:@"赚积分 %@",model.commission];
     }else{
         self.hasSoldLab.text = [NSString stringWithFormat:@"高佣%@%%赚积分%@",model.feeRate,model.commission];
     }

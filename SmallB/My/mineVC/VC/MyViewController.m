@@ -84,12 +84,12 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
 }
 
 - (void)banner{
-    [THHttpManager GET:@"commons/bannerInfo/bannerList" parameters:@{@"bannerCode":@"shopCentreCode"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+    [THHttpManager GET:@"commons/bannerInfo/bannerList" parameters:@{@"bannerCode":@"shopCenterCode"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self.bannerAry removeAllObjects];
         if (returnCode == 200 &&  [data isKindOfClass:[NSArray class]]) {
             for (NSDictionary *dica in data) {
                 BannerListVosModel *model = [BannerListVosModel mj_objectWithKeyValues:dica];
-                [self.bannerAry addObject:model.ossImgPath];
+                [self.bannerAry addObject:model];
             }
         }
         [self.tableView reloadData];

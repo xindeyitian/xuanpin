@@ -296,7 +296,7 @@
     _goodModel = goodModel;
     [self.productImgV sd_setImageWithURL:[NSURL URLWithString:goodModel.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
 
-    self.zhuanL.text = [NSString stringWithFormat:@"赚积分%@",goodModel.commission];
+    self.zhuanL.text = [NSString stringWithFormat:@"赚积分 %@",goodModel.commission];
     
     float width = self.frame.size.width;
     NSString *string = [NSString stringWithFormat:@"  热销:%@  ",goodModel.saleCount];

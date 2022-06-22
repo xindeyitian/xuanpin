@@ -9,7 +9,7 @@
 #import "BasePhoneTableViewCell.h"
 #import "BasePhoneCodeTableViewCell.h"
 
-@interface WithdrawPasswordViewController ()
+@interface WithdrawPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic , copy)NSString *phone;
 @property (nonatomic , copy)NSString *code;
@@ -59,6 +59,8 @@
         field.placeholder = i == 0 ? @"请输入提现密码":@"再次输入提现密码";
         field.font = DEFAULT_FONT_R(15);
         field.tag = 111 + i;
+        field.delegate = self;
+        field.clearButtonMode = UITextFieldViewModeWhileEditing;
         [grayV addSubview:field];
         [field addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
         [field mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,6 +78,23 @@
     if (field.text.length > 16) {
         field.text = [field.text substringToIndex:16];
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *toString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (![toString isEqualToString:@""]) {
+        if ([self isChinese:toString]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+- (BOOL)isChinese:(NSString *)string {
+    NSString *regex = @"^[\u4E00-\u9FA5]+$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+
+    BOOL isMatch = [pred evaluateWithObject:string];
+    return isMatch;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

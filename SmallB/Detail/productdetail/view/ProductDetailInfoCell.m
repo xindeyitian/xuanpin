@@ -124,7 +124,7 @@
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
-    self.pageLable.text = [NSString stringWithFormat:@"%ld/%lu",index+1,(unsigned long)self.detailModel.goodsImgs.images.count];
+    self.pageLable.text = [NSString stringWithFormat:@"%ld/%lu",index+1,(unsigned long)self.detailModel.productImgAry.count];
 }
 
 - (void)setDetailModel:(ProductDetailModel *)detailModel{
@@ -132,9 +132,10 @@
     self.productTitle.text = detailModel.goodsName;
     
     self.soldNum.text = [NSString stringWithFormat:@"已售: %@",detailModel.saleCount];
-    self.cycleView.imageURLStringsGroup = detailModel.goodsImgs.images;
-    if (detailModel.goodsImgs.images.count) {
-        self.pageLable.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)detailModel.goodsImgs.images.count];
+
+    self.cycleView.imageURLStringsGroup = detailModel.productImgAry;
+    if (detailModel.productImgAry.count) {
+        self.pageLable.text = [NSString stringWithFormat:@"1/%lu",(unsigned long)detailModel.productImgAry.count];
     }
    
     NSString *titleStr = [NSString stringWithFormat:@"赚积分 %@",K_NotNullHolder(detailModel.commission, @"")];

@@ -80,6 +80,7 @@
     _hiddenBackBtn = hiddenBackBtn;
     self.backBtn.hidden = _hiddenBackBtn;
     self.searchView.frame = CGRectMake( _hiddenBackBtn ? 12 : 44, KStatusBarHeight + 7 , ScreenWidth- 60 - (_hiddenBackBtn ?12 : 44), 30);
+    self.searchField.frame = CGRectMake(38, 0, self.searchView.frame.size.width - 43, 30);
 }
 
 - (void)setBtnAry:(NSArray *)btnAry{

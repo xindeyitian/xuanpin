@@ -248,7 +248,7 @@
 {
     if (_webViewHeight != [self.webView.scrollView contentSize].height) {
         _webViewHeight = [self.webView.scrollView contentSize].height;
-        self.webView.frame = CGRectMake(12,12, ScreenWidth - 24, _webViewHeight);
+        self.webView.frame = CGRectMake(12,12, ScreenWidth - 48, _webViewHeight);
         [self.productDetailTable reloadSections:[[NSIndexSet alloc] initWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
@@ -375,6 +375,7 @@
             ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:data];
             self.productDetailModel = model;
             [self.commentArray addObjectsFromArray:self.productDetailModel.appraisesListVoPage.records];
+            NSLog(@"详情====%@",model.descImgs);
             [self createWebView:model.descImgs];
             self.bottomView.model = model;
             [self.productDetailTable reloadData];
@@ -429,7 +430,7 @@
     // 添加js调用
     [wkUController addUserScript:wkUserScript];
     
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(12, 12, self.view.frame.size.width - 24, 1) configuration:wkWebConfig];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(12, 12, self.view.frame.size.width - 48, 1) configuration:wkWebConfig];
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.opaque = NO;
     self.webView.userInteractionEnabled = NO;
@@ -437,6 +438,7 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     [self.webView sizeToFit];
+
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView loadHTMLString:htmlStr baseURL:nil];
 }
@@ -499,8 +501,8 @@
     model.commission = self.productDetailModel.commission;
     model.goodsId = self.productDetailModel.goodsId;
     model.goodsName = self.productDetailModel.goodsName;
-    if (self.productDetailModel.goodsImgs.images.count) {
-        model.goodsThumb = self.productDetailModel.goodsImgs.images[0];
+    if (self.productDetailModel.productImgAry.count) {
+        model.goodsThumb = self.productDetailModel.productImgAry[0];
     }
     model.marketPrice = self.productDetailModel.marketPrice;
     model.saleCount = self.productDetailModel.saleCount;

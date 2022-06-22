@@ -89,7 +89,7 @@
         make.height.mas_equalTo(20);
     }];
     
-    UILabel *yongjinLable = [UILabel creatLabelWithTitle:@"赚积分199" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DIN_Medium_FONT_R(15)];
+    UILabel *yongjinLable = [UILabel creatLabelWithTitle:@"赚积分 199" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DIN_Medium_FONT_R(15)];
     yongjinLable.backgroundColor = UIColor.clearColor;
     [self.bgView addSubview:yongjinLable];
     [yongjinLable mas_makeConstraints:^(MASConstraintMaker *make) {

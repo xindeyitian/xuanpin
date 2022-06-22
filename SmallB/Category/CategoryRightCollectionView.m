@@ -172,6 +172,7 @@
     {
         if (indexPath.section == 0) {
             GoodsCategoryListVosModel *cateModel = self.dataAry[0];
+            NSLog(@"----%@",cateModel.bannerUrls);
             if (cateModel.bannerUrls.count) {
                 CJCategoryRightSectionOneHeaderView * headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CJCategoryRightSectionOneHeaderView" forIndexPath:indexPath];
                 if (self.currentAry.count) {

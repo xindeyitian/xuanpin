@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProductImagesModel : THBaseModel
 
-@property (nonatomic , strong)NSMutableArray *images;
+@property (nonatomic , strong)NSString *images;
 
 @end
 
