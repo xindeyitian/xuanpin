@@ -30,18 +30,10 @@
     //初始化window
     [self initWindow];
 //
-//    [self initLaunch];
-//
-//    [self inituserManger];
-    
+    [self initLaunch];
+
     [self WorkUI];
-                               
-//    [THUserManager clearUserModel];
-//    [AMapServices sharedServices].apiKey = @"c63b1057148412dfaec447a4f7ccefdb";
-
-    [self confitUShareSettings];
-    [self configUSharePlatforms];
-
+    
     [self keyBoard];
 //    [self firstDownload];
     
@@ -65,24 +57,6 @@
     keyboardManager.shouldShowToolbarPlaceholder = NO; // 是否显示占位文字
     keyboardManager.placeholderFont = [UIFont boldSystemFontOfSize:17]; // 设置占位文字的字体
     keyboardManager.keyboardDistanceFromTextField = 32.0f; // 输入框距离键盘的距离
-}
-
-
-- (void)confitUShareSettings{
-   
-}
-
-- (void)configUSharePlatforms{
-
-      [WXApi registerApp:weChatAppID universalLink:@"https://xlxp/app/"];
-//    [UMSocialGlobal shareInstance].universalLinkDic = @{
-//        @(UMSocialPlatformType_WechatSession):@"https://xlxp/app/",
-//        @(UMSocialPlatformType_WechatTimeLine):@"https://xlxp/app/",
-//        @(UMSocialPlatformType_APSession):@"https://xlxp/app/"
-//    };
-//
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx2a13459e7ffbd403" appSecret:@"27a6a314dd551a71930c0833b384586f" redirectURL:@"https://xlxp/app/"];
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_APSession appKey:@"2021003130655095" appSecret:nil redirectURL:@"https://xlxp/app/"];
 }
 
 -(void)firstDownload{
@@ -159,14 +133,14 @@
   
 -(void)initLaunch{
     //设置你工程的启动页使用的是:LaunchImage 还是 LaunchScreen.storyboard(不设置默认:LaunchImage)
-    [XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
+    //[XHLaunchAd setLaunchSourceType:SourceTypeLaunchImage];
     
     //1.因为数据请求是异步的,请在数据请求前,调用下面方法配置数据等待时间.
     //2.设为3即表示:启动页将停留3s等待服务器返回广告数据,3s内等到广告数据,将正常显示广告,否则将不显示
     //3.数据获取成功,配置广告数据后,自动结束等待,显示广告
     //注意:请求广告数据前,必须设置此属性,否则会先进入window的的根控制器x
     
-    [XHLaunchAd setWaitDataDuration:4];
+   // [XHLaunchAd setWaitDataDuration:4];
     
 //    [THHttpManager getLogPictureBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
 //
@@ -216,8 +190,6 @@
         self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
     #endif
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxec3bc97a206b8a4f" appSecret:@"b2f4620ed95bcc431127b70cf4e2e68e" redirectURL:@"http://www.kaopudian.cn/"];
-//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatTimeLine appKey:@"wxec3bc97a206b8a4f" appSecret:@"b2f4620ed95bcc431127b70cf4e2e68e" redirectURL:@"http://www.kaopudian.cn/"];
 }
 -(void)inituserManger{
     
@@ -258,10 +230,7 @@
     //去掉UINavigationBar黑线
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    
-//    self.window.rootViewController = [[LoginViewController alloc]init];
-//    return;
-    
+
     NSString *token = [AppTool getLocalToken];
     NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"login"];
 
