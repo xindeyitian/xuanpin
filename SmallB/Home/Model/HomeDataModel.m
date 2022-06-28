@@ -38,19 +38,47 @@
 - (void)setGoodsName:(NSString *)goodsName{
     _goodsName = goodsName;
     
+//    UILabel *lable = [[UILabel alloc] initWithFrame:CGRectZero];
+//    lable.text = goodsName;
+//    lable.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
+//    lable.numberOfLines = 2;
+//    CGFloat lineHeight = ceilf(lable.font.lineHeight);
+//
+//    CGFloat lableHeight = [goodsName sizeWithLabelWidth:(ScreenWidth - 32 - 24) / 2 font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]].height;
+//
+//    if (_isFirst) {
+//        NSLog(@"第一个");
+//        self.height = lineHeight * 2 + 8 + ((ScreenWidth - 31) / 2);
+//    }else{
+//        NSLog(@"第一个1");
+//        if (lableHeight > lineHeight) {
+//            self.height = lineHeight * 2 + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;
+//        }else{
+//            self.height = lineHeight + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;
+//        }
+//    }
+}
+
+- (CGFloat)height{
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectZero];
-    lable.text = goodsName;
+    lable.text = _goodsName;
     lable.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
     lable.numberOfLines = 2;
     CGFloat lineHeight = ceilf(lable.font.lineHeight);
     
-    CGFloat lableHeight = [goodsName sizeWithLabelWidth:(ScreenWidth - 32 - 24) / 2 font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]].height;
+    CGFloat lableHeight = [_goodsName sizeWithLabelWidth:(ScreenWidth - 32 - 24) / 2 font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]].height;
     
-    if (lableHeight > lineHeight) {
-        self.height = lineHeight * 2 + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;;
+    float allHeight = .0f;
+    if (_isFirst) {
+        allHeight = ((ScreenWidth - 31) / 2);
     }else{
-        self.height = lineHeight + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;;
+        if (lableHeight > lineHeight) {
+            allHeight = lineHeight * 2 + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;
+        }else{
+            allHeight = lineHeight + 8 + ((ScreenWidth - 31) / 2) * 3 / 4 + 40 + 33 + 12;
+        }
     }
+    return allHeight;
 }
 
 - (NSString *)salePrice{
@@ -69,9 +97,24 @@
 
 - (NSString *)commission{
     if (_commission) {
-        _commission = [NSString stringWithFormat:@"%.2f",_commission.floatValue];
+        NSString *commisso = K_NotNullHolder(_commission, @"0");
+        _commission = [NSString stringWithFormat:@"%.2f",commisso.floatValue];
     }
-    return _commission;
+    return @"0";
+}
+
+- (NSString *)saleCount{
+    if (_saleCount) {
+        return K_NotNullHolder(_saleCount, @"0");
+    }
+    return @"0";
+}
+
+- (NSString *)stockQuantity{
+    if (_stockQuantity) {
+        return K_NotNullHolder(_stockQuantity, @"0");
+    }
+    return @"0";
 }
 
 @end

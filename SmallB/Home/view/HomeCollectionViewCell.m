@@ -15,6 +15,8 @@
 @property (strong, nonatomic) UILabel        *productSoldNum;
 @property (strong, nonatomic) UILabel        *commissionNum;
 @property (strong, nonatomic) UIButton       *addShopWindowBtn;
+@property (strong, nonatomic)MyLinearLayout *numLay;
+@property (strong, nonatomic)MyLinearLayout *bottomLay;
 
 @end
 
@@ -49,6 +51,10 @@
         [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(25) range:NSMakeRange(1,price.length-1)];
     }
     self.productprice.attributedText = attributeMarket;
+    
+    self.numLay.hidden = self.bottomLay.hidden = self.productName.hidden = model.isFirst;
+    self.rootLy.padding = UIEdgeInsetsMake(0, 0,model.isFirst ? 0: 12, 0);
+    self.productImage.myHeight = model.isFirst ? (ScreenWidth - 31) / 2: ((ScreenWidth - 31) / 2) * 3 / 4;
 }
 
 - (void)initView{
@@ -86,6 +92,7 @@
     numLy.myTop = 5;
     numLy.gravity = MyGravity_Vert_Center;
     [self.rootLy addSubview:numLy];
+    self.numLay = numLy;
     
     self.productprice = [[UILabel alloc] initWithFrame:CGRectZero];
     self.productprice.textColor = [UIColor colorWithHexString:@"#FF3B30"];
@@ -114,6 +121,7 @@
     bottomLy.myTop = 8;
     bottomLy.gravity = MyGravity_Vert_Center;
     [self.rootLy addSubview:bottomLy];
+    self.bottomLay = bottomLy;
     
     self.commissionNum = [[UILabel alloc] initWithFrame:CGRectZero];
     self.commissionNum.myWidth = MyLayoutSize.wrap;

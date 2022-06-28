@@ -149,7 +149,6 @@
     return currentViewController;
 }
 
-
 +(NSString *)getLocalToken{
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     //token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTE3Mzc0NTcsInVzZXJuYW1lIjoiMTMzNDA4ODYzNzAifQ.WGdC9aMyU5BZ-7EHjnRu0dko2q14t1rBzTJXyYRWBM4";
@@ -275,11 +274,19 @@
     }
     
     NSMutableArray *localAry = [NSMutableArray arrayWithArray:[self getLocalSearchHistory]];
+    if ([localAry containsObject:searchStr]) {
+        [localAry removeObject:searchStr];
+    }
     [localAry insertObject:searchStr atIndex:0];
-    
+    NSMutableArray *resultAry = [NSMutableArray array];
+    if (localAry.count > 9) {
+        resultAry = [[localAry subarrayWithRange:NSMakeRange(0, 9)] mutableCopy];
+    }else{
+        [resultAry addObjectsFromArray:localAry];
+    }
     NSSet *set = [NSSet setWithArray:localAry];
     NSLog(@"新增后本地存储%@",[set allObjects]);
-    [[NSUserDefaults standardUserDefaults]  setValue:[set allObjects] forKey:@"searchList"];
+    [[NSUserDefaults standardUserDefaults]  setValue:resultAry forKey:@"searchList"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -315,6 +322,22 @@
     NSDate *creatDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd "];
+    NSString *destDateString = [dateFormatter stringFromDate:creatDate];
+    return destDateString;
+}
+
++ (NSString *)changeTimeStampFormate:(NSString *)timpStamp {
+    
+    NSString *timeStr;
+    if ([timpStamp length] >= 10) {
+        timeStr = [timpStamp substringToIndex:10];
+    } else {
+        timeStr = @"0";
+    }
+    NSTimeInterval timeStamp = [timeStr integerValue];
+    NSDate *creatDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *destDateString = [dateFormatter stringFromDate:creatDate];
     return destDateString;
 }
@@ -453,5 +476,19 @@
     return [baseUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 }
 
++ (void)dealCollectionDataAry:(NSMutableArray *)listAry{
+    if (listAry.count) {
+        GoodsListVosModel *model = [listAry firstObject];
+        model.isFirst = YES;
+    }
+}
+
++ (NSMutableArray *)dealCollectionResultAry:(NSMutableArray *)listAry{
+    if (listAry.count) {
+        GoodsListVosModel *model = [listAry firstObject];
+        model.isFirst = YES;
+    }
+    return listAry;
+}
 
 @end

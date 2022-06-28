@@ -149,7 +149,6 @@
     [self.view addSubview:self.homeCollection];
     [self.view sendSubviewToBack:self.homeCollection];
 
-    [self.homeCollection reloadData];
     [self.homeCollection registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:[HomeCollectionViewCell description]];
     [self.homeCollection registerClass:[HomeMoreCollectionReusableView class] forSupplementaryViewOfKind:@"UICollectionElementKindSectionHeader" withReuseIdentifier:@"HomeMoreCollectionReusableView"];
     
@@ -210,6 +209,8 @@
                     [self.homeCollection.mj_footer endRefreshingWithNoMoreData];
                 }
             }
+            self.dataArray = [AppTool dealCollectionResultAry:self.dataArray];
+            //[AppTool dealCollectionDataAry:self.dataArray];
             [self.homeCollection reloadData];
         }
     }];
@@ -282,6 +283,7 @@
 - (CGFloat)waterflowLayout:(THFlowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath{
     GoodsListVosModel *model = self.dataArray[indexPath.item];
     return model.height;
+    return  indexPath.item == 0 ? model.firstHeight : model.height;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

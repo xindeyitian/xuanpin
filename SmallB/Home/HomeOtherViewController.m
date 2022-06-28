@@ -108,6 +108,7 @@
                     [self.homeCollection.mj_footer endRefreshingWithNoMoreData];
                 }
             }
+            [AppTool dealCollectionDataAry:self.dataArray];
             [self.homeCollection reloadData];
         }
     }];

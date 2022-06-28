@@ -16,7 +16,6 @@ typedef NS_ENUM(NSInteger, myOrderType) {
     myOrderTypeWaitingPendingReceipt,//待收货
     myOrderTypeWaitingRefund,//退款/售后
     myOrderTypeWaitingComplete,//已完成
-
 };
 
 @interface myOrderViewController : THBaseViewController

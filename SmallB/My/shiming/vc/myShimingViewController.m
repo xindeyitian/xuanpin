@@ -229,8 +229,8 @@
     [button setImage:IMAGE_NAMED(@"choose") forState:UIControlStateNormal];
     [button setImage:IMAGE_NAMED(@"choosed") forState:UIControlStateSelected];
     [button addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:button];
-    self.chooseButton = button;
+    //[headerView addSubview:button];
+    //self.chooseButton = button;
     
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"已阅读并同意《供应链用户服务协议》" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"]}];
     
@@ -246,7 +246,7 @@
         [self presentViewController:pvc animated:YES completion:nil];
     }];
     
-    headerView.frame = CGRectMake(0, 0, ScreenWidth, maxY + 12 + 114);
+    headerView.frame = CGRectMake(0, 0, ScreenWidth, maxY + 12 + 57);
     self.tableView.tableHeaderView = headerView;
 }
 
@@ -329,10 +329,10 @@
         [self showMessageWithString:@"请输入验证码"];
         return;
     }
-    if (!self.chooseButton.selected) {
-        [self showMessageWithString:@"请阅读并同意《供应链用户服务协议》"];
-        return;
-    }
+//    if (!self.chooseButton.selected) {
+//        [self showMessageWithString:@"请阅读并同意《供应链用户服务协议》"];
+//        return;
+//    }
     [self startLoadingHUD];
     NSDictionary *dataDic = @{@"idCard":self.idCardNum,
                               @"phoneNum":self.phone,

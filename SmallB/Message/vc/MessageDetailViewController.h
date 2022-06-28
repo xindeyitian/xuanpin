@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MessageDetailViewController : THBaseTableViewController
 
 @property(nonatomic , assign)NSInteger index;
+@property(nonatomic , copy)NSString *msgID;
 
 @end
 

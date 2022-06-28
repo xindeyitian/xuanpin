@@ -49,10 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *salePrice;//实际价格
 
 @property (assign, nonatomic) CGFloat height;
+@property (assign, nonatomic) CGFloat firstHeight;
 
 @property (copy, nonatomic) NSString *browseId;
 
 @property (assign, nonatomic)BOOL isSelect;
+@property (assign, nonatomic)BOOL isFirst;
 
 @property (nonatomic , copy)NSString *ifOnSale;
 @property (nonatomic , copy)NSString *stockQuantity;

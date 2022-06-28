@@ -13,7 +13,6 @@
     return @{@"couponListVos":@"CouponListVosModel"};
 }
 
-
 @end
 
 @implementation CouponListVosModel

@@ -9,10 +9,12 @@
 #import "SearchResultViewController.h"
 #import "SearchNavBar.h"
 #import "HomeMoreCommonViewController.h"
+#import "SearchHotModel.h"
 
 @interface SearchListViewController ()
 
 @property (strong, nonatomic) MyLinearLayout *rootLy, *historyLy, *searchLy;
+@property (strong, nonatomic)NSMutableArray *searchHotAry;
 
 @end
 
@@ -22,10 +24,6 @@
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
     
-    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nav.mas_bottom);
-        make.left.right.bottom.equalTo(self.view);
-    }];
     [self creatHeaderView];
     //[self creatFooterView];
 }
@@ -40,7 +38,16 @@
 }
 - (void)refersh{
     
+}
 
+- (void)getHotData{
+    [THHttpManager GET:@"goods/goodsInfo/searchFound" parameters:@{@"pageSize":@"9",@"pageNum":@"1"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if ([data isKindOfClass:[NSDictionary class]] && returnCode == 200) {
+            SearchHotModel *model = [SearchHotModel mj_objectWithKeyValues:data];
+            [self.searchHotAry addObjectsFromArray:model.records];
+            [self creatFooterView];
+        }
+    }];
 }
 
 - (void)findClicked:(UIButton *)sender{
@@ -60,6 +67,14 @@
         [AppTool saveToLocalSearchHistory:searchStr];
         [self pushToSearchWithSearchStr:searchStr];
     };
+    
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nav.mas_bottom);
+        make.left.right.bottom.equalTo(self.view);
+    }];
+    
+    self.searchHotAry = [NSMutableArray array];
+    [self getHotData];
 }
 
 - (void)pushToSearchWithSearchStr:(NSString *)searchStr{
@@ -72,8 +87,7 @@
 - (void)creatHeaderView{
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 40)];
     headView.backgroundColor = KWhiteBGColor;
-    self.tableView.tableHeaderView = headView;
-    
+  
     UILabel *searchTitle = [UILabel creatLabelWithTitle:@"搜索历史" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(16)];
     searchTitle.frame = CGRectMake(12, 12, 180, 26);
     [headView addSubview:searchTitle];
@@ -98,6 +112,7 @@
     }
     maxY += 12;
     headView.frame = CGRectMake(0, 0, ScreenWidth, maxY);
+    self.tableView.tableHeaderView = headView;
 }
 
 - (void)creatFooterView{
@@ -112,23 +127,28 @@
     UIButton *delBtn = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(deleteHistory) Font:[UIFont systemFontOfSize:10] Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:1 BackgroundImage:@"refersh" HeightLightBackgroundImage:@"refersh"];
     delBtn.frame = CGRectMake(ScreenWidth - 37, 12, 25, 25);
     [footView addSubview:delBtn];
+    delBtn.hidden = YES;
     
+    NSMutableArray *resultAry = [NSMutableArray array];
+    for (SearchHotDataModel *model in self.searchHotAry) {
+        [resultAry addObject:model.searchName];
+    }
     float width = (ScreenWidth - 48) / 3;
-    NSArray *historyArr = [AppTool getLocalSearchHistory];
     float maxY = .0f;
-    for (int i = 0; i < historyArr.count; i++) {
+    for (int i = 0; i < resultAry.count; i++) {
         
-        UIButton *historyBtn = [BaseButton CreateBaseButtonTitle:historyArr[i] Target:self Action:@selector(historyClicked:) Font:[UIFont systemFontOfSize:15] BackgroundColor:[UIColor colorWithHexString:@"#F5F5F5"] Color:UIColor.blackColor Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:i];
+        UIButton *historyBtn = [BaseButton CreateBaseButtonTitle:resultAry[i] Target:self Action:@selector(historyClicked:) Font:[UIFont systemFontOfSize:15] BackgroundColor:[UIColor colorWithHexString:@"#F5F5F5"] Color:UIColor.blackColor Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:i];
         historyBtn.frame = CGRectMake(12+(width + 12)*(i%3), 50+(12+40)*(i/3), width, 40);
         historyBtn.layer.cornerRadius = 20;
         historyBtn.layer.masksToBounds = YES;
-        if (i == historyArr.count - 1) {
+        if (i == resultAry.count - 1) {
             maxY = CGRectGetMaxY(historyBtn.frame);
         }
         [footView addSubview:historyBtn];
     }
     maxY += 12;
     footView.frame = CGRectMake(0, 0, ScreenWidth, maxY);
+    self.tableView.tableFooterView = footView;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{

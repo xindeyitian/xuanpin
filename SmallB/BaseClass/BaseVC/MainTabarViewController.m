@@ -71,7 +71,9 @@
     [self addChildVc:communityVC title:@"团长码" image:@"community_noClicked" selectedImage:@"community_clicked" withTag:2];
     
     ShopWindowViewController *shoppingCar = [[ShopWindowViewController alloc] init];
-    [self addChildVc:shoppingCar title:@"我的橱窗" image:@"shopping_noClicked" selectedImage:@"shopping_clicked" withTag:3];
+    if (![AppTool getCurrentLevalIsAdd]) {
+        [self addChildVc:shoppingCar title:@"我的橱窗" image:@"shopping_noClicked" selectedImage:@"shopping_clicked" withTag:3];
+    }
     
     MyViewController * mySelfVC = [[MyViewController alloc]init];
     [self addChildVc:mySelfVC title:@"我的" image:@"my_noClicked" selectedImage:@"my_clicked" withTag:4];

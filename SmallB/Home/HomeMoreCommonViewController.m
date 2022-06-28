@@ -174,6 +174,11 @@
     if (self.searchStr.length) {
         [dic setValue:[NSString stringWithFormat:@"%@",self.searchStr] forKey:@"goodsName"];
     }
+    
+    if (self.searchStr.length && self.homeMoreCommonType == HomeMoreCommonType_SearchResult) {
+        [AppTool saveToLocalSearchHistory:self.searchStr];
+    }
+    
     [THHttpManager GET:url parameters:dic block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         [self.collectionView.mj_header endRefreshing];
@@ -198,6 +203,7 @@
                     [self.collectionView.mj_footer endRefreshingWithNoMoreData];
                 }
             }
+            [AppTool dealCollectionDataAry:self.dataArray];
             [self.collectionView reloadData];
             [self.tableView reloadData];
         }

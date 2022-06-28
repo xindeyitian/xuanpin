@@ -7,9 +7,11 @@
 
 #import "MessageDetailViewController.h"
 #import "MessageDetailTableViewCell.h"
+#import "MagicBoxMessageListModel.h"
 
 @interface MessageDetailViewController ()
 
+@property (nonatomic , strong)MagicBoxMessageListModel *detailModel;
 @end
 
 @implementation MessageDetailViewController
@@ -29,7 +31,20 @@
             make.top.equalTo(self.view).offset(KNavBarHeight).offset(12);
         }
     }];
+ 
     [self.tableView registerClass:[MessageDetailTableViewCell class] forCellReuseIdentifier:[MessageDetailTableViewCell description]];
+    [self getDetail];
+}
+
+- (void)getDetail{
+    [self startLoadingHUD];
+    [THHttpManager POST:[NSString stringWithFormat:@"msg_log/queryUserMsgDetail/%@",self.msgID] parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            self.detailModel = [MagicBoxMessageListModel mj_objectWithKeyValues:data];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - tableviewDelegate  dataSorce----------
@@ -45,6 +60,7 @@
     cell.autoCorner = YES;
     [cell defualtCornerInTableView:tableView atIndexPath:indexPath];
     cell.separatorLineView.hidden = YES;
+    cell.model = self.detailModel;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

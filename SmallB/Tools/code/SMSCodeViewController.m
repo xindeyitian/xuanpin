@@ -60,7 +60,7 @@
     
     self.view.userInteractionEnabled = YES;
     [code addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(codeOperation)]];
-    //[self sendCode];
+    [self sendCode];
 }
 
 - (void)loginRequest{

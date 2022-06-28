@@ -407,7 +407,7 @@
                     [self.productDetailTable.mj_footer endRefreshingWithNoMoreData];
                 }
             }
-            
+            [AppTool dealCollectionDataAry:self.dataAry];
             NSArray *titleAry = @[@"测试测试",@"测试测试测试测试",@"测试测试测试测试测试测试",@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",@"测试测试",@"测试测试",@"测试测试测试测试测试测试测试测试测试测试",@"测试",@"测试测试",@"测试测试测试测试测试测试测试测试"];
             
 //            for (GoodsListVosModel *model in self.dataAry) {

@@ -153,6 +153,7 @@
                     [self.collectionView.mj_footer endRefreshingWithNoMoreData];
                 }
             }
+            [AppTool dealCollectionDataAry:self.dataArray];
             [self.collectionView reloadData];
             [self.tableView reloadData];
         }

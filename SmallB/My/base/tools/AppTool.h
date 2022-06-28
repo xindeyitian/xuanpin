@@ -97,9 +97,14 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
  */
 + (NSString *)currentdateInterval;
 /**
- 时间戳转为时间
+ 时间戳转为时间  年月日
  */
 + (NSString *)changeTimpStampFormate:(NSString *)timpStamp;
+
+/**
+ 时间戳转为时间  年月日时分
+ */
++ (NSString *)changeTimeStampFormate:(NSString *)timpStamp;
 /*
  分享到微信平台
  */
@@ -122,6 +127,9 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
  处理带中文图片路径
  */
 + (NSString *)dealChineseUrl:(NSString *)baseUrl;
+
++ (void)dealCollectionDataAry:(NSMutableArray *)listAry;
++ (NSMutableArray *)dealCollectionResultAry:(NSMutableArray *)listAry;
 
 @end
 

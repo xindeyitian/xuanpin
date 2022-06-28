@@ -9,8 +9,8 @@
 #define THHttpConfig_h
 
 //正式
-#define XTAppBaseURL          @"http://192.168.1.104:8099/supply/"//正式服
-//#define XTAppBaseURL          @"http://com.sea.hailukuajing.cn"//测试服
+//#define XTAppBaseURL          @"http://192.168.1.113:8099/supply/"//正式服
+#define XTAppBaseURL          @"http://tpi.tuanhuoit.com/supply/"//测试服
 
 //宏定义封装一下
 

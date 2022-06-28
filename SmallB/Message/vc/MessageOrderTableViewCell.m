@@ -9,6 +9,12 @@
 
 @interface MessageOrderTableViewCell ()
 
+@property (nonatomic , strong)UIImageView *titleImg;
+@property (nonatomic , strong)UILabel *timeL;
+@property (nonatomic , strong)UILabel *titleL;
+@property (nonatomic , strong)UIView *redV;
+@property (nonatomic , strong)UILabel *contentL;
+
 @end
 
 @implementation MessageOrderTableViewCell
@@ -23,16 +29,18 @@
         make.top.equalTo(self.bgView).offset(12);
         make.height.width.mas_equalTo(50);
     }];
+    self.titleImg = image;
     
-    UILabel *time = [UILabel creatLabelWithTitle:@"2022.04.05" textColor:KBlack999TextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(12)];
+    UILabel *time = [UILabel creatLabelWithTitle:@"" textColor:KBlack999TextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(12)];
     [self.bgView addSubview:time];
     [time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(image.mas_top);
         make.right.mas_equalTo(self.bgView).offset(-12);
         make.height.mas_equalTo(24);
     }];
+    self.titleL = time;
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"订单号374787573857" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(15)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(15)];
     [self.bgView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(image.mas_top);
@@ -40,6 +48,7 @@
         make.left.mas_equalTo(image.mas_right).offset(12);
         make.height.mas_equalTo(24);
     }];
+    self.titleL = title;
     
     UIView *red = [[UIView alloc]init];
     red.backgroundColor = UIColor.redColor;
@@ -51,8 +60,9 @@
         make.right.mas_equalTo(self.bgView).offset(-12);
         make.height.width.mas_equalTo(7);
     }];
+    self.redV = red;
     
-    UILabel *content = [UILabel creatLabelWithTitle:@"亲，您有一笔新的订单请查看！" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
+    UILabel *content = [UILabel creatLabelWithTitle:@"" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
     [self.bgView addSubview:content];
     [content mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(image.mas_bottom);
@@ -60,6 +70,16 @@
         make.left.mas_equalTo(title.mas_left);
         make.height.mas_equalTo(21);
     }];
+    self.contentL = content;
+}
+
+- (void)setModel:(MagicBoxMessageListModel *)model{
+    _model = model;
+    [self.titleImg sd_setImageWithURL:[NSURL URLWithString:model.msgUrl]];
+    self.titleL.text = model.msgTitle;
+    self.contentL.text = model.msgContent;
+    self.timeL.text = [AppTool changeTimeStampFormate:model.createTime];
+    self.redV.hidden = model.readSign;
 }
 
 @end

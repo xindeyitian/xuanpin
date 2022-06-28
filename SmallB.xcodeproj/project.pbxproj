@@ -159,6 +159,8 @@
 		1FA0D2F7280FFF040047C40F /* HomeYouXuanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA0D2F6280FFF040047C40F /* HomeYouXuanTableViewCell.m */; };
 		1FA0D2FA280FFF180047C40F /* HomeRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA0D2F9280FFF180047C40F /* HomeRecommendTableViewCell.m */; };
 		1FA6EC3B28052AF10024E2A7 /* MyorderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA6EC3A28052AF10024E2A7 /* MyorderDetailViewController.m */; };
+		1FAECB44286A981400B438DD /* SearchHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAECB43286A981300B438DD /* SearchHotModel.m */; };
+		1FAECB47286AD60E00B438DD /* MagicBoxMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAECB46286AD60E00B438DD /* MagicBoxMessageListModel.m */; };
 		1FB02138281F728C0085977B /* CJProgressAnimatorHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB02134281F728C0085977B /* CJProgressAnimatorHUD.m */; };
 		1FB021CD281F73A80085977B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0213C281F73A60085977B /* LICENSE */; };
 		1FB021CE281F73A80085977B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0213D281F73A60085977B /* README.md */; };
@@ -1014,6 +1016,10 @@
 		1FA0D2F9280FFF180047C40F /* HomeRecommendTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeRecommendTableViewCell.m; sourceTree = "<group>"; };
 		1FA6EC3928052AF10024E2A7 /* MyorderDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyorderDetailViewController.h; sourceTree = "<group>"; };
 		1FA6EC3A28052AF10024E2A7 /* MyorderDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyorderDetailViewController.m; sourceTree = "<group>"; };
+		1FAECB42286A981300B438DD /* SearchHotModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchHotModel.h; sourceTree = "<group>"; };
+		1FAECB43286A981300B438DD /* SearchHotModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchHotModel.m; sourceTree = "<group>"; };
+		1FAECB45286AD60E00B438DD /* MagicBoxMessageListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagicBoxMessageListModel.h; sourceTree = "<group>"; };
+		1FAECB46286AD60E00B438DD /* MagicBoxMessageListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagicBoxMessageListModel.m; sourceTree = "<group>"; };
 		1FB02134281F728C0085977B /* CJProgressAnimatorHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressAnimatorHUD.m; sourceTree = "<group>"; };
 		1FB02137281F728C0085977B /* CJProgressAnimatorHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressAnimatorHUD.h; sourceTree = "<group>"; };
 		1FB0213C281F73A60085977B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -4018,6 +4024,8 @@
 				1FD825A02815417300490EFC /* MessageDetailViewController.m */,
 				1FD825A22815427300490EFC /* MessageDetailTableViewCell.h */,
 				1FD825A32815427300490EFC /* MessageDetailTableViewCell.m */,
+				1FAECB45286AD60E00B438DD /* MagicBoxMessageListModel.h */,
+				1FAECB46286AD60E00B438DD /* MagicBoxMessageListModel.m */,
 			);
 			path = vc;
 			sourceTree = "<group>";
@@ -4301,6 +4309,8 @@
 			children = (
 				582AC56C27FD93B2003EEE0C /* SearchListViewController.h */,
 				582AC56D27FD93B2003EEE0C /* SearchListViewController.m */,
+				1FAECB42286A981300B438DD /* SearchHotModel.h */,
+				1FAECB43286A981300B438DD /* SearchHotModel.m */,
 			);
 			path = SearchVC;
 			sourceTree = "<group>";
@@ -5420,6 +5430,7 @@
 				1FB338C5285B1DC700F324FF /* ZXDetectorResult.m in Sources */,
 				1FB3394D285B1DC800F324FF /* ZXGeoResultParser.m in Sources */,
 				58AB7EA027E9BD56003D5B20 /* ViewController.m in Sources */,
+				1FAECB47286AD60E00B438DD /* MagicBoxMessageListModel.m in Sources */,
 				1FB338B2285B1DC700F324FF /* ZXQRCodeMultiReader.m in Sources */,
 				1FB338A6285B1DC700F324FF /* ZXAztecDecoder.m in Sources */,
 				1FB33910285B1DC800F324FF /* ZXOneDReader.m in Sources */,
@@ -5541,6 +5552,7 @@
 				1FB021FE281F73A80085977B /* LOTValueCallback.m in Sources */,
 				1F758110281A6076005D3F6B /* JZLStarView.m in Sources */,
 				1F9CF25C2803CBA50051608B /* myStoreManagerViewController.m in Sources */,
+				1FAECB44286A981400B438DD /* SearchHotModel.m in Sources */,
 				1FB02207281F73A80085977B /* LOTKeyframe.m in Sources */,
 				1FB338B3285B1DC700F324FF /* ZXQRCodeDecoderMetaData.m in Sources */,
 				1FA0D2C7280EA93C0047C40F /* ProductDetailCommentCell.m in Sources */,

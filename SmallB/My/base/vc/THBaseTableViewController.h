@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 //没有数据的占位文字
 @property (nonatomic, copy) NSString * emptyText;
 
-
+@property (nonatomic , strong)void (^backOperationBlock)(id data);
 /**
  下拉加载数据请求
  */
