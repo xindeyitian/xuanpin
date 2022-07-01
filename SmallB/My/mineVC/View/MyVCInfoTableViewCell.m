@@ -50,25 +50,13 @@
         make.edges.mas_equalTo(self.contentView);
     }];
     
-    self.userLogoImg = [[UIImageView alloc]init];
-    self.userLogoImg.layer.cornerRadius = 35;
-    self.userLogoImg.layer.masksToBounds = YES;
-    self.userLogoImg.layer.borderColor = UIColor.whiteColor.CGColor;
-    self.userLogoImg.layer.borderWidth = 4;
-    [bgImgV addSubview:self.userLogoImg];
-    [self.userLogoImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(bgImgV).offset(14);
-        make.top.mas_equalTo(bgImgV).offset(KStatusBarHeight+15);
-        make.height.width.mas_equalTo(70);
-    }];
-    
     UIButton *setBtn = [[UIButton alloc]init];
     [setBtn setBackgroundImage:[UIImage imageNamed:@"my_set"] forState:UIControlStateNormal];
     [setBtn addTarget:self action:@selector(setBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [bgImgV addSubview:setBtn];
     [setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.mas_right).offset(-12);
-        make.top.mas_equalTo(self.userLogoImg.mas_top);
+        make.top.mas_equalTo(bgImgV).offset(KStatusBarHeight+11);
         make.height.width.mas_equalTo(22);
     }];
     
@@ -78,8 +66,20 @@
     [bgImgV addSubview:messageBtn];
     [messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(setBtn.mas_left).offset(-12);
-        make.top.mas_equalTo(self.userLogoImg.mas_top);
-        make.height.width.mas_equalTo(22);
+        make.centerY.mas_equalTo(setBtn.mas_centerY);
+        make.height.width.mas_equalTo(25);
+    }];
+    
+    self.userLogoImg = [[UIImageView alloc]init];
+    self.userLogoImg.layer.cornerRadius = 35;
+    self.userLogoImg.layer.masksToBounds = YES;
+    self.userLogoImg.layer.borderColor = UIColor.whiteColor.CGColor;
+    self.userLogoImg.layer.borderWidth = 4;
+    [bgImgV addSubview:self.userLogoImg];
+    [self.userLogoImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(bgImgV).offset(14);
+        make.top.mas_equalTo(bgImgV).offset(KNavBarHeight+8);
+        make.height.width.mas_equalTo(70);
     }];
     
     self.userNameL = [[UILabel alloc]init];
@@ -88,7 +88,6 @@
     [bgImgV addSubview:self.userNameL];
     [self.userNameL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.userLogoImg.mas_right).offset(14);
-        //make.right.mas_equalTo(messageBtn.mas_left).offset(-10);
         make.top.mas_equalTo(self.userLogoImg.mas_top).offset(6);
         make.height.mas_equalTo(24);
     }];
@@ -138,7 +137,7 @@
     NSArray *titleAry = @[@"商品收藏",@"我的关注",@"浏览记录"];
     NSArray *numAry = @[@"0",@"0",@"0"];
     for (int i =0; i < titleAry.count; i ++) {
-        myInfoDetailView *view = [[myInfoDetailView alloc]initWithFrame:CGRectMake(ScreenWidth/3.0*i, KStatusBarHeight + 15 + 85, ScreenWidth/3.0, 45)];
+        myInfoDetailView *view = [[myInfoDetailView alloc]initWithFrame:CGRectMake(ScreenWidth/3.0*i, KNavBarHeight + 16 + 78, ScreenWidth/3.0, 45)];
         view.backgroundColor = self.backgroundColor;
         view.tag = 110 + i ;
         view.titleString = titleAry[i];
@@ -159,8 +158,8 @@
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
         };
     }
-    UIView *whiteBgView = [[UIView alloc]initWithFrame:CGRectMake(0, KStatusBarHeight + 160, ScreenWidth, 20)];
-    whiteBgView.backgroundColor = KBGColor;
+    UIView *whiteBgView = [[UIView alloc]initWithFrame:CGRectMake(0, KNavBarHeight + 152, ScreenWidth, 16)];
+    whiteBgView.backgroundColor = KViewBGColor;
     [self addSubview:whiteBgView];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:whiteBgView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft cornerRadii:CGSizeMake(8, 8)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -357,7 +356,8 @@
     
     UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectZero];
     titleL.textColor = KBlack333TextColor;
-    titleL.font = DEFAULT_FONT_R(13);
+    titleL.font = DEFAULT_FONT_M(15);
+    titleL.text = @"云仓订单管理";
     [whiteBGView addSubview:titleL];
     [titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(titleL.superview).offset(12);
@@ -366,12 +366,12 @@
         make.right.mas_equalTo(titleL.superview).offset(-100);
     }];
     
-    NSString *numStr = [NSString stringWithFormat:@"(共计%@笔)",@"300"];
-    numStr = @"";
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"我的订单  %@",numStr]];
-    NSRange range = NSMakeRange(0,4);
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
-    titleL.attributedText = attributeMarket;
+//    NSString *numStr = [NSString stringWithFormat:@"(共计%@笔)",@"300"];
+//    numStr = @"";
+//    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"云仓订单管理  %@",numStr]];
+//    NSRange range = NSMakeRange(0,6);
+//    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
+//    titleL.attributedText = attributeMarket;
     
     rightPushView *rightV = [[rightPushView alloc]init];
     rightV.titleL.text = @"全部";
@@ -392,8 +392,8 @@
     };
     
     float whiteWidth = ScreenWidth - 24 - 20;
-    NSArray *titleAry = @[@"待付款",@"待发货",@"待收货",@"退款/售后",@"已完成"];
-    NSArray *imgAry = @[@"my_order_waitingPaid",@"my_order_toBeDelivered",@"my_order_pendingReceipt",@"my_order_refund",@"my_order_complet"];
+    NSArray *titleAry = @[@"待付款",@"待发货",@"待收货",@"已完成",@"退款/售后"];
+    NSArray *imgAry = @[@"my_order_waitingPaid",@"my_order_toBeDelivered",@"my_order_pendingReceipt",@"my_order_complet",@"my_order_refund"];
     for (int i =0; i < titleAry.count; i ++) {
         myVCOrderView *view = [[myVCOrderView alloc]initWithFrame:CGRectMake(whiteWidth/5.0*i + 5*i, 50, whiteWidth/5.0, 52)];
         view.titleString = titleAry[i];
@@ -403,7 +403,7 @@
         [whiteBGView addSubview:view];
         view.viewClickBlock = ^(NSInteger index) {
             
-            if (index == 3) {
+            if (index == 4) {
                 MyShouHouViewController *vc = [[MyShouHouViewController alloc]init];
     //            vc.orderType = index;
                 [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
@@ -495,7 +495,7 @@
     }];
     
     float whiteWidth = ScreenWidth - 48 - 20;
-    NSArray *titleAry = @[@"可提现金额",@"店铺累计收入",@"待结算积分"];
+    NSArray *titleAry = @[@"可提现积分",@"店铺累计收入",@"待结算积分"];
     NSArray *numAry = @[@"0",@"0",@"0"];
     for (int i =0; i < titleAry.count; i ++) {
         myInfoDetailView *view = [[myInfoDetailView alloc]initWithFrame:CGRectMake(whiteWidth/3.0*i+5*(i+1), 13, whiteWidth/3.0, 52)];

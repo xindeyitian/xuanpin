@@ -7,7 +7,6 @@
 
 #import "myVCGuideView.h"
 #import "shopShareAlertViewController.h"
-
 @interface myVCGuideView ()
 
 @property (nonatomic ,strong)SDCycleScrollView *bannerCycle;
@@ -54,6 +53,7 @@
 }
 
 - (void)tapClickWithIndex:(NSInteger)index{
+    
     if (self.bannerAry.count && self.bannerAry.count > index) {
         BannerListVosModel *model = self.bannerAry[index];
         shopShareAlertViewController *alertVC = [shopShareAlertViewController new];

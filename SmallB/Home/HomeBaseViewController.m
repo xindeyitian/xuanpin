@@ -47,7 +47,7 @@
     
     BaseSearchNavBarView *bar = [[BaseSearchNavBarView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, KNavBarHeight)];
     bar.hiddenBackBtn = YES;
-    bar.btnAry = @[@"home_message_image",@"home_camera_image"];
+    bar.btnAry = @[@"home_message_image"];
     [self.topBackView addSubview:bar];
     bar.viewClickBlock = ^(NSInteger index, NSString * _Nonnull searchStr) {
         if (index == 1) {

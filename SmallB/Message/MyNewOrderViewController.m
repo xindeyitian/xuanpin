@@ -29,32 +29,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
-    
-    //navBarHairlineImageView.hidden = YES;
-    
-    UIImage *img = [UIImage imageNamed:@""];
-    [self.navigationController.navigationBar setBackgroundImage:img  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-}
-
-- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
-     if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
-             return (UIImageView *)view;
-     }
-    for (UIView *subview in view.subviews) {
-         UIImageView *imageView = [self findHairlineImageViewUnder:subview];
-        if (imageView) {
-             return imageView;
-         }
-     }
-     return nil;
  }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    
     self.navigationController.delegate = self;
     self.view.backgroundColor = KWhiteBGColor;
     

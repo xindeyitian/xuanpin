@@ -29,12 +29,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
-    
-    //navBarHairlineImageView.hidden = YES;
-    
-    UIImage *img = [UIImage imageNamed:@""];
-    [self.navigationController.navigationBar setBackgroundImage:img  forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
 - (void)viewDidLoad {

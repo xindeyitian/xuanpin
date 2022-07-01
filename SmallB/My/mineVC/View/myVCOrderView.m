@@ -36,10 +36,8 @@
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(18);
         make.bottom.mas_equalTo(self.mas_bottom);
-        make.centerX.mas_equalTo(self.mas_centerX);
-        make.left.mas_equalTo(self);
+        make.left.right.mas_equalTo(self);
     }];
-    [self.titleL sizeToFit];
     
     self.imgV = [[UIImageView alloc]initWithFrame:CGRectZero];
     [self addSubview:self.imgV];
@@ -83,7 +81,6 @@
 -(void)setTitleString:(NSString *)titleString{
     _titleString = titleString;
     self.titleL.text = _titleString;
-    [self.titleL sizeToFit];
 }
 
 - (void)tapClick:(UITapGestureRecognizer *)tap{

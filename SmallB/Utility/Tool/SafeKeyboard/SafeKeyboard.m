@@ -126,7 +126,7 @@ const static BOOL changeWhenAppear = YES;//每次键盘出现都改变随机(随
     toolBar.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self addSubview:toolBar];
     
-    UIImageView *safeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
+    UIImageView *safeImage = [[UIImageView alloc] init];
     [toolBar addSubview:safeImage];
     
     UILabel *safeLabel = [UILabel new];

@@ -375,7 +375,6 @@
             ProductDetailModel *model = [ProductDetailModel mj_objectWithKeyValues:data];
             self.productDetailModel = model;
             [self.commentArray addObjectsFromArray:self.productDetailModel.appraisesListVoPage.records];
-            NSLog(@"详情====%@",model.descImgs);
             [self createWebView:model.descImgs];
             self.bottomView.model = model;
             [self.productDetailTable reloadData];

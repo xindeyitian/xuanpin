@@ -236,6 +236,10 @@
     if (indexPath.section == 1 && indexPath.row == 2) {
         WithdrawPasswordViewController *vc = [WithdrawPasswordViewController new];
         vc.isEdit = self.myInfoModel.isPassword.integerValue == 1;
+        weakSelf(self)
+        vc.setPasswordSuccessBlock = ^{
+            [weakSelf loadNewData];
+        };
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section == 1 && indexPath.row == 3) {

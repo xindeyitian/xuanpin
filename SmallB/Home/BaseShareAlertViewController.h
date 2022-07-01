@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic , strong)UIView *BGWhiteV;
 
+@property (nonatomic , copy)NSString *titleS;
+@property (nonatomic , copy)NSString *descriptionS;
+@property (nonatomic , copy)NSString *webpageUrlS;
+
 - (void)creatSubViews;
 
 @end

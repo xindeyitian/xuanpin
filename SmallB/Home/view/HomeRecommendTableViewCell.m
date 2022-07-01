@@ -49,7 +49,7 @@
     }
     self.scrolView = scrol;
     
-    XHPageControl *pageC = [[XHPageControl alloc] initWithFrame:CGRectMake(0, 242,[UIScreen mainScreen].bounds.size.width, 15)];
+    XHPageControl *pageC = [[XHPageControl alloc] initWithFrame:CGRectMake(0, height+10,[UIScreen mainScreen].bounds.size.width, 15)];
     pageC.numberOfPages = 3;
     pageC.otherMultiple = 1;
     pageC.currentMultiple = 2;

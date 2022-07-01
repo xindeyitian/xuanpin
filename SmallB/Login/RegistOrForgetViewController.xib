@@ -112,7 +112,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎来到小莲云仓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQ5-do-gus">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎注册小莲云仓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQ5-do-gus">
                     <rect key="frame" x="40" y="119" width="178.5" height="26.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                     <nil key="textColor"/>
@@ -280,7 +280,7 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQs-l3-oy6">
-                    <rect key="frame" x="25" y="623.5" width="364" height="30"/>
+                    <rect key="frame" x="25" y="623.5" width="374" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="tAe-ob-61Y"/>
                     </constraints>
@@ -304,7 +304,7 @@
                 <constraint firstItem="hYs-2h-WRT" firstAttribute="top" secondItem="lJA-WL-gbN" secondAttribute="bottom" constant="20" id="H6H-Hr-rWe"/>
                 <constraint firstItem="xkn-2Z-JF6" firstAttribute="top" secondItem="87d-Rq-AxN" secondAttribute="bottom" constant="75" id="Iq4-zH-Ddm"/>
                 <constraint firstItem="wQs-l3-oy6" firstAttribute="top" secondItem="87d-Rq-AxN" secondAttribute="bottom" constant="138" id="JEK-i0-leP"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="wQs-l3-oy6" secondAttribute="trailing" constant="25" id="KlH-gQ-JAk"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="wQs-l3-oy6" secondAttribute="trailing" constant="15" id="KlH-gQ-JAk"/>
                 <constraint firstItem="G06-Gr-uSC" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="15" id="MWu-qE-uzp"/>
                 <constraint firstItem="lJA-WL-gbN" firstAttribute="top" secondItem="b0R-Fd-52e" secondAttribute="bottom" constant="20" id="Q1q-Nl-gd3"/>
                 <constraint firstItem="wQs-l3-oy6" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="25" id="UUI-Fn-sZP"/>

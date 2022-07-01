@@ -93,9 +93,6 @@
 }
 
 + (void)GoToProductDetailWithID:(NSString *)productID{
-    //productID = @"1519281847211655170";//SKU
-    //productID = @"1519277462561751040";//评价
-
     ProductDetailViewController *vc = [[ProductDetailViewController alloc]init];
     vc.productID = K_NotNullHolder(productID, @"");
     [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
@@ -279,8 +276,8 @@
     }
     [localAry insertObject:searchStr atIndex:0];
     NSMutableArray *resultAry = [NSMutableArray array];
-    if (localAry.count > 9) {
-        resultAry = [[localAry subarrayWithRange:NSMakeRange(0, 9)] mutableCopy];
+    if (localAry.count > 6) {
+        resultAry = [[localAry subarrayWithRange:NSMakeRange(0, 6)] mutableCopy];
     }else{
         [resultAry addObjectsFromArray:localAry];
     }
@@ -342,21 +339,34 @@
     return destDateString;
 }
 
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image WXScene:(NSInteger)WXScene{
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(int)WXScene{
   
-    WXImageObject *imageObject = [WXImageObject object];
-    imageObject.imageData = UIImageJPEGRepresentation(image, 0.7);
+//    WXImageObject *imageObject = [WXImageObject object];
+//    imageObject.imageData = UIImageJPEGRepresentation(image, 0.7);
+//    message.mediaObject = imageObject;
+    
+    WXWebpageObject *ext = [WXWebpageObject object];
+    ext.webpageUrl = webpageUrl;
     
     WXMediaMessage *message = [WXMediaMessage message];
-    message.mediaObject = imageObject;
+    message.mediaObject = ext;
+    message.description = description;
+    message.title = title;
+    [message setThumbImage:IMAGE_NAMED(@"")];
     
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
     req.scene = WXScene;
-    [WXApi sendReq:req completion:^(BOOL success) {
-        
-    }];
+    
+    NSLog(@"标题--%@\n--描述-%@\n--链接-%@",title,description,webpageUrl);
+    if ([WXApi isWXAppInstalled]) {
+        [WXApi sendReq:req completion:^(BOOL success) {
+            
+        }];
+    }else{
+        [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
+    }
 }
 
 + (UIImage *)createQRImageWithString:(NSString *)string{
@@ -489,6 +499,16 @@
         model.isFirst = YES;
     }
     return listAry;
+}
+
++ (void)openOthersAppUrl:(NSString *)url{
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }else{
+        //跳转appstore下载
+        [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"下载地址"]];
+    }
 }
 
 @end

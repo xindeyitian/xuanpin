@@ -114,10 +114,44 @@
     }];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.shopType == 0 && self.index == 1) {
+        return YES;
+    }
+    return NO;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)) {
+    CJWeakSelf()
+    UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        CJStrongSelf()
+        if (self.dataArray.count) {
+            GoodsListVosModel *model = self.dataArray[indexPath.section];
+            [self deleteSelectRow:model.shopGoodsId];
+        }
+    }];
+    deleteRowAction.backgroundColor = KMainBGColor;
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
+    config.performsFirstActionWithFullSwipe = NO;
+    return config;
+}
+
+- (void)deleteSelectRow:(NSString *)shopGoodsId{
+    [self startLoadingHUD];
+    [THHttpManager POST:@"goods/shopGoods/goodsShopDel" parameters:@{@"shopGoodsId":shopGoodsId} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200) {
+            [self showSuccessMessageWithString:@"删除成功"];
+            [self loadNewData];
+        }
+    }];
+}
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - 107 - KNavBarHeight - KTabBarHeight);
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.mas_equalTo(self.view);
+    }];
 }
 #pragma mark - tableviewDelegate  dataSorce----------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

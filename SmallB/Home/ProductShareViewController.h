@@ -5,12 +5,12 @@
 //  Created by zhang on 2022/4/22.
 //
 
-#import "BaseAlertViewController.h"
+#import "BaseShareAlertViewController.h"
 #import "HomeDataModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProductShareViewController : BaseAlertViewController
+@interface ProductShareViewController : BaseShareAlertViewController
 
 @property (nonatomic , strong)GoodsListVosModel *model;
 

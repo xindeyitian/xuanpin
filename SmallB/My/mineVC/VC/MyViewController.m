@@ -10,7 +10,6 @@
 #import "myVCGuideView.h"
 #import "MyVCCollectionAndRecordsViewController.h"
 #import "incomeStatisticsModel.h"
-
 typedef NS_ENUM(NSInteger, CJMyListVMType) {
     myVCInfo = 0,
     myVCProfits,
@@ -38,7 +37,6 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.delegate = self;
-    
 }
 
 - (void)viewDidLoad {
@@ -61,7 +59,7 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view);
     }];
-   
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, TabbarSafeBottomMargin + 12)];
     self.needPullDownRefresh = YES;
 }
 
@@ -158,7 +156,7 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case myVCInfo:{
-            return KStatusBarHeight + 180;
+            return KNavBarHeight + 168;
         }
             break;
         case myVCProfits:
@@ -194,6 +192,10 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
         return headerView;
     }
     return [UIView new];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleDefault;
 }
 
 #pragma mark - UINavigationControllerDelegate

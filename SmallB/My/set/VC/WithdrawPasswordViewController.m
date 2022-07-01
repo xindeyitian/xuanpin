@@ -61,6 +61,7 @@
         field.tag = 111 + i;
         field.delegate = self;
         field.clearButtonMode = UITextFieldViewModeWhileEditing;
+        field.keyboardType = UIKeyboardTypeNumberPad;
         [grayV addSubview:field];
         [field addTarget:self action:@selector(textFieldDidEditing:) forControlEvents:UIControlEventEditingChanged];
         [field mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,8 +76,8 @@
 }
 
 - (void)textFieldDidEditing:(UITextField *)field{
-    if (field.text.length > 16) {
-        field.text = [field.text substringToIndex:16];
+    if (field.text.length > 6) {
+        field.text = [field.text substringToIndex:6];
     }
 }
 
@@ -179,8 +180,8 @@
         [self showMessageWithString:@"请输入提现密码"];
         return;
     }
-    if (field1.text.length < 6 || field2.text.length < 6) {
-        [self showMessageWithString:@"请输入至少6位提现密码"];
+    if (field1.text.length < 6) {
+        [self showMessageWithString:@"请输入6位提现密码"];
         return;
     }
     if (field2.text.length == 0) {
@@ -207,6 +208,9 @@
     [THHttpManager FormatPOST:url parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode ==200) {
+            if (_setPasswordSuccessBlock) {
+                _setPasswordSuccessBlock();
+            }
             if (self.isEdit) {
                 [self showSuccessMessageWithString:@"密码修改成功，请牢记密码!"];
             }else{

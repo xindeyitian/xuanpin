@@ -88,4 +88,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+@interface ProductDetailGoodsSkuVosModel: THBaseModel
+
+@property (nonatomic , copy)NSString *skuImgUrl;
+@property (nonatomic , copy)NSString *skuName;
+@property (nonatomic , copy)NSString *skuValues;
+
+@end
+
+@interface ProductDetailGoodsSkuAttrValueModel: THBaseModel
+
+@property (nonatomic , copy)NSString *attrValueName;
+@property (nonatomic , copy)NSString *attrValueId;
+
+@end
 NS_ASSUME_NONNULL_END

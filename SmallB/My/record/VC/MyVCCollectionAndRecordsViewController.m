@@ -95,6 +95,7 @@
         CJStrongSelf()
         [self deleteWithDeleteCurrent:YES row:0];;
     };
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, TabbarSafeBottomMargin+5)];
 }
 
 - (void)loadNewData{

@@ -42,6 +42,7 @@
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     [btn setTitle:@"筛选" forState:UIControlStateNormal];
     [btn setTitleColor:KBlack333TextColor forState:UIControlStateNormal];
+    btn.titleLabel.font = DEFAULT_FONT_R(15);
     [btn setImage:IMAGE_NAMED(@"withdraw_shaixuan_img") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(shaixuanClick:) forControlEvents:UIControlEventTouchUpInside];
     [btn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:4];

@@ -95,13 +95,12 @@
 
 - (void)shareBtnClick:(UIControl *)contro{
     
-    float oneWidth = ScreenWidth - 70 - 16;
     UIImage *image = [self shotShareImageFromView:self.BGWhiteV withHeight:self.BGWhiteV.height];
     if (contro.tag == 120) {
-        [AppTool shareWebPageToPlatformTypeWithData:image WXScene:WXSceneTimeline];
+        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneTimeline];
     }
     if (contro.tag == 121) {
-        [AppTool shareWebPageToPlatformTypeWithData:image WXScene:WXSceneSession];
+        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneSession];
     }
     if (contro.tag == 122) {
         [self saveImageToPhotoAlbum:image];

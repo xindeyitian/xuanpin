@@ -90,6 +90,11 @@
 
 @implementation goodsAttVosModel
 
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"attrValue":@"ProductDetailGoodsSkuAttrValueModel",
+    };
+}
+
 @end
 
 @implementation supplyInfoGoodsVoModel
@@ -169,3 +174,13 @@
 }
 
 @end
+
+@implementation ProductDetailGoodsSkuVosModel
+
+@end
+
+@implementation ProductDetailGoodsSkuAttrValueModel
+
+@end
+
+

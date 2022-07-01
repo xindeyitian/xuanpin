@@ -63,15 +63,15 @@
     NSAttributedString *attributedString2 = [[NSAttributedString alloc] initWithString:@"请输入邀请码(非必填)" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14], NSParagraphStyleAttributeName : style2}];
     self.invitationTF.attributedPlaceholder = attributedString2;
 
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《小莲云仓商户入驻协议》" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"]}];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《用户服务协议》《隐私协议》" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"]}];
     [text setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                          NSForegroundColorAttributeName : KMaintextColor} range:NSMakeRange(7, 12)];
+                          NSForegroundColorAttributeName : KMaintextColor} range:NSMakeRange(7, 14)];
     self.agreeBtn.titleLabel.attributedText = text;
     [self.agreeBtn setAttributedTitle:text forState:UIControlStateNormal];
     
-    [self.agreeBtn.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(7, 12))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
+    [self.agreeBtn.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(7, 8)),NSStringFromRange(NSMakeRange(15, 6))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
-        pvc.agreeType = PrivacyAgreementTypeRegist;
+        pvc.agreeType = index == 0 ? PrivacyAgreementTypeUser : PrivacyAgreementTypePrivacyAgreement;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }];

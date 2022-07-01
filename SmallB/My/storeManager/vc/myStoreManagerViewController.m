@@ -40,6 +40,8 @@
 @property (nonatomic , strong)UIImage *bgImg;
 @property (nonatomic , strong)UIImage *logoImg;
 
+@property (nonatomic , assign)BOOL isEdit;
+
 @end
 
 @implementation myStoreManagerViewController
@@ -58,6 +60,7 @@
     self.provinceModel = [[BRProvinceModel alloc]init];
     self.cityModel = [[BRCityModel alloc]init];
     self.areaModel = [[BRAreaModel alloc]init];
+    self.isEdit = NO;
     
     self.navigationController.delegate = self;
     self.navigationItem.title = @"";
@@ -128,6 +131,10 @@
             self.address = model.address;
             self.shopId = model.shopId;
             self.shopName = model.shopName;
+            
+            if (self.shopDesc.length) {
+                self.isEdit = YES;
+            }
         }
         [self.tableView reloadData];
     }];
@@ -274,11 +281,9 @@
         cell.viewBlock = ^(NSString * _Nonnull content) {
             if (indexPath.section == 5) {
                 self.address = content;
-                //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
             }
             if (indexPath.section == 1) {
                 self.shopName = content;
-                //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
             }
         };
         if (indexPath.section == 4 && self.provinceModel) {
@@ -292,6 +297,13 @@
         }
         if (indexPath.section == 1) {
             cell.fieldT.text = self.shopName;
+        }
+        
+        if (self.isEdit) {
+            cell.fieldT.userInteractionEnabled = NO;
+            cell.fieldT.textColor = KBlack666TextColor;
+        }else{
+            cell.fieldT.textColor = KBlack333TextColor;
         }
         return cell;
     }
@@ -384,6 +396,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 4) {
+        if (self.isEdit) {
+            return;
+        }
         [self.view endEditing:YES];
         BRAddressPickerView *pickView = [[BRAddressPickerView alloc] initWithPickerMode:BRAddressPickerModeArea];
         pickView.resultBlock = ^(BRProvinceModel * _Nullable province, BRCityModel * _Nullable city, BRAreaModel * _Nullable area) {

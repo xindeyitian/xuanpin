@@ -44,7 +44,7 @@
     [self.merchantImg sd_setImageWithURL:[NSURL URLWithString:logoUrl] placeholderImage:KPlaceholder_DefaultImage];
     
     NSString *bgUrl = [AppTool dealURLWithBase:storeModel.bgImgUrl withUrlPath:storeModel.urlPath];
-    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:bgUrl] placeholderImage:[UIImage imageNamed:@""]];
+    [self.bgImageV sd_setImageWithURL:[NSURL URLWithString:bgUrl]];
     self.bgBlackV.backgroundColor = UIColor.blackColor;
     self.bgBlackV.alpha = 0.3;
     

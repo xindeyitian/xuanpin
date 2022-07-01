@@ -5,11 +5,11 @@
 //  Created by zhang on 2022/4/19.
 //
 
-#import "BaseAlertViewController.h"
+#import "BaseShareAlertViewController.h"
 #import "TaunCodeModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TuanCodeShareViewController : BaseAlertViewController
+@interface TuanCodeShareViewController : BaseShareAlertViewController
 
 @property (nonatomic ,strong)TaunCodeDataModel *model;
 

@@ -94,7 +94,7 @@
     _model = model;
     self.codeL.text = [NSString stringWithFormat:@"%@",model.codeNum];
     if (model.buyTime) {
-        self.timeL.text = [NSString stringWithFormat:@"购买时间:%@",model.beginTime];
+        self.timeL.text = [NSString stringWithFormat:@"购买时间:%@",model.buyTime];
     }else{
         self.timeL.text = [NSString stringWithFormat:@"购买时间:%@",@""];
     }

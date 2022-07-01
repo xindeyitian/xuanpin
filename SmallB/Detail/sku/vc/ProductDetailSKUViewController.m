@@ -52,8 +52,8 @@
     float height = 12.0f;
     float firstwidth = 12.0f;
     for (int i =0; i < array.count; i ++) {
-        
-        float width = [array[i] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:DEFAULT_FONT_R(13), NSFontAttributeName, nil]].width+20;
+        ProductDetailGoodsSkuAttrValueModel *model = array[i];
+        float width = [model.attrValueName sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:DEFAULT_FONT_R(13), NSFontAttributeName, nil]].width+20;
         if (firstwidth + width + 12> ScreenWidth - 24) {
             firstwidth = 12.0f;
             height += (24 + 10);
@@ -168,7 +168,7 @@
         
         [AppTool roleBtnClickWithID:self.model.goodsId withModel:model];
     }else{
-        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]]];
+        [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]];
     }
 }
 

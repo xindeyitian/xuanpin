@@ -6,10 +6,12 @@
 //
 
 #import "SKUDetailTableViewCell.h"
+#import "ProductDetailModel.h"
 
 @implementation SKUDetailTableViewCell
 
 - (void)setTitleAry:(NSArray *)titleAry{
+   
     _titleAry = titleAry;
     self.contentView.backgroundColor = KWhiteBGColor;
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -32,14 +34,15 @@
     float height = 12.0f;
     float firstwidth = 12.0f;
     for (int i =0; i < titleAry.count; i ++) {
-        float width = [titleAry[i] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:DEFAULT_FONT_R(13), NSFontAttributeName, nil]].width+20;
+        ProductDetailGoodsSkuAttrValueModel *model = titleAry[i];
+        float width = [model.attrValueName sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:DEFAULT_FONT_R(13), NSFontAttributeName, nil]].width+20;
         if (firstwidth + width + 12> ScreenWidth - 24) {
             firstwidth = 12.0f;
             height += (24 + 10);
         }
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(firstwidth, height, width, 24)];
         [btn setTitleColor:KBlack333TextColor forState:UIControlStateNormal];
-        [btn setTitle:titleAry[i] forState:UIControlStateNormal];
+        [btn setTitle:model.attrValueName forState:UIControlStateNormal];
         btn.titleLabel.font = DEFAULT_FONT_R(13);
         btn.titleLabel.textColor = KBlack333TextColor;
         btn.backgroundColor = KWhiteBGColor;

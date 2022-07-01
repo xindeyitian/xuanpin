@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface incomeStaVoModel : THBaseModel
 
-@property (nonatomic , assign)float operableIncome;//可提现金额
+@property (nonatomic , assign)float operableIncome;//可提现积分
 @property (nonatomic , copy)NSString *totalIncome;//店铺累计收入
 @property (nonatomic , copy)NSString *pendingIncome;//待结算收益
 

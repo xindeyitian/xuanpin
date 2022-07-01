@@ -11,6 +11,8 @@
 #import "LSTPopViewqqtopView.h"
 #import "SMSCodeViewController.h"
 #import "CouponChooseViewController.h"
+#import "PhoneHadLogoutAlertViewController.h"
+#import "StoreUnderReviewViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>{
     NSInteger i;
@@ -52,18 +54,18 @@
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14], NSParagraphStyleAttributeName : style}];
     self.userNameTF.attributedPlaceholder = attributedString;
     
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《小莲云仓用户入驻协议》" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"]}];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"我已阅读并同意《用户服务协议》《隐私协议》" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#999999"]}];
     
     [text setAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                          NSForegroundColorAttributeName : KMaintextColor} range:NSMakeRange(7, 12)];
+                          NSForegroundColorAttributeName : KMaintextColor} range:NSMakeRange(7, 14)];
     [self.agreeBtn.titleLabel setAttributedText:text];
     [self.agreeBtn setAttributedTitle:text forState:UIControlStateNormal];
     [self.agreeBtn setImage:IMAGE_NAMED(@"choose") forState:UIControlStateNormal];
     [self.agreeBtn setImage:IMAGE_NAMED(@"choosed") forState:UIControlStateSelected];
     
-    [self.agreeBtn.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(7, 12))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
+    [self.agreeBtn.titleLabel yb_addAttributeTapActionWithRanges:@[NSStringFromRange(NSMakeRange(7, 8)),NSStringFromRange(NSMakeRange(15, 6))] tapClicked:^(UILabel *label, NSString *string, NSRange range, NSInteger index) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
-        pvc.agreeType = PrivacyAgreementTypeLogin;
+        pvc.agreeType = index == 0 ? PrivacyAgreementTypeUser : PrivacyAgreementTypePrivacyAgreement;
         pvc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:pvc animated:YES completion:nil];
     }];
@@ -146,7 +148,7 @@
     NSString *phone = [self.userNameTF.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     [THHttpManager GET:@"system/login/checkPhoneNum" parameters:@{@"phoneNumber":phone} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
-        if (returnCode == 10015) {
+        if (returnCode == 10015) {//未注册
             RegistOrForgetViewController *vc = [[RegistOrForgetViewController alloc] init];
             vc.phoneStr = self.userNameTF.text;
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -156,6 +158,14 @@
                 self.userNameTF.text = string;
             };
             [self presentViewController:vc animated:YES completion:nil];
+        }else if (returnCode == 10011){//店铺审核中
+            StoreUnderReviewViewController *alertVC = [StoreUnderReviewViewController new];
+            alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [self  presentViewController:alertVC animated:NO completion:nil];
+        }else if (returnCode == 10017){//已注销账户提示
+            PhoneHadLogoutAlertViewController *alertVC = [PhoneHadLogoutAlertViewController new];
+            alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [self  presentViewController:alertVC animated:NO completion:nil];
         }else{
             SMSCodeViewController *vc =  [[SMSCodeViewController alloc]init];
             vc.phoneStr = phone;

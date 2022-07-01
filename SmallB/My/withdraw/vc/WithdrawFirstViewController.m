@@ -50,17 +50,17 @@
     image.frame = CGRectMake(12, 0, ScreenWidth - 24, 164);
     [headerV addSubview:image];
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"可提现金额" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"可提现积分" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
     title.frame = CGRectMake(12, 43, ScreenWidth - 48, 20);
     [image addSubview:title];
     
-    UILabel *money = [UILabel creatLabelWithTitle:@"¥0" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_M(45)];
+    UILabel *money = [UILabel creatLabelWithTitle:@"0" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_M(45)];
     money.frame = CGRectMake(12, 68, ScreenWidth - 48, 60);
     [image addSubview:money];
     self.moneyL = money;
     if (self.moneyStr) {
-        NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@",self.moneyStr]];
-        [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
+        NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
+        //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
         money.attributedText = attributeMarket;
     }
 
@@ -74,8 +74,8 @@
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
             if ([data objectForKey:@"operableIncome"]) {
                 self.moneyStr = [NSString stringWithFormat:@"%.2f",[[data objectForKey:@"operableIncome"] floatValue]];
-                NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@",self.moneyStr]];
-                [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
+                NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
+                //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
                 self.moneyL.attributedText = attributeMarket;
             }
         }

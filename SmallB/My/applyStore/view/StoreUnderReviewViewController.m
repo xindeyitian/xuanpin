@@ -62,7 +62,7 @@
 }
 
 - (void)btnClick{
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[NSString stringWithFormat:@"LLWF:walkAround"]]];
+    [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:walkAround"]];
 }
 
 @end

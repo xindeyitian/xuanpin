@@ -79,7 +79,7 @@
     
     float maxY = 217;
     for (int i = 0; i < 2; i ++ ) {
-        UILabel *left = [UILabel creatLabelWithTitle:i == 0? @"提现金额":@"提现方式" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(15)];
+        UILabel *left = [UILabel creatLabelWithTitle:i == 0? @"提现积分":@"提现方式" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(15)];
         left.frame = CGRectMake(12, maxY + (23+12)*i, 70, 23);
         [whiteV addSubview:left];
         

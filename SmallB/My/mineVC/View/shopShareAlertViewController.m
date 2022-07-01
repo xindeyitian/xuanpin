@@ -61,6 +61,10 @@
     }];
     codeImage.image = [AppTool createQRImageWithString:@"这里是分享店铺"];
     
+    self.titleS = @"分享店铺";
+    self.descriptionS = @"这里是分享店铺";
+    self.webpageUrlS = @"这里是分享店铺url";
+    
     if (self.isOpenShop) {
         image.image = IMAGE_NAMED(@"my_applyStore_share");
         
@@ -87,6 +91,10 @@
             codeTitle.text = [NSString stringWithFormat:@"邀请码：%@",inviteCode];
         }
         codeImage.image = [AppTool createQRImageWithString:@"这里是邀请开店"];
+    
+        self.titleS = @"邀请开店";
+        self.descriptionS = @"这里是邀请开店";
+        self.webpageUrlS = @"这里是邀请开店url";
     }
 }
 

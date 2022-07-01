@@ -28,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎来到小莲云仓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gby-mv-15Q">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="欢迎登录小莲云仓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gby-mv-15Q">
                     <rect key="frame" x="49.999999999999986" y="164" width="194.66666666666663" height="29"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                     <nil key="textColor"/>
@@ -53,7 +53,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oax-9J-CR5">
-                    <rect key="frame" x="30" y="710" width="330" height="50"/>
+                    <rect key="frame" x="20" y="710" width="350" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Wct-tq-LZu"/>
                     </constraints>
@@ -68,7 +68,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DWC-Ue-Cyp">
-                    <rect key="frame" x="73" y="634" width="32" height="26"/>
+                    <rect key="frame" x="63" y="634" width="32" height="26"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="wechat_login"/>
                     <connections>
@@ -139,7 +139,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaJ-kr-Tyg">
-                    <rect key="frame" x="285" y="628" width="32" height="32"/>
+                    <rect key="frame" x="295" y="628" width="32" height="32"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" image="ZPay_login"/>
                     <connections>
@@ -150,14 +150,13 @@
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Oax-9J-CR5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="48J-tG-UwJ"/>
                 <constraint firstItem="gby-mv-15Q" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="120" id="6Us-zq-9eG"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="erk-UB-CPr" secondAttribute="trailing" constant="50" id="7VT-60-NcJ"/>
                 <constraint firstItem="erk-UB-CPr" firstAttribute="top" secondItem="hDf-k3-yHG" secondAttribute="bottom" constant="72" id="BXx-Rb-7v4"/>
                 <constraint firstItem="hDf-k3-yHG" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="50" id="Feb-7Y-QY9"/>
                 <constraint firstItem="1pt-ag-3b5" firstAttribute="top" secondItem="gby-mv-15Q" secondAttribute="bottom" constant="50" id="G1R-Yn-lev"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Oax-9J-CR5" secondAttribute="bottom" constant="50" id="Juw-rK-RQl"/>
-                <constraint firstItem="Oax-9J-CR5" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="30" id="KYo-5j-s0A"/>
+                <constraint firstItem="Oax-9J-CR5" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="20" id="KYo-5j-s0A"/>
                 <constraint firstItem="gaJ-kr-Tyg" firstAttribute="leading" secondItem="Oax-9J-CR5" secondAttribute="trailing" constant="-75" id="NDg-7P-Qp3"/>
                 <constraint firstItem="erk-UB-CPr" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="50" id="U6p-Qz-Mmr"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="1pt-ag-3b5" secondAttribute="trailing" constant="50" id="UPi-Ar-EW7"/>
@@ -169,7 +168,7 @@
                 <constraint firstItem="Cym-7V-XRp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="pjt-Mu-gSh"/>
                 <constraint firstItem="hDf-k3-yHG" firstAttribute="top" secondItem="1pt-ag-3b5" secondAttribute="bottom" constant="10" id="qnJ-DA-WtL"/>
                 <constraint firstItem="1pt-ag-3b5" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="50" id="s1U-ve-myp"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Oax-9J-CR5" secondAttribute="trailing" constant="30" id="zjZ-Ja-i5P"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Oax-9J-CR5" secondAttribute="trailing" constant="20" id="zjZ-Ja-i5P"/>
             </constraints>
             <point key="canvasLocation" x="238" y="-476"/>
         </view>

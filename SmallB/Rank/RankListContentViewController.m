@@ -27,11 +27,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = UIColor.redColor;
     self.dataArray = @[].mutableCopy;
     self.page = 1;
     self.needPullUpRefresh = self.needPullDownRefresh = YES;
     self.tableView.backgroundColor = UIColor.whiteColor;
     [self.tableView registerClass:[RankListContentTableViewCell class] forCellReuseIdentifier:[RankListContentTableViewCell description]];
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 10)];
 }
 
 - (void)setIndex:(NSInteger)index{
@@ -88,7 +90,9 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tableView.frame = CGRectMake(0, 0, ScreenWidth - 24, ScreenHeight - 179 * KScreenW_Ratio - 47 - KTabBarHeight);
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.bottom.mas_equalTo(self.view);
+    }];
 }
 #pragma mark - tableviewDelegate  dataSorce----------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

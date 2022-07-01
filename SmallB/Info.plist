@@ -33,6 +33,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>LLWF</string>
 		<string>alipayshare</string>
 		<string>alipay</string>
 		<string>wechat</string>

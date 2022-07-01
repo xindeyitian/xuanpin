@@ -25,6 +25,7 @@
 		1F196FE12803F3A900E8CD1A /* THBaseCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F196FE02803F3A900E8CD1A /* THBaseCommentTableViewCell.m */; };
 		1F196FE42803F56D00E8CD1A /* mySetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F196FE32803F56D00E8CD1A /* mySetTableViewCell.m */; };
 		1F196FE72803FBF600E8CD1A /* mySetDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F196FE62803FBF600E8CD1A /* mySetDataModel.m */; };
+		1F22883E286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */; };
 		1F323E892809506F00A15BD9 /* commentV.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E882809506F00A15BD9 /* commentV.m */; };
 		1F323E90280A4F1B00A15BD9 /* applyStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E8F280A4F1B00A15BD9 /* applyStoreViewController.m */; };
 		1F323E93280A519800A15BD9 /* BaseSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E92280A519800A15BD9 /* BaseSelectTableViewCell.m */; };
@@ -753,6 +754,8 @@
 		1F196FE32803F56D00E8CD1A /* mySetTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mySetTableViewCell.m; sourceTree = "<group>"; };
 		1F196FE52803FBF600E8CD1A /* mySetDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mySetDataModel.h; sourceTree = "<group>"; };
 		1F196FE62803FBF600E8CD1A /* mySetDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mySetDataModel.m; sourceTree = "<group>"; };
+		1F22883C286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneHadLogoutAlertViewController.h; sourceTree = "<group>"; };
+		1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneHadLogoutAlertViewController.m; sourceTree = "<group>"; };
 		1F323E872809506E00A15BD9 /* commentV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commentV.h; sourceTree = "<group>"; };
 		1F323E882809506F00A15BD9 /* commentV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = commentV.m; sourceTree = "<group>"; };
 		1F323E8E280A4F1B00A15BD9 /* applyStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applyStoreViewController.h; sourceTree = "<group>"; };
@@ -5128,6 +5131,8 @@
 				58AB80B227E9BED9003D5B20 /* YinsiFuwuViewController.m */,
 				1F68D1F52820D7F00048D877 /* UserDetailInfoModel.h */,
 				1F68D1F62820D7F00048D877 /* UserDetailInfoModel.m */,
+				1F22883C286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.h */,
+				1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -6034,6 +6039,7 @@
 				58AB80AE27E9BEC7003D5B20 /* BaseLabel.m in Sources */,
 				1FB33948285B1DC800F324FF /* ZXTelResultParser.m in Sources */,
 				58AB7EBD27E9BDCD003D5B20 /* THBase64.m in Sources */,
+				1F22883E286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m in Sources */,
 				1FB021FD281F73A80085977B /* LOTComposition.m in Sources */,
 				1FB3390D285B1DC800F324FF /* ZXEANManufacturerOrgSupport.m in Sources */,
 				1FB338B4285B1DC700F324FF /* ZXQRCodeDataMask.m in Sources */,

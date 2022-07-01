@@ -108,7 +108,7 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 /*
  分享到微信平台
  */
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image WXScene:(NSInteger)WXScene;
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(int)WXScene;
 /**
  创建二维码
  */
@@ -129,7 +129,13 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 + (NSString *)dealChineseUrl:(NSString *)baseUrl;
 
 + (void)dealCollectionDataAry:(NSMutableArray *)listAry;
+
 + (NSMutableArray *)dealCollectionResultAry:(NSMutableArray *)listAry;
+
+/**
+ 处理跳转到电商的逻辑
+ */
++ (void)openOthersAppUrl:(NSString *)url;
 
 @end
 

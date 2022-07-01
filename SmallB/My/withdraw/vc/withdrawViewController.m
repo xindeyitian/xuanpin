@@ -59,7 +59,7 @@
     [btn setImage:IMAGE_NAMED(@"bar_back") forState:UIControlStateNormal];
     [imgV addSubview:btn];
     
-    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现金额" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现积分" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
     [imgV addSubview:instro];
     [instro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(29);
@@ -78,9 +78,9 @@
         make.height.mas_equalTo(55);
     }];
     
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@",self.moneyStr]];
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
     NSRange range = NSMakeRange(0,1);
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:range];
+    //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:range];
     money.attributedText = attributeMarket;
     
     self.headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, KStatusBarHeight + 164 + 359)];
@@ -97,8 +97,8 @@
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
             if ([data objectForKey:@"operableIncome"]) {
                 self.moneyStr = [NSString stringWithFormat:@"%.2f",[[data objectForKey:@"operableIncome"] floatValue]];
-                NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"¥%@",self.moneyStr]];
-                [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
+                NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
+                //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
                 self.moneyL.attributedText = attributeMarket;
             }
         }
@@ -164,7 +164,7 @@
     [self.view addSubview:contentWhiteView];
     [self.headerView addSubview:contentWhiteView];
     
-    UILabel *title = [UILabel creatLabelWithTitle:@"提现金额" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(15)];
+    UILabel *title = [UILabel creatLabelWithTitle:@"提现积分" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(15)];
     [contentWhiteView addSubview:title];
     [title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(contentWhiteView).offset(20);
@@ -173,7 +173,7 @@
         make.height.mas_equalTo(23);
     }];
     
-    UILabel *money = [UILabel creatLabelWithTitle:@"¥" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Medium_FONT_R(30)];
+    UILabel *money = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Medium_FONT_R(30)];
     money.frame = CGRectMake(12, 63, 20, 50);
     [contentWhiteView addSubview:money];
     
@@ -184,13 +184,14 @@
     [contentWhiteView addSubview:btn];
     
     UITextField *field = [[UITextField alloc]initWithFrame:CGRectZero];
-    field.placeholder = @"请输入金额";
+    field.placeholder = @"请输入提现积分";
     field.keyboardType = UIKeyboardTypeNumberPad;
     field.font = DEFAULT_FONT_R(30);
     [contentWhiteView addSubview:field];
     [field mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(money.mas_centerY);
-        make.left.mas_equalTo(money.mas_right).offset(5);
+        //make.left.mas_equalTo(money.mas_right).offset(5);
+        make.left.mas_equalTo(contentWhiteView).offset(12);
         make.right.mas_equalTo(btn.mas_left).offset(-10);
         make.height.mas_equalTo(40);
     }];
@@ -293,15 +294,15 @@
             return;
         }
         if (self.moneyField.text.length == 0) {
-            [self showMessageWithString:@"请输入提现金额"];
+            [self showMessageWithString:@"请输入提现积分"];
             return;
         }
         if ([self.moneyField.text integerValue]  > [self.moneyStr integerValue]) {
-            [self showMessageWithString:@"请输入正确的提现金额"];
+            [self showMessageWithString:@"请输入正确的提现积分"];
             return;
         }
         if ([self.moneyField.text integerValue] % 100 !=0) {
-            [self showMessageWithString:@"请输入整百提现金额"];
+            [self showMessageWithString:@"请输入整百提现积分"];
             return;
         }
         [self withdrawOperation];
