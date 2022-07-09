@@ -13,6 +13,7 @@
 #import "CouponChooseViewController.h"
 #import "PhoneHadLogoutAlertViewController.h"
 #import "StoreUnderReviewViewController.h"
+#import "PhoneHadOtherShopAlertViewController.h"
 
 @interface LoginViewController ()<UITextFieldDelegate>{
     NSInteger i;
@@ -166,6 +167,25 @@
             PhoneHadLogoutAlertViewController *alertVC = [PhoneHadLogoutAlertViewController new];
             alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [self  presentViewController:alertVC animated:NO completion:nil];
+        }else if (returnCode == 10018){//已开通其他商户
+            
+            [THHttpManager GET:@"commons/articleInfo/getArticleInfo" parameters:@{@"articleCode":@"seviceVx"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+                [self stopLoadingHUD];
+                if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+  
+                    NSString *content = @"";
+                    if ([data objectForKey:@"content"]) {
+                        id contentS = [data objectForKey:@"content"];
+                        if (![contentS isEqual:[NSNull null]]) {
+                            content = [data objectForKey:@"content"];
+                        }
+                    }
+                    PhoneHadOtherShopAlertViewController *alertVC = [PhoneHadOtherShopAlertViewController new];
+                    alertVC.content = content;
+                    alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                    [self  presentViewController:alertVC animated:NO completion:nil];
+                }
+            }];
         }else{
             SMSCodeViewController *vc =  [[SMSCodeViewController alloc]init];
             vc.phoneStr = phone;

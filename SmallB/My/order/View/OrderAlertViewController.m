@@ -9,6 +9,8 @@
 
 @interface OrderAlertViewController ()
 
+@property (nonatomic , strong)GCPlaceholderTextView *textV;
+
 @end
 
 @implementation OrderAlertViewController
@@ -40,12 +42,14 @@
     
     GCPlaceholderTextView *field= [[GCPlaceholderTextView alloc]init];
     field.placeholder = @"请输入取消订单的原因(限25个字符)";
+    field.delegate = self;
     field.backgroundColor = KBGLightColor;
     field.clipsToBounds = YES;
     field.layer.cornerRadius = YES;
     field.layer.cornerRadius = 8;
     field.font = DEFAULT_FONT_R(15);
     [view addSubview:field];
+    self.textV = field;
     [field mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(view).insets(UIEdgeInsetsMake(0, 8, 0, 8));
     }];
@@ -116,13 +120,61 @@
     }];
 }
 
+- (void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length > 25) {
+        textView.text = [textView.text substringToIndex:25];
+    }
+}
+
 - (void)confirmClick:(BaseButton *)btn{
     if (btn.tag == 22) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     if (btn.tag == 23) {
-        
+        if (self.textV.text.length == 0) {
+            [self showMessageWithString:@"请输入原因"];
+            return;
+        }
+        NSString *title = @"";
+        switch (self.alertType) {
+            case orderAlertType_CancelOrder:{
+                title = @"确定取消订单";
+                [self startLoadingHUD];
+                [THHttpManager POST:@"goods/orderInfo/cancel" parameters:@{@"orderId":self.orderID,@"reason":self.textV.text} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+                    [self stopLoadingHUD];
+                    if (returnCode == 200) {
+                        [self showSuccessMessageWithString:@"取消订单成功"];
+                        [self success];
+                    }
+                }];
+            }
+                break;
+            case orderAlertType_AgreeRefund:{
+                title = @"确定同意退款";
+            }
+                break;
+            case orderAlertType_NotAgreeRefund:{
+                title = @"不同意退款";
+            }
+                break;
+            case orderAlertType_AgreeRefunds:{
+                title = @"确定同意退货退款";
+            }
+                break;
+            case orderAlertType_NotAgreeRefunds:{
+                title = @"不同意退货退款";
+            }
+                break;
+                
+            default:
+                break;
+        }
     }
+   
+}
+
+- (void)success{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelSuccess" object:nil];
 }
 
 @end

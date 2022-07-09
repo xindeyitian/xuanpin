@@ -21,6 +21,8 @@
 #import "SignOutAlertViewController.h"
 #import "UpdateAlertViewController.h"
 #import "MyInfoModel.h"
+#import "versionUpdateAlertViewController.h"
+#import "VersionModel.h"
 
 @interface mySetViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , strong)MyInfoModel *myInfoModel;
@@ -201,7 +203,7 @@
         }];
     }
     if (indexPath.section == 0 && indexPath.row == 4) {
-        if (self.myInfoModel.provinceName.length) {
+        if (self.myInfoModel.provinceName.length && self.myInfoModel.ifAreaUpdate.integerValue == 0) {
             
         }else{
             [self.view endEditing:YES];
@@ -257,10 +259,24 @@
         [self  presentViewController:alertVC animated:NO completion:nil];
     }
     if (indexPath.section == 2 && indexPath.row == 3) {
-        [self showSuccessMessageWithString:@"目前为最新版本！"];
-        UpdateAlertViewController *alertVC = [UpdateAlertViewController new];
-        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        ///[self  presentViewController:alertVC animated:NO completion:nil];
+        [self startLoadingHUD];
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        [THHttpManager GET:@"commons/versionInfo/queryVersion" parameters:@{@"versionCode":[NSString stringWithFormat:@"supply_ios_%@",app_Version]} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+            [self stopLoadingHUD];
+            if (returnCode == 200) {
+                if ([data isKindOfClass:[NSDictionary class]]) {
+                    VersionModel *model = [VersionModel mj_objectWithKeyValues:data];
+                    UpdateAlertViewController *alertVC = [UpdateAlertViewController new];
+                    alertVC.model = model;
+                    alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                    [self presentViewController:alertVC animated:NO completion:nil];
+                }else{
+                    [self showSuccessMessageWithString:@"目前为最新版本！"];
+                }
+            }
+        }];
     }
     if (indexPath.section == 1 && indexPath.row == 1) {
         ThirdBingDingViewController *vc = [ThirdBingDingViewController new];
@@ -348,6 +364,9 @@
         if (infoModel.provinceName) {
             model.detailStr = [NSString stringWithFormat:@"%@ %@ %@",infoModel.provinceName,infoModel.cityName,infoModel.areaName];
             model.hiddenRightImgV = YES;
+        }
+        if (infoModel.ifAreaUpdate.integerValue == 1) {
+            model.hiddenRightImgV = NO;
         }
         [sectionOneAry addObject:model];
     }

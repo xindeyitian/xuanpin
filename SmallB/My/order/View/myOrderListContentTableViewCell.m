@@ -106,12 +106,14 @@
         make.right.mas_equalTo(whiteBGV).offset(-12);
         make.top.mas_equalTo(productprice.mas_bottom).offset(10);
         make.height.mas_equalTo(20);
+        make.width.mas_greaterThanOrEqualTo(10);
     }];
+    self.numL = numLable;
 }
 
 - (void)setModel:(OrderListProductModel *)model{
     _model = model;
-    [self.productImg sd_setImageWithURL:[NSURL URLWithString:model.skuImgUrl] placeholderImage:nil];
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:model.skuImgUrl] placeholderImage:[UIImage imageNamed:@"icon_image"]];
     self.productpriceL.text = [NSString stringWithFormat:@"¥%@",model.priceSale];
     self.productTitleL.text = model.goodsName;
     self.instrucL.text = model.skuName;
@@ -179,13 +181,53 @@
 
 - (void)setModel:(OrderListRecordsModel *)model{
     _model = model;
-    self.statusL.text = @"待卖家发货";
+    self.statusL.text = @"";
+    self.statusL.textColor = KMaintextColor;
+    
+    NSString *statusS = @"";
+    switch (model.orderState.integerValue) {
+        case 1:{
+            statusS = @"待买家付款";
+        }
+            break;
+        case 2:{
+            statusS = @"待卖家发货";
+        }
+            break;
+        case 3:{
+            statusS = @"待买家收货";
+        }
+            break;
+        case 9:{
+            statusS = @"已完成";
+            self.statusL.textColor = KBlack666TextColor;
+        }
+            break;
+        case -1:
+        case -2:
+        case -6:
+        case -7:{
+            statusS = @"订单已取消";
+        }
+            break;
+            
+        default:
+            break;
+    }
+    /**
+     //待付款   待买家付款
+     //待发货   待卖家发货
+     //待收货   待买家收货
+     //售后     待退款
+     //已完成   已完成   666字体
+     */
+    self.statusL.text = statusS;
     
     NSString *name = @"";
     if (model.deliveryRealName) {
         name = model.deliveryRealName;
     }
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@",name,[AppTool changeTimpStampFormate:model.orderTime]]];
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@",name,model.orderTime]];
     NSRange range = NSMakeRange(0,name.length);
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
     self.timeL.attributedText = attributeMarket;
@@ -220,10 +262,18 @@
     
     //待付款   已付款
     //佣金
-    NSString *pay = @"已付款 ¥199";
-    if ([model.orderState isEqual:@"1"]) {
-        pay = @"待付款 ¥199";
+    NSString *statusS = @"";
+    NSString *moneyS = K_NotNullHolder(model.totalMoneyOrder, @"-");
+    NSString *payS = [NSString stringWithFormat:@"已付款 ¥%@",moneyS];
+    switch (model.orderState.integerValue) {
+        case 1:{
+            statusS = @"待付款";
+            payS = [NSString stringWithFormat:@"待付款 ¥%@",moneyS];
+        }
+        default:
+            break;
     }
+    
     NSString *yongjinStr = @"";
     if (model.totalMoneyAgent) {
         yongjinStr = model.totalMoneyAgent;
@@ -231,14 +281,13 @@
         yongjinStr = @"";
     }
     NSString *yongjin = [NSString stringWithFormat:@"赚积分 %@",yongjinStr];
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   %@",pay,yongjin]];
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   %@",payS,yongjin]];
     
     NSRange rang = [attributeMarket.string rangeOfString:@"¥"];
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(13) range:rang];
     
-    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:NSMakeRange(0, pay.length)];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:NSMakeRange(0, payS.length)];
     self.moneyL.attributedText = attributeMarket;
-    
 }
 
 - (void)creatSubViews{

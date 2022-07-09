@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic , strong)GoodsListVosModel *model;
 @property(nonatomic , strong)void(^viewBlock)(void);
+@property(nonatomic , strong)void(^deleteViewBlock)(void);
 
 @end
 

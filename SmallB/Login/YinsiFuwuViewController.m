@@ -29,7 +29,7 @@
     self.view.backgroundColor = UIColor.whiteColor;
     
     BaseOwnerNavView *nav= [[BaseOwnerNavView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, KNavBarHeight)];
-    nav.titleL.text = @"标题";
+    nav.titleL.text = @"";
     [nav.backBtn setImage:IMAGE_NAMED(@"back") forState:UIControlStateNormal];
     [self.view addSubview:nav];
     nav.backOperation = ^{

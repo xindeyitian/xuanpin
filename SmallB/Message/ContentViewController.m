@@ -15,6 +15,7 @@
 @interface ContentViewController ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , copy)NSString *typeStatus;
 @property (nonatomic , assign)NSInteger page;
+@property (nonatomic , copy)NSString *searchS;
 @end
 
 @implementation ContentViewController
@@ -29,16 +30,22 @@
     [super viewDidLoad];
     self.page = 1;
     
+    self.searchS = @"";
     self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
     self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"cancelSuccess" object:nil];
     
     BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     searchV.fieldEnabled = YES;
-    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"输入订单号" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"请输入订单号/手机号/收货人姓名" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
     searchV.searchField.attributedPlaceholder = attrString;
     searchV.leftSearchImgv.image = IMAGE_NAMED(@"放大镜_black");
     searchV.viewClickBlock = ^(NSInteger index, NSString * _Nonnull searchStr) {
         NSLog(@"%@",searchStr);
+        if (![self.searchS isEqualToString:searchStr]) {
+            self.searchS = searchStr;
+            [self loadNewData];
+        }
     };
     searchV.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:searchV];
@@ -49,20 +56,28 @@
     [self.tableView registerClass:[myOrderListContentTableViewCell class] forCellReuseIdentifier:[myOrderListContentTableViewCell description]];
     [self.tableView registerClass:[MyOrderListZiYingTableViewCell class] forCellReuseIdentifier:[MyOrderListZiYingTableViewCell description]];
     self.page = 1;
-    if (self.orderType == myOrderTypeWaitingAllOrder) {
-        self.typeStatus = @"";
-    }if (self.orderType == myOrderTypeWaitingPaid) {
-        self.typeStatus = @"1";
-    }if (self.orderType == myOrderTypeWaitingToBeDelivered) {
-        self.typeStatus = @"2";
-    }if (self.orderType == myOrderTypeWaitingPendingReceipt) {
-        self.typeStatus = @"3";
-    }if (self.orderType == myOrderTypeWaitingRefund) {
-        self.typeStatus = @"9";
-    }if (self.orderType == myOrderTypeWaitingComplete) {
-        self.typeStatus = @"-1";
+    if (self.isShouhou) {
+        
+    }else{
+        if (self.orderIndex == 0) {
+            self.typeStatus = @"";
+        }if (self.orderIndex == 1) {
+            self.typeStatus = @"1";
+        }if (self.orderIndex == 2) {
+            self.typeStatus = @"2";
+        }if (self.orderIndex == 3) {
+            self.typeStatus = @"3";
+        }if (self.orderIndex == 4) {
+            self.typeStatus = @"9";
+        }if (self.orderIndex == 5) {
+            self.typeStatus = @"-1";
+        }
     }
-    [self getOrderListData];
+    [self loadNewData];
+}
+
+- (void)cancelSuccess{
+    [self loadNewData];
 }
 
 - (void)loadNewData{
@@ -75,11 +90,17 @@
     [self getOrderListData];
 }
 
-- (void)setOrderType:(myOrderType)orderType{
-    _orderType = orderType;
-}
-
 - (void)getOrderListData{
+    
+    if (self.type == 2 || self.isShouhou) {
+        
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.dataArray removeAllObjects];
+        [self.tableView reloadData];
+        self.emptyDataView.hidden = NO;
+        return;
+    }
     
     NSDictionary *dica;
     NSString *url = @"";
@@ -91,6 +112,7 @@
                                @"pageSize":@"10",
                                @"orderType":[NSString stringWithFormat:@"%ld",(long)self.type-1],
                                @"orderState":self.typeStatus,
+                               @"keyword":self.keyword
         };
         url = @"goods/orderInfo/goodsOrderPage";
         [THHttpManager GET:url parameters:dica block:^(NSInteger returnCode, THRequestStatus status, id data) {
@@ -116,6 +138,7 @@
         dica = @{@"current":[NSString stringWithFormat:@"%ld",(long)self.page],
                                @"size":@"10",
                                @"ifSelf":[NSString stringWithFormat:@"%ld",2-(long)self.type],
+                               @"keyword":self.searchS
         };
         url = @"order/goodsBackApply/listPage";
         [THHttpManager POST:(NSString *)url parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
@@ -142,11 +165,10 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    if (self.isShouhou) {
-        self.tableView.frame = CGRectMake(0, 44, ScreenWidth, ScreenHeight - 44 - KNavBarHeight -12);
-    }else{
-        self.tableView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - 42 - KNavBarHeight - 44 -12);
-    }
+    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).offset(self.isShouhou ? 44 : 0);
+    }];
 }
 #pragma mark - tableviewDelegate  dataSorce----------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -161,14 +183,6 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.type == 1) {
-        myOrderListContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[myOrderListContentTableViewCell description]];
-        if (self.dataArray.count) {
-            OrderListRecordsModel *model = self.dataArray[indexPath.section];
-            cell.model = model.orderGoodsListVos[indexPath.row];
-        }
-        return cell;
-    }
     myOrderListContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[myOrderListContentTableViewCell description]];
     if (self.dataArray.count) {
         OrderListRecordsModel *model = self.dataArray[indexPath.section];
@@ -195,8 +209,12 @@
   myOrderTypeWaitingPendingReceipt,//待收货
   myOrderTypeWaitingRefund,//退款/售后
   */
-    if (self.orderType == myOrderTypeWaitingToBeDelivered || self.orderType == myOrderTypeWaitingPendingReceipt || self.orderType == myOrderTypeWaitingRefund) {
-        return 50 + 45;
+    if (self.dataArray.count) {
+        OrderListRecordsModel *model = self.dataArray[section];
+        NSInteger status = model.orderState.integerValue;
+        if (status == 2 || status == 3 || self.isShouhou) {
+            return 50 + 45;
+        }
     }
     return 50;
 }
@@ -204,6 +222,7 @@
     
     if (self.type == 1) {
         myOrderListContentCellFootView *view = [[myOrderListContentCellFootView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
+        view.type = self.type;
         if (self.dataArray.count) {
             view.model = self.dataArray[section];
         }
@@ -215,18 +234,25 @@
         return view;
     }
     float height = 50;
-    if (self.orderType == myOrderTypeWaitingToBeDelivered || self.orderType == myOrderTypeWaitingPendingReceipt || self.orderType == myOrderTypeWaitingRefund) {
-        height = 50+45;
+    if (self.dataArray.count) {
+        OrderListRecordsModel *model = self.dataArray[section];
+        NSInteger status = model.orderState.integerValue;
+        if (status == 2 || status == 3 || self.isShouhou) {
+            height = 50 + 45;
+        }
     }
     myOrderListZiYingCellFootView *view = [[myOrderListZiYingCellFootView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, height)];
+    view.type = self.type;
     if (self.dataArray.count) {
         view.model = self.dataArray[section];
     }
-    view.orderType = self.orderType;
     CJWeakSelf()
     view.viewClickBlock = ^{
         CJStrongSelf()
         [self pustToDetailWithSection:section];
+    };
+    view.successBlock = ^{
+        [self loadNewData];
     };
     return view;
 }

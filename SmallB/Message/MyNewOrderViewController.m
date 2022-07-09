@@ -114,6 +114,7 @@
     MyOrderTypeViewController *vc = [[MyOrderTypeViewController alloc]init];
     vc.isShouhou = self.isShouhou;;
     vc.orderType = self.orderType;
+    vc.index = self.index;
     if (self.titleAry.count == 1 && [self.titleAry containsObject:@"云仓订单"]) {
         vc.type = 1;
     }else  if (self.titleAry.count == 1 && [self.titleAry containsObject:@"自营订单"]) {

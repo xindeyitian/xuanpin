@@ -88,7 +88,7 @@
     NSMutableArray *imageAry = [NSMutableArray array];
     for (int i =0; i < array.count; i ++) {
         BannerListVosModel *model = array[i];
-        [imageAry addObject:model.ossImgPath];
+        [imageAry addObject:[NSString stringWithFormat:@"%@%@",model.ossImgPath,model.ossImgName]];
     }
     self.bannerCycle.imageURLStringsGroup = imageAry;
     

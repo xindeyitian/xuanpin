@@ -47,12 +47,8 @@
 - (void)phoneClick{
     
     [self dismissViewControllerAnimated:NO completion:^{
-        THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
-        NSMutableString * string = [[NSMutableString alloc] initWithFormat:@"tel:%@",self.phoneStr];
-        UIWebView * callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
-        [vc.view addSubview:callWebview];
-        [vc dismissViewControllerAnimated:NO completion:nil];
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.phoneStr];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }];
 }
 

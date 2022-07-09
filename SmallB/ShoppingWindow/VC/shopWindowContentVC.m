@@ -8,6 +8,7 @@
 #import "shopWindowContentVC.h"
 #import "shipWindowContentCell.h"
 #import "RecordsModel.h"
+#import "ShopWindowDeleteAlertVC.h"
 
 @interface shopWindowContentVC ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,LMJVerticalFlowLayoutDelegate>
 {
@@ -35,6 +36,8 @@
     self.needPullUpRefresh = self.needPullDownRefresh = YES;
     
     [self.tableView registerClass:[shipWindowContentCell class] forCellReuseIdentifier:[shipWindowContentCell description]];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
     self.page = 1;
 }
@@ -115,10 +118,14 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.shopType == 0 && self.index == 1) {
-        return YES;
-    }
     return NO;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataArray.count && self.index == 0) {
+        GoodsListVosModel *model = self.dataArray[indexPath.row];
+        [AppTool GoToProductDetailWithID:model.goodsId];
+    }
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  API_AVAILABLE(ios(11.0)) {
@@ -126,8 +133,13 @@
     UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         CJStrongSelf()
         if (self.dataArray.count) {
-            GoodsListVosModel *model = self.dataArray[indexPath.section];
-            [self deleteSelectRow:model.shopGoodsId];
+            ShopWindowDeleteAlertVC *vc = [[ShopWindowDeleteAlertVC alloc]init];
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            vc.confirmBtnClickBlock = ^{
+                GoodsListVosModel *model = self.dataArray[indexPath.section];
+                [self deleteSelectRow:model.shopGoodsId];
+            };
+            [self presentViewController:vc animated:NO completion:nil];
         }
     }];
     deleteRowAction.backgroundColor = KMainBGColor;
@@ -138,7 +150,7 @@
 
 - (void)deleteSelectRow:(NSString *)shopGoodsId{
     [self startLoadingHUD];
-    [THHttpManager POST:@"goods/shopGoods/goodsShopDel" parameters:@{@"shopGoodsId":shopGoodsId} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+    [THHttpManager FormatPOST:@"goods/shopGoods/goodsShopDel" parameters:@{@"shopGoodsId":shopGoodsId} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200) {
             [self showSuccessMessageWithString:@"删除成功"];
@@ -171,6 +183,17 @@
     }
     cell.viewBlock = ^{
         [self loadNewData];
+    };
+    cell.deleteViewBlock = ^{
+        if (self.dataArray.count) {
+            ShopWindowDeleteAlertVC *vc = [[ShopWindowDeleteAlertVC alloc]init];
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            vc.confirmBtnClickBlock = ^{
+                GoodsListVosModel *model = self.dataArray[indexPath.section];
+                [self deleteSelectRow:model.shopGoodsId];
+            };
+            [self presentViewController:vc animated:NO completion:nil];
+        }
     };
     return cell;
 }

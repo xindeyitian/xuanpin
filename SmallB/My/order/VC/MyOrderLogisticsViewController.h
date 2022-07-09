@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyOrderLogisticsViewController : THBaseTableViewController
 
 @property (nonatomic , assign)BOOL haveBottom;
+@property (nonatomic , copy)NSString *orderID;
+@property (nonatomic , strong)NSMutableArray *productAry;
+@property(nonatomic,strong)void(^successBlock)(void);
 
 @end
 

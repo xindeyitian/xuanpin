@@ -60,11 +60,8 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     if (btn.tag == 23) {
-        NSMutableString * string = [[NSMutableString alloc] initWithFormat:@"tel:%@",self.phone];
-        UIWebView * callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
-        [self.view addSubview:callWebview];
-        [self dismissViewControllerAnimated:NO completion:nil];
+        NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.phone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }
 }
 

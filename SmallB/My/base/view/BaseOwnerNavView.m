@@ -37,7 +37,7 @@
     if (_backOperation) {
         _backOperation();
     }
-    [[THAPPService shareAppService].currentViewController.navigationController popViewControllerAnimated:YES];
+    [[AppTool currentVC].navigationController popViewControllerAnimated:YES];
 }
 
 @end

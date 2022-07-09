@@ -59,8 +59,10 @@
 }
 
 - (void)confirmClick:(BaseButton *)btn{
-    [[NSUserDefaults standardUserDefaults]  setValue:@"2" forKey:@"login"];
+    [[NSUserDefaults standardUserDefaults]  setValue:@"1" forKey:@"login"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [AppTool cleanLocalToken];
     
     LoginViewController *tabBarVC = [LoginViewController new];
     [UIApplication sharedApplication].delegate.window.rootViewController = tabBarVC;

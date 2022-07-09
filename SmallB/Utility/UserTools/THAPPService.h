@@ -36,9 +36,4 @@
  */
 + (void)setWindowRootViewController:(UIViewController *)VC;
 
-/**
- 当前显示的控制器
- */
-@property(nonatomic,weak) THBaseViewController *currentViewController;
-
 @end

@@ -142,8 +142,6 @@
 {
     [super viewWillAppear:animated];
     [self setNeedsStatusBarAppearanceUpdate];
-    //传递给VIew当前的VC
-    [THAPPService shareAppService].currentViewController = self;
     
     //添加网络状态通知子类级所有人
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(AFNetworkingReachabilityDidChang:) name:AFNetworkingReachabilityDidChangeNotification object:nil];

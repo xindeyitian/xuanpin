@@ -26,6 +26,12 @@
 		1F196FE42803F56D00E8CD1A /* mySetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F196FE32803F56D00E8CD1A /* mySetTableViewCell.m */; };
 		1F196FE72803FBF600E8CD1A /* mySetDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F196FE62803FBF600E8CD1A /* mySetDataModel.m */; };
 		1F22883E286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */; };
+		1F2B76A72876A90000540544 /* OrderLogistProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76A62876A90000540544 /* OrderLogistProductTableViewCell.m */; };
+		1F2B76AA2876BCF500540544 /* OrderLogistedListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76A92876BCF500540544 /* OrderLogistedListViewController.m */; };
+		1F2B76AD2876BE9900540544 /* OrderLogistedListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76AC2876BE9900540544 /* OrderLogistedListTableViewCell.m */; };
+		1F2B76B02876C1D000540544 /* OrderLogistedListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76AF2876C1D000540544 /* OrderLogistedListDetailViewController.m */; };
+		1F2B76B32876C7EC00540544 /* OrderLogistDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76B22876C7EC00540544 /* OrderLogistDetailTableViewCell.m */; };
+		1F2B76B6287821A600540544 /* ShopWindowDeleteAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76B5287821A600540544 /* ShopWindowDeleteAlertVC.m */; };
 		1F323E892809506F00A15BD9 /* commentV.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E882809506F00A15BD9 /* commentV.m */; };
 		1F323E90280A4F1B00A15BD9 /* applyStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E8F280A4F1B00A15BD9 /* applyStoreViewController.m */; };
 		1F323E93280A519800A15BD9 /* BaseSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E92280A519800A15BD9 /* BaseSelectTableViewCell.m */; };
@@ -78,6 +84,17 @@
 		1F68D20028211EF50048D877 /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68D1FF28211EF50048D877 /* RecordModel.m */; };
 		1F68D2032821250A0048D877 /* CJNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68D202282125090048D877 /* CJNoDataView.m */; };
 		1F68D206282127E70048D877 /* listVosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F68D205282127E70048D877 /* listVosModel.m */; };
+		1F6E06CD2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E06CC2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.m */; };
+		1F6E07142874096F00190088 /* ApplySupplierFailAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E07132874096F00190088 /* ApplySupplierFailAlertViewController.m */; };
+		1F6E07172874099100190088 /* ApplySupplierSuccessAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E07162874099100190088 /* ApplySupplierSuccessAlertViewController.m */; };
+		1F6E071A2874229F00190088 /* ApplySupplierUndereviewAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E07192874229F00190088 /* ApplySupplierUndereviewAlertViewController.m */; };
+		1F6E071D2874270500190088 /* versionUpdateAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E071C2874270500190088 /* versionUpdateAlertViewController.m */; };
+		1F6E072028743FA300190088 /* VersionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E071F28743FA300190088 /* VersionModel.m */; };
+		1F6E07232875672000190088 /* OrderLogistCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E07222875672000190088 /* OrderLogistCompanyViewController.m */; };
+		1F6E0726287569AD00190088 /* OrderLogistCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0725287569AD00190088 /* OrderLogistCompanyModel.m */; };
+		1F6E072928767C0D00190088 /* BaseLeftFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E072828767C0D00190088 /* BaseLeftFieldTableViewCell.m */; };
+		1F6E072C287686A400190088 /* OrderLogistProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E072B287686A400190088 /* OrderLogistProductViewController.m */; };
+		1F6E072F287687EA00190088 /* MyOrderLogisticsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E072E287687EA00190088 /* MyOrderLogisticsDataModel.m */; };
 		1F753EFA280676260097B299 /* withdrawFailAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F753EF9280676260097B299 /* withdrawFailAlertViewController.m */; };
 		1F753EFD2806A1030097B299 /* BaseFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F753EFC2806A1030097B299 /* BaseFieldTableViewCell.m */; };
 		1F753F002806A7BD0097B299 /* BasePhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F753EFF2806A7BD0097B299 /* BasePhotoTableViewCell.m */; };
@@ -557,7 +574,7 @@
 		589C4B3A27F6E02000654189 /* ThBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 589C4B3927F6E02000654189 /* ThBaseTableViewCell.m */; };
 		589C4B4927F6EE0900654189 /* HomeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 589C4B4827F6EE0900654189 /* HomeTopView.m */; };
 		58AB7E9A27E9BD56003D5B20 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AB7E9927E9BD56003D5B20 /* AppDelegate.m */; };
-		58AB7EA027E9BD56003D5B20 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AB7E9F27E9BD56003D5B20 /* ViewController.m */; };
+		58AB7EA027E9BD56003D5B20 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AB7E9F27E9BD56003D5B20 /* GuideViewController.m */; };
 		58AB7EA327E9BD56003D5B20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58AB7EA127E9BD56003D5B20 /* Main.storyboard */; };
 		58AB7EA527E9BD56003D5B20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58AB7EA427E9BD56003D5B20 /* Assets.xcassets */; };
 		58AB7EA827E9BD56003D5B20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58AB7EA627E9BD56003D5B20 /* LaunchScreen.storyboard */; };
@@ -756,6 +773,18 @@
 		1F196FE62803FBF600E8CD1A /* mySetDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mySetDataModel.m; sourceTree = "<group>"; };
 		1F22883C286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneHadLogoutAlertViewController.h; sourceTree = "<group>"; };
 		1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneHadLogoutAlertViewController.m; sourceTree = "<group>"; };
+		1F2B76A52876A8FF00540544 /* OrderLogistProductTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistProductTableViewCell.h; sourceTree = "<group>"; };
+		1F2B76A62876A90000540544 /* OrderLogistProductTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistProductTableViewCell.m; sourceTree = "<group>"; };
+		1F2B76A82876BCF500540544 /* OrderLogistedListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistedListViewController.h; sourceTree = "<group>"; };
+		1F2B76A92876BCF500540544 /* OrderLogistedListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistedListViewController.m; sourceTree = "<group>"; };
+		1F2B76AB2876BE9900540544 /* OrderLogistedListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistedListTableViewCell.h; sourceTree = "<group>"; };
+		1F2B76AC2876BE9900540544 /* OrderLogistedListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistedListTableViewCell.m; sourceTree = "<group>"; };
+		1F2B76AE2876C1D000540544 /* OrderLogistedListDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistedListDetailViewController.h; sourceTree = "<group>"; };
+		1F2B76AF2876C1D000540544 /* OrderLogistedListDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistedListDetailViewController.m; sourceTree = "<group>"; };
+		1F2B76B12876C7EC00540544 /* OrderLogistDetailTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistDetailTableViewCell.h; sourceTree = "<group>"; };
+		1F2B76B22876C7EC00540544 /* OrderLogistDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistDetailTableViewCell.m; sourceTree = "<group>"; };
+		1F2B76B4287821A600540544 /* ShopWindowDeleteAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopWindowDeleteAlertVC.h; sourceTree = "<group>"; };
+		1F2B76B5287821A600540544 /* ShopWindowDeleteAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopWindowDeleteAlertVC.m; sourceTree = "<group>"; };
 		1F323E872809506E00A15BD9 /* commentV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commentV.h; sourceTree = "<group>"; };
 		1F323E882809506F00A15BD9 /* commentV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = commentV.m; sourceTree = "<group>"; };
 		1F323E8E280A4F1B00A15BD9 /* applyStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applyStoreViewController.h; sourceTree = "<group>"; };
@@ -854,6 +883,28 @@
 		1F68D202282125090048D877 /* CJNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJNoDataView.m; sourceTree = "<group>"; };
 		1F68D204282127E70048D877 /* listVosModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = listVosModel.h; sourceTree = "<group>"; };
 		1F68D205282127E70048D877 /* listVosModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = listVosModel.m; sourceTree = "<group>"; };
+		1F6E06CB2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneHadOtherShopAlertViewController.h; sourceTree = "<group>"; };
+		1F6E06CC2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneHadOtherShopAlertViewController.m; sourceTree = "<group>"; };
+		1F6E07122874096F00190088 /* ApplySupplierFailAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplySupplierFailAlertViewController.h; sourceTree = "<group>"; };
+		1F6E07132874096F00190088 /* ApplySupplierFailAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplySupplierFailAlertViewController.m; sourceTree = "<group>"; };
+		1F6E07152874099100190088 /* ApplySupplierSuccessAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplySupplierSuccessAlertViewController.h; sourceTree = "<group>"; };
+		1F6E07162874099100190088 /* ApplySupplierSuccessAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplySupplierSuccessAlertViewController.m; sourceTree = "<group>"; };
+		1F6E07182874229F00190088 /* ApplySupplierUndereviewAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApplySupplierUndereviewAlertViewController.h; sourceTree = "<group>"; };
+		1F6E07192874229F00190088 /* ApplySupplierUndereviewAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApplySupplierUndereviewAlertViewController.m; sourceTree = "<group>"; };
+		1F6E071B2874270500190088 /* versionUpdateAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = versionUpdateAlertViewController.h; sourceTree = "<group>"; };
+		1F6E071C2874270500190088 /* versionUpdateAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = versionUpdateAlertViewController.m; sourceTree = "<group>"; };
+		1F6E071E28743FA300190088 /* VersionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VersionModel.h; sourceTree = "<group>"; };
+		1F6E071F28743FA300190088 /* VersionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VersionModel.m; sourceTree = "<group>"; };
+		1F6E07212875672000190088 /* OrderLogistCompanyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistCompanyViewController.h; sourceTree = "<group>"; };
+		1F6E07222875672000190088 /* OrderLogistCompanyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistCompanyViewController.m; sourceTree = "<group>"; };
+		1F6E0724287569AD00190088 /* OrderLogistCompanyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistCompanyModel.h; sourceTree = "<group>"; };
+		1F6E0725287569AD00190088 /* OrderLogistCompanyModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistCompanyModel.m; sourceTree = "<group>"; };
+		1F6E072728767C0D00190088 /* BaseLeftFieldTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseLeftFieldTableViewCell.h; sourceTree = "<group>"; };
+		1F6E072828767C0D00190088 /* BaseLeftFieldTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseLeftFieldTableViewCell.m; sourceTree = "<group>"; };
+		1F6E072A287686A400190088 /* OrderLogistProductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLogistProductViewController.h; sourceTree = "<group>"; };
+		1F6E072B287686A400190088 /* OrderLogistProductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistProductViewController.m; sourceTree = "<group>"; };
+		1F6E072D287687EA00190088 /* MyOrderLogisticsDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderLogisticsDataModel.h; sourceTree = "<group>"; };
+		1F6E072E287687EA00190088 /* MyOrderLogisticsDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderLogisticsDataModel.m; sourceTree = "<group>"; };
 		1F753EF8280676260097B299 /* withdrawFailAlertViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = withdrawFailAlertViewController.h; sourceTree = "<group>"; };
 		1F753EF9280676260097B299 /* withdrawFailAlertViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = withdrawFailAlertViewController.m; sourceTree = "<group>"; };
 		1F753EFB2806A1030097B299 /* BaseFieldTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -1827,8 +1878,8 @@
 		58AB7E9527E9BD56003D5B20 /* SmallB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58AB7E9827E9BD56003D5B20 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		58AB7E9927E9BD56003D5B20 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		58AB7E9E27E9BD56003D5B20 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		58AB7E9F27E9BD56003D5B20 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		58AB7E9E27E9BD56003D5B20 /* GuideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
+		58AB7E9F27E9BD56003D5B20 /* GuideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		58AB7EA227E9BD56003D5B20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58AB7EA427E9BD56003D5B20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58AB7EA727E9BD56003D5B20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -2578,10 +2629,28 @@
 				1F53522428003851000FBBA6 /* myOrderViewController.m */,
 				1F7580E32818ECF3005D3F6B /* MyOrderLogisticsViewController.h */,
 				1F7580E42818ECF4005D3F6B /* MyOrderLogisticsViewController.m */,
+				1F2B76A82876BCF500540544 /* OrderLogistedListViewController.h */,
+				1F2B76A92876BCF500540544 /* OrderLogistedListViewController.m */,
+				1F2B76AE2876C1D000540544 /* OrderLogistedListDetailViewController.h */,
+				1F2B76AF2876C1D000540544 /* OrderLogistedListDetailViewController.m */,
+				1F2B76B12876C7EC00540544 /* OrderLogistDetailTableViewCell.h */,
+				1F2B76B22876C7EC00540544 /* OrderLogistDetailTableViewCell.m */,
+				1F2B76AB2876BE9900540544 /* OrderLogistedListTableViewCell.h */,
+				1F2B76AC2876BE9900540544 /* OrderLogistedListTableViewCell.m */,
 				1F7580E628190B23005D3F6B /* MyOrderLogisticsTableViewCell.h */,
 				1F7580E728190B23005D3F6B /* MyOrderLogisticsTableViewCell.m */,
+				1F6E072D287687EA00190088 /* MyOrderLogisticsDataModel.h */,
+				1F6E072E287687EA00190088 /* MyOrderLogisticsDataModel.m */,
 				1FA6EC3928052AF10024E2A7 /* MyorderDetailViewController.h */,
 				1FA6EC3A28052AF10024E2A7 /* MyorderDetailViewController.m */,
+				1F6E07212875672000190088 /* OrderLogistCompanyViewController.h */,
+				1F6E07222875672000190088 /* OrderLogistCompanyViewController.m */,
+				1F6E072A287686A400190088 /* OrderLogistProductViewController.h */,
+				1F6E072B287686A400190088 /* OrderLogistProductViewController.m */,
+				1F2B76A52876A8FF00540544 /* OrderLogistProductTableViewCell.h */,
+				1F2B76A62876A90000540544 /* OrderLogistProductTableViewCell.m */,
+				1F6E0724287569AD00190088 /* OrderLogistCompanyModel.h */,
+				1F6E0725287569AD00190088 /* OrderLogistCompanyModel.m */,
 				1FE834EA2817CFF300C9AB7B /* myOrderShouHouProgressViewController.h */,
 				1FE834EB2817CFF300C9AB7B /* myOrderShouHouProgressViewController.m */,
 				1F53522628003EBE000FBBA6 /* myOrderListContentViewController.h */,
@@ -2634,6 +2703,8 @@
 				5843B49B27F6CAED00DFC7F4 /* ShopWindowViewController.m */,
 				1F9CF244280161910051608B /* shopWindowContentVC.h */,
 				1F9CF245280161910051608B /* shopWindowContentVC.m */,
+				1F2B76B4287821A600540544 /* ShopWindowDeleteAlertVC.h */,
+				1F2B76B5287821A600540544 /* ShopWindowDeleteAlertVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -2698,6 +2769,12 @@
 			children = (
 				1F9CF2572803CB750051608B /* myToBeSupplierViewController.h */,
 				1F9CF2582803CB750051608B /* myToBeSupplierViewController.m */,
+				1F6E07122874096F00190088 /* ApplySupplierFailAlertViewController.h */,
+				1F6E07132874096F00190088 /* ApplySupplierFailAlertViewController.m */,
+				1F6E07152874099100190088 /* ApplySupplierSuccessAlertViewController.h */,
+				1F6E07162874099100190088 /* ApplySupplierSuccessAlertViewController.m */,
+				1F6E07182874229F00190088 /* ApplySupplierUndereviewAlertViewController.h */,
+				1F6E07192874229F00190088 /* ApplySupplierUndereviewAlertViewController.m */,
 			);
 			path = vc;
 			sourceTree = "<group>";
@@ -2773,6 +2850,8 @@
 				1F9906E528168E3B00CAE23B /* CleanAlertViewController.m */,
 				1FE834E42817C7FF00C9AB7B /* UpdateAlertViewController.h */,
 				1FE834E52817C7FF00C9AB7B /* UpdateAlertViewController.m */,
+				1F6E071E28743FA300190088 /* VersionModel.h */,
+				1F6E071F28743FA300190088 /* VersionModel.m */,
 				1FE834E12817C67B00C9AB7B /* SignOutAlertViewController.h */,
 				1FE834E22817C67B00C9AB7B /* SignOutAlertViewController.m */,
 				1F4C754328041D54007734AE /* LogOutAlertViewController.h */,
@@ -2789,6 +2868,8 @@
 				1F9906EB2817827300CAE23B /* BingdingAlertViewController.m */,
 				1F560FAF2834D3A70033ABB4 /* BingDingYanZhengViewController.h */,
 				1F560FB02834D3A70033ABB4 /* BingDingYanZhengViewController.m */,
+				1F6E071B2874270500190088 /* versionUpdateAlertViewController.h */,
+				1F6E071C2874270500190088 /* versionUpdateAlertViewController.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -4272,6 +4353,8 @@
 				1F60091F2805573300F17D1F /* BaseCommentTableCell.m */,
 				1F753EFB2806A1030097B299 /* BaseFieldTableViewCell.h */,
 				1F753EFC2806A1030097B299 /* BaseFieldTableViewCell.m */,
+				1F6E072728767C0D00190088 /* BaseLeftFieldTableViewCell.h */,
+				1F6E072828767C0D00190088 /* BaseLeftFieldTableViewCell.m */,
 				1FCE48D4280922C700DBFF82 /* BaseTextViewTableViewCell.h */,
 				1FCE48D5280922C700DBFF82 /* BaseTextViewTableViewCell.m */,
 				1F753F5A2808FAB60097B299 /* BasePhoneTableViewCell.h */,
@@ -4434,8 +4517,8 @@
 				1F53521C28001BC1000FBBA6 /* Tools */,
 				58AB808F27E9BE84003D5B20 /* UserManager */,
 				58AB7EC027E9BDD9003D5B20 /* Utility */,
-				58AB7E9E27E9BD56003D5B20 /* ViewController.h */,
-				58AB7E9F27E9BD56003D5B20 /* ViewController.m */,
+				58AB7E9E27E9BD56003D5B20 /* GuideViewController.h */,
+				58AB7E9F27E9BD56003D5B20 /* GuideViewController.m */,
 			);
 			path = SmallB;
 			sourceTree = "<group>";
@@ -5133,6 +5216,8 @@
 				1F68D1F62820D7F00048D877 /* UserDetailInfoModel.m */,
 				1F22883C286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.h */,
 				1F22883D286D6BAA00E821B1 /* PhoneHadLogoutAlertViewController.m */,
+				1F6E06CB2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.h */,
+				1F6E06CC2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -5388,6 +5473,7 @@
 				58AB7ED727E9BDE3003D5B20 /* MassageView.m in Sources */,
 				1FCE48E528094CA200DBFF82 /* BingdingFailViewController.m in Sources */,
 				58AB7FBF27E9BDEB003D5B20 /* YBIBScreenRotationHandler.m in Sources */,
+				1F6E07142874096F00190088 /* ApplySupplierFailAlertViewController.m in Sources */,
 				1FB33943285B1DC800F324FF /* ZXEmailAddressResultParser.m in Sources */,
 				1F98E8D5282E2EEE008ABD43 /* StoreCollectionModel.m in Sources */,
 				1FB33958285B1DC800F324FF /* ZXSMTPResultParser.m in Sources */,
@@ -5434,7 +5520,7 @@
 				1FB33970285B1DC800F324FF /* BeforeScanSingleton.m in Sources */,
 				1FB338C5285B1DC700F324FF /* ZXDetectorResult.m in Sources */,
 				1FB3394D285B1DC800F324FF /* ZXGeoResultParser.m in Sources */,
-				58AB7EA027E9BD56003D5B20 /* ViewController.m in Sources */,
+				58AB7EA027E9BD56003D5B20 /* GuideViewController.m in Sources */,
 				1FAECB47286AD60E00B438DD /* MagicBoxMessageListModel.m in Sources */,
 				1FB338B2285B1DC700F324FF /* ZXQRCodeMultiReader.m in Sources */,
 				1FB338A6285B1DC700F324FF /* ZXAztecDecoder.m in Sources */,
@@ -5496,9 +5582,11 @@
 				1FB021D7281F73A80085977B /* LOTArrayInterpolator.m in Sources */,
 				1FB3392F285B1DC800F324FF /* ZXRSSDataCharacter.m in Sources */,
 				1FB33911285B1DC800F324FF /* ZXUPCAReader.m in Sources */,
+				1F6E071D2874270500190088 /* versionUpdateAlertViewController.m in Sources */,
 				58AB7FC927E9BDEB003D5B20 /* YBIBCollectionViewLayout.m in Sources */,
 				1FB021F5281F73A80085977B /* LOTShapeFill.m in Sources */,
 				1FB021E7281F73A80085977B /* CALayer+Compat.m in Sources */,
+				1F6E07172874099100190088 /* ApplySupplierSuccessAlertViewController.m in Sources */,
 				1FA0D2A6280E42E40047C40F /* UIView+Empty.m in Sources */,
 				1FCB70A828151B0200D47E97 /* ProductDetailCommentHeaderView.m in Sources */,
 				1FB338DB285B1DC700F324FF /* ZXPDF417Writer.m in Sources */,
@@ -5507,6 +5595,7 @@
 				1FB3393A285B1DC800F324FF /* ZXCodaBarWriter.m in Sources */,
 				1F75810428196C72005D3F6B /* SQShopInviteCodeView.m in Sources */,
 				1FB338F7285B1DC700F324FF /* ZXDataMatrixErrorCorrection.m in Sources */,
+				1F6E072C287686A400190088 /* OrderLogistProductViewController.m in Sources */,
 				1FB338FC285B1DC700F324FF /* ZXDataMatrixBase256Encoder.m in Sources */,
 				1FB33665285B03EB00F324FF /* StoreUnderReviewViewController.m in Sources */,
 				1F60091A2805476900F17D1F /* myOrderDetailProductTableViewCell.m in Sources */,
@@ -5519,6 +5608,7 @@
 				1F753EFD2806A1030097B299 /* BaseFieldTableViewCell.m in Sources */,
 				1FB33955285B1DC800F324FF /* ZXURIParsedResult.m in Sources */,
 				58AB808127E9BE3E003D5B20 /* UIViewController+SwipeBack.m in Sources */,
+				1F6E072928767C0D00190088 /* BaseLeftFieldTableViewCell.m in Sources */,
 				1FB3394B285B1DC800F324FF /* ZXAddressBookDoCoMoResultParser.m in Sources */,
 				1FA0D2F7280FFF040047C40F /* HomeYouXuanTableViewCell.m in Sources */,
 				1FB338FA285B1DC700F324FF /* ZXDataMatrixSymbolInfo144.m in Sources */,
@@ -5579,6 +5669,7 @@
 				58AB7ED927E9BDE3003D5B20 /* JKCountDownButton.m in Sources */,
 				1FB3389D285B1DC700F324FF /* ZXByQuadrantReader.m in Sources */,
 				1FA0D2F4280FEB8D0047C40F /* XHPageControl.m in Sources */,
+				1F2B76B6287821A600540544 /* ShopWindowDeleteAlertVC.m in Sources */,
 				58AB801227E9BE28003D5B20 /* SCCalendarDay.m in Sources */,
 				1F5352192800067C000FBBA6 /* myVCStoreAttentionCell.m in Sources */,
 				1FB3389C285B1DC700F324FF /* ZXGenericMultipleBarcodeReader.m in Sources */,
@@ -5609,6 +5700,7 @@
 				1F75810728196CA0005D3F6B /* UIColor+Category.m in Sources */,
 				1FB02202281F73A80085977B /* LOTKeypath.m in Sources */,
 				1F753F5F2808FAE30097B299 /* BasePhoneCodeTableViewCell.m in Sources */,
+				1F6E072F287687EA00190088 /* MyOrderLogisticsDataModel.m in Sources */,
 				1FB3394F285B1DC800F324FF /* ZXURLTOResultParser.m in Sources */,
 				58AB7FC427E9BDEB003D5B20 /* YBIBDataMediator.m in Sources */,
 				1F00BCFD280663DA005FFCAF /* withdrawRecordViewController.m in Sources */,
@@ -5637,6 +5729,7 @@
 				58AB805227E9BE38003D5B20 /* UIImage+SCTint.m in Sources */,
 				1FB33936285B1DC800F324FF /* ZXUPCAWriter.m in Sources */,
 				58AB7EBE27E9BDCD003D5B20 /* WXPayModel.m in Sources */,
+				1F6E06CD2873D2ED00190088 /* PhoneHadOtherShopAlertViewController.m in Sources */,
 				1FB33904285B1DC800F324FF /* ZXDataMatrixDecoder.m in Sources */,
 				1FA0D2F1280EAB6C0047C40F /* ShopCarModel.m in Sources */,
 				58AB7FB327E9BDEB003D5B20 /* XMTool.m in Sources */,
@@ -5644,6 +5737,7 @@
 				1F93EDB2281278FF00D3FE83 /* BaseSearchNavBarView.m in Sources */,
 				58AB7FBE27E9BDEB003D5B20 /* WGTableViewInScrollView.m in Sources */,
 				1FB338BF285B1DC700F324FF /* ZXQRCodeFinderPattern.m in Sources */,
+				1F6E072028743FA300190088 /* VersionModel.m in Sources */,
 				1F753F592807FDD70097B299 /* BaseOwnerNavView.m in Sources */,
 				1F68D206282127E70048D877 /* listVosModel.m in Sources */,
 				1FD40B93281E57A700A566C2 /* HomeMoreCollectionReusableView.m in Sources */,
@@ -5652,6 +5746,7 @@
 				1FB3392E285B1DC800F324FF /* ZXRSS14Reader.m in Sources */,
 				1FB33956285B1DC800F324FF /* ZXBizcardResultParser.m in Sources */,
 				1F5F9A9B2832338B00F1B758 /* MingXiRecordModel.m in Sources */,
+				1F2B76B32876C7EC00540544 /* OrderLogistDetailTableViewCell.m in Sources */,
 				1FB021E5281F73A80085977B /* UIColor.m in Sources */,
 				1FB33923285B1DC800F324FF /* ZXAI01320xDecoder.m in Sources */,
 				1FB338FB285B1DC700F324FF /* ZXDataMatrixASCIIEncoder.m in Sources */,
@@ -5686,6 +5781,7 @@
 				1FB33960285B1DC800F324FF /* ZXGeoParsedResult.m in Sources */,
 				1FB021F7281F73A80085977B /* LOTShapeStroke.m in Sources */,
 				58AB804D27E9BE38003D5B20 /* UIButton+Extension.m in Sources */,
+				1F6E071A2874229F00190088 /* ApplySupplierUndereviewAlertViewController.m in Sources */,
 				1FB33932285B1DC800F324FF /* ZXAbstractRSSReader.m in Sources */,
 				1FB338A8285B1DC700F324FF /* ZXAztecDetector.m in Sources */,
 				58235E2527F2E16F00BD35B8 /* RegistOrForgetViewController.m in Sources */,
@@ -5713,6 +5809,7 @@
 				1F9906E628168E3B00CAE23B /* CleanAlertViewController.m in Sources */,
 				58AB804F27E9BE38003D5B20 /* UIFont+YH.m in Sources */,
 				1F11D23627FEB8E800E9CF32 /* RankListContentTableViewCell.m in Sources */,
+				1F6E0726287569AD00190088 /* OrderLogistCompanyModel.m in Sources */,
 				1F1511872823A05B00432A9B /* ReceiveSuccessViewController.m in Sources */,
 				58AB7FDD27E9BDEB003D5B20 /* UIView+CZHExtension.m in Sources */,
 				58AB804927E9BE38003D5B20 /* UIScrollView+ThroughScroll.m in Sources */,
@@ -5737,6 +5834,7 @@
 				58AB7FEF27E9BDEB003D5B20 /* JXCategoryTitleBackgroundCell.m in Sources */,
 				58AB804427E9BE38003D5B20 /* CALayer+XibConfiguration.m in Sources */,
 				5843B49C27F6CAED00DFC7F4 /* ShopWindowViewController.m in Sources */,
+				1F6E07232875672000190088 /* OrderLogistCompanyViewController.m in Sources */,
 				1FB33905285B1DC800F324FF /* ZXDataMatrixVersion.m in Sources */,
 				58AB805927E9BE38003D5B20 /* CALayer+XibBorder.m in Sources */,
 				1F9CF25F2803CBB30051608B /* myShimingViewController.m in Sources */,
@@ -5790,6 +5888,7 @@
 				1FB338F5285B1DC700F324FF /* ZXDataMatrixX12Encoder.m in Sources */,
 				1FB3388B285B1DC700F324FF /* LBXScanNetAnimation.m in Sources */,
 				1FA0D2C8280EA93C0047C40F /* ProductDetailInfoCell.m in Sources */,
+				1F2B76AD2876BE9900540544 /* OrderLogistedListTableViewCell.m in Sources */,
 				1FB33915285B1DC800F324FF /* ZXOneDimensionalCodeWriter.m in Sources */,
 				1FB338E7285B1DC700F324FF /* ZXPDF417DecodedBitStreamParser.m in Sources */,
 				1F93EDAF2812587B00D3FE83 /* HomeCategoryProductContentVC.m in Sources */,
@@ -5917,6 +6016,7 @@
 				58AB7EE027E9BDE3003D5B20 /* LCountdownButton.m in Sources */,
 				58AB7FCF27E9BDEB003D5B20 /* YBIBImageCache.m in Sources */,
 				1FB338D3285B1DC700F324FF /* ZXBitMatrix.m in Sources */,
+				1F2B76AA2876BCF500540544 /* OrderLogistedListViewController.m in Sources */,
 				1F753F062806BB730097B299 /* CardTableViewCell.m in Sources */,
 				1FB02208281F73A80085977B /* LOTBezierData.m in Sources */,
 				58AB808227E9BE3E003D5B20 /* NSString+Base64.m in Sources */,
@@ -6028,12 +6128,14 @@
 				1F93EDAC2812567C00D3FE83 /* HomeCategoryProductViewController.m in Sources */,
 				1FB338CB285B1DC700F324FF /* ZXGlobalHistogramBinarizer.m in Sources */,
 				1F48759C280D3D4300EA8833 /* TuanUsedTableViewCell.m in Sources */,
+				1F2B76B02876C1D000540544 /* OrderLogistedListDetailViewController.m in Sources */,
 				1FB3392C285B1DC800F324FF /* ZXBitArrayBuilder.m in Sources */,
 				1FB338A7285B1DC700F324FF /* ZXAztecReader.m in Sources */,
 				1FB3395F285B1DC800F324FF /* ZXWifiParsedResult.m in Sources */,
 				1F11D24827FFCDBC00E9CF32 /* MyVCCollectionAndRecordsViewController.m in Sources */,
 				589C4B2A27F6D39700654189 /* LMJVerticalFlowLayout.m in Sources */,
 				1FB3395A285B1DC800F324FF /* ZXSMSMMSResultParser.m in Sources */,
+				1F2B76A72876A90000540544 /* OrderLogistProductTableViewCell.m in Sources */,
 				58AB800427E9BDEB003D5B20 /* PGIndexBannerSubiew.m in Sources */,
 				1FB3390A285B1DC800F324FF /* ZXMaxiCodeBitMatrixParser.m in Sources */,
 				58AB80AE27E9BEC7003D5B20 /* BaseLabel.m in Sources */,
@@ -6195,8 +6297,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 04;
 				DEVELOPMENT_TEAM = AS4M3DAT8M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6235,16 +6338,17 @@
 					"\"$(SRCROOT)/Pods/Qiniu/QiniuSDK/QiniuSDK.h\"",
 				);
 				INFOPLIST_FILE = SmallB/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "小莲选品";
+				INFOPLIST_KEY_CFBundleDisplayName = "小莲云仓";
 				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相册";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6283,7 +6387,7 @@
 					"\"${PODS_ROOT}/UMShare/UMShare/SocialLibraries/WeChat/WechatSDK\"",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -6350,8 +6454,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 04;
 				DEVELOPMENT_TEAM = AS4M3DAT8M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6390,16 +6495,17 @@
 					"\"$(SRCROOT)/Pods/Qiniu/QiniuSDK/QiniuSDK.h\"",
 				);
 				INFOPLIST_FILE = SmallB/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "小莲选品";
+				INFOPLIST_KEY_CFBundleDisplayName = "小莲云仓";
 				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相册";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6438,7 +6544,7 @@
 					"\"${PODS_ROOT}/UMShare/UMShare/SocialLibraries/WeChat/WechatSDK\"",
 					/usr/lib/swift,
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

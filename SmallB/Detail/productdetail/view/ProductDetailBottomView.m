@@ -12,7 +12,6 @@
 @interface ProductDetailBottomView()
 
 @property (strong, nonatomic) MyLinearLayout *rootLy, *productLy;
-@property (strong, nonatomic) DKSButton *buyBtn;
 @property (strong, nonatomic) DKSButton *collectionBtn;
 @property (strong, nonatomic) DKSButton *chatBtn;
 
@@ -157,7 +156,19 @@
         [AppTool roleBtnClickWithID:self.model.goodsId withModel:productModel];
     }
     if (btn.tag == 115) {
-        [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]];
+        [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.shopId]];
+    }
+}
+
+- (void)setHiddenBuy:(BOOL)hiddenBuy{
+    _hiddenBuy = hiddenBuy;
+    if (hiddenBuy) {
+        UIButton *shareBtn = [self viewWithTag:114];
+        UIButton *buyBtn = [self viewWithTag:115];
+        buyBtn.hidden = hiddenBuy;
+        
+        float firstX = CGRectGetMinX(shareBtn.frame);
+        shareBtn.frame = CGRectMake(firstX, 10, ScreenWidth - firstX - 12, 44);
     }
 }
 

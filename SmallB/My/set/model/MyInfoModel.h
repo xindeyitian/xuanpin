@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *areaName;
 @property (nonatomic , copy)NSString *areaCode;
 @property (nonatomic , copy)NSString *shiming;
+@property (nonatomic , copy)NSString *ifAreaUpdate;
 
 @property (nonatomic , copy)NSString *isPassword;//是否设置密码
 @property (nonatomic , copy)NSString *bindAli;//是否绑定支付宝 0否,1是

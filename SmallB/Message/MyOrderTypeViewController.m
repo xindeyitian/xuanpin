@@ -14,6 +14,7 @@
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;//菜单标题view
 @property (nonatomic, strong) JXCategoryIndicatorLineView *lineView;
 @property (nonatomic, strong) JXCategoryListContainerView *listContainerView;
+@property (nonatomic, copy) NSString *searchStr;
 
 @end
 
@@ -30,16 +31,21 @@
 
     self.navigationController.delegate = self;
     self.view.backgroundColor = KBGColor;
-
+    self.searchStr = @"";
+    
     BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     searchV.fieldEnabled = YES;
 
-    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"输入订单号" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"请输入订单号/手机号/收货人姓名" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
     searchV.searchField.attributedPlaceholder = attrString;
     
     searchV.leftSearchImgv.image = IMAGE_NAMED(@"放大镜_black");
     searchV.viewClickBlock = ^(NSInteger index, NSString * _Nonnull searchStr) {
         NSLog(@"%@",searchStr);
+        if (![self.searchStr isEqualToString:searchStr]) {
+            self.searchStr = searchStr;
+            [self.categoryView reloadData];
+        }
     };
     searchV.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:searchV];
@@ -72,6 +78,7 @@
     self.categoryView.titleColorGradientEnabled = YES;
     self.categoryView.titleLabelZoomEnabled = YES;
     self.categoryView.backgroundColor = UIColor.clearColor;
+    self.categoryView.defaultSelectedIndex = self.index + 1;
     [categoryLy addSubview:self.categoryView];
     
     self.lineView = [[JXCategoryIndicatorLineView alloc] init];
@@ -97,7 +104,8 @@
     ContentViewController *vc = [[ContentViewController alloc]init];
     vc.isShouhou = self.isShouhou;
     vc.type = self.type;
-    vc.orderType = index;
+    vc.orderIndex = index;
+    vc.keyword = self.searchStr;
     return vc;
 }
 

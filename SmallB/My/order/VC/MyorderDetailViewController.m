@@ -11,11 +11,14 @@
 #import "myOrderDetailHeaderView.h"
 #import "BaseOwnerNavView.h"
 #import "OrderListModel.h"
+#import "OrderAlertViewController.h"
+#import "MyOrderLogisticsViewController.h"
 
 @interface MyorderDetailViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic , strong)UIView *bottomView;
 @property (nonatomic , strong)OrderDetailModel *detailModel;
+@property (nonatomic , strong)BaseOwnerNavView *navView ;
 
 @end
 
@@ -30,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"cancelSuccess" object:nil];
     self.detailModel = [[OrderDetailModel alloc]init];
     [self getDataAry];
     self.navigationController.delegate = self;
@@ -53,31 +57,58 @@
         view.titleL.text = @"售后进度";
     }
     [self.view addSubview:view];
-    
-    [self creatBottomView];
+    self.navView =view;
     
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view.mas_bottom);
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
+        make.left.right.bottom.equalTo(self.view);
     }];
-
+    
+    self.needPullDownRefresh = YES;
+    
     if (self.isShouHou) {
         [self creatShouHouHeaderView];
     }else{
-        [self creatNoramlHeaderView];
+        //[self creatNoramlHeaderView];
     }
     [self getOrderDetail];
 }
 
+- (void)cancelSuccess{
+    [self getOrderDetail];
+}
+
+- (void)loadNewData{
+    [self getOrderDetail];
+}
+
 - (void)getOrderDetail{
-    [self startLoadingHUD];
+    if (!self.tableView.mj_header.isRefreshing) {
+        [self startLoadingHUD];
+    }
     [THHttpManager GET:@"goods/orderInfo/get" parameters:@{@"orderId":self.orderID,@"orderType":[NSString stringWithFormat:@"%ld",self.type]} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            [self.tableView.mj_header endRefreshing];
             self.detailModel = [OrderDetailModel mj_objectWithKeyValues:data];
             [self getDataAry];
             [self.tableView reloadData];
+            [self creatNoramlHeaderView];
+            
+            NSInteger status = self.detailModel.orderState.integerValue;
+            if (self.type == 2 && status == 2) {
+                [self creatBottomView];
+                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.navView.mas_bottom);
+                    make.left.right.equalTo(self.view);
+                    make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
+                }];
+            }else{
+                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.navView.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
+                }];
+            }
         }
     }];
 }
@@ -92,7 +123,7 @@
     }];
     
     //取消订单  发货
-    BaseButton *right = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 109 - 12, 12, 109, 27) Alignment:NSTextAlignmentCenter Tag:3];
+    BaseButton *right = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 109 - 12, 12, 109, 27) Alignment:NSTextAlignmentCenter Tag:4];
     right.clipsToBounds = YES;
     right.layer.cornerRadius = 13.5;
     [self.bottomView addSubview:right];
@@ -129,7 +160,26 @@
 }
 
 - (void)bottomBtnClick:(BaseButton *)btn{
-    
+    // 订单状态（1待支付默认，2待发货、3待收货，9完成，-1客户取消、-2管理员取消、-6订单超时未支付取消、-7行云订单生成失败取消
+    NSInteger orderStatus = self.detailModel.orderState.integerValue;
+    if (btn.tag == 3) {
+        if (orderStatus == 2) {
+            OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
+            vc.alertType = orderAlertType_CancelOrder;
+            vc.orderID = self.orderID;
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+        }
+    }
+    if (btn.tag == 4) {
+        if (orderStatus == 2) {
+            MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
+            vc.haveBottom = YES;
+            vc.orderID = self.orderID;
+            vc.productAry = self.detailModel.orderGoodsListVo;
+            [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 - (void)creatShouHouHeaderView{
@@ -192,15 +242,26 @@
 }
 
 -(void)creatNoramlHeaderView{
-    BOOL seeWuliu = YES;
-    BOOL haveBtn = YES;
-    NSString *address = @"浙江省杭州市余杭区浙江大学校友企业总部经济园浙江省杭州市余杭区浙江大学校友企业总部经济园浙江省杭州市余杭区浙江大学校友企业总部经济园浙江省杭州市余杭区浙江大学校友企业总部经济园浙江省杭州市余杭区浙江大学校友企业总部经济园";
+    BOOL seeWuliu = NO;
+    BOOL haveBtn = NO;
+    NSString *address = @"-";
+    if (self.detailModel.deliveryAddress) {
+        address = self.detailModel.deliveryAddress;
+        NSInteger orderState = self.detailModel.orderState.integerValue;
+        if (orderState == 3 || orderState == 9) {
+            seeWuliu = YES;
+        }
+    }
+    seeWuliu = NO;
     float height = [address sizeWithLabelWidth:ScreenWidth - 55 - 24 font:DEFAULT_FONT_R(13)].height;
     
     myOrderDetailHeaderView *headView = [[myOrderDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 98+(76+height)+(seeWuliu?64:0) + (haveBtn ? 47 : 0))];
     headView.haveBtn = haveBtn;
     headView.showWuliu = seeWuliu;
     headView.addressStr = address;
+    if (self.detailModel.deliveryAddress) {
+        headView.detailModel = self.detailModel;
+    }
     self.tableView.tableHeaderView = headView;
 }
 
@@ -210,7 +271,10 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 4;
+        if (self.detailModel.deliveryAddress) {
+            return self.detailModel.orderGoodsListVo.count;
+        }
+        return 0;
     }
     NSArray *sectionAry = self.dataArray[section - 1];
     return sectionAry.count;
@@ -218,7 +282,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 120;
+        //1 云仓 2自营
+        return  self.type == 1 ?  120 : 96;
     }
     NSArray *sectionAry = self.dataArray[indexPath.section - 1];
     orderDataModel *model = sectionAry[indexPath.row];
@@ -233,6 +298,10 @@
         myOrderDetailProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[myOrderDetailProductTableViewCell description]];
         cell.autoCorner = 1;
         [cell defualtCornerInTableView:tableView atIndexPath:indexPath];
+        cell.type = self.type;
+        if (self.detailModel.orderGoodsListVo.count) {
+            cell.model = self.detailModel.orderGoodsListVo[indexPath.row];
+        }
         return cell;
     }
     NSArray *sectionAry = self.dataArray[indexPath.section - 1];
@@ -302,7 +371,7 @@
         model.type = 1;
         NSArray *array = @[@"1",@"2",@"3",@"4"];
         model.propertyData = @"就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同";
-        model.propertyDatAry = @[];
+        model.propertyDatAry = array;
         [shopAry addObject:model];
     }
     
@@ -393,8 +462,11 @@
         [sectionOneAry addObject:model];
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
-        model.titleStr = @"佣金总额";
-        model.detailStr = @"¥暂无";
+        model.titleStr = @"积分总额";
+        model.detailStr = @"-";
+        if (self.detailModel.totalMoneyAgent) {
+            model.detailStr = [NSString stringWithFormat:@"%@",self.detailModel.totalMoneyAgent];
+        }
         model.rightFont = DIN_Medium_FONT_R(18);
         model.rightColor = KMaintextColor;
         model.rowHeight = 50;
@@ -428,38 +500,91 @@
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"下单时间";
         if (self.detailModel.orderTime) {
-            model.detailStr = [AppTool changeTimpStampFormate:self.detailModel.orderTime];
+            model.detailStr = self.detailModel.orderTime;
         }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         [sectionTwoAry addObject:model];
-    }{
-        orderDataModel *model = [[orderDataModel alloc]init];
-        model.titleStr = @"付款时间";
-        if (self.detailModel.payTime) {
-            model.detailStr = [AppTool changeTimpStampFormate:self.detailModel.payTime];
+    }
+    orderDataModel *cancelModel = [[orderDataModel alloc]init];
+    cancelModel.titleStr = @"取消时间";
+    cancelModel.rightFont = DEFAULT_FONT_R(15);
+    cancelModel.rightColor = KBlack666TextColor;
+    if (self.detailModel.cancelTime) {
+        cancelModel.detailStr = self.detailModel.cancelTime;
+    }
+    
+    orderDataModel *payModel = [[orderDataModel alloc]init];
+    payModel.titleStr = @"付款时间";
+    if (self.detailModel.payTime) {
+        payModel.detailStr = self.detailModel.payTime;
+    }
+    payModel.rightFont = DEFAULT_FONT_R(15);
+    payModel.rightColor = KBlack666TextColor;
+
+
+    orderDataModel *fahuoModel = [[orderDataModel alloc]init];
+    fahuoModel.titleStr = @"发货时间";
+    fahuoModel.detailStr = @"-";
+    if (self.detailModel.deliveryDate) {
+        fahuoModel.detailStr = self.detailModel.deliveryDate;
+    }
+    fahuoModel.rightFont = DEFAULT_FONT_R(15);
+    fahuoModel.rightColor = KBlack666TextColor;
+    
+    orderDataModel *dealModel = [[orderDataModel alloc]init];
+    dealModel.titleStr = @"成交时间";
+    dealModel.detailStr = @"-";
+    if (self.detailModel.recvRime) {
+        dealModel.detailStr = self.detailModel.recvRime;
+    }
+    dealModel.rightFont = DEFAULT_FONT_R(15);
+    dealModel.rightColor = KBlack666TextColor;
+    dealModel.showLineV = YES;
+    
+    /*待付款  订单信息 订单编号 下单时间
+    待发货  订单信息 订单编号 下单时间 付款时间
+    已发货  订单信息 订单编号 下单时间 付款时间 发货时间
+    已完成  订单信息 订单编号 下单时间 付款时间 发货时间 成交时间
+    已取消  订单信息 订单编号 下单时间 取消时间
+    售后    订单信息 订单编号 下单时间 付款时间 发货时间 成交时间*/
+    
+    NSString *statusS = @"";
+    switch (self.detailModel.orderState.integerValue) {
+        case 1:{
+            statusS = @"待买家付款";
         }
-        model.rightFont = DEFAULT_FONT_R(15);
-        model.rightColor = KBlack666TextColor;
-        [sectionTwoAry addObject:model];
-    }{
-        orderDataModel *model = [[orderDataModel alloc]init];
-        model.titleStr = @"发货时间";
-        model.detailStr = @"暂无";
-        model.rightFont = DEFAULT_FONT_R(15);
-        model.rightColor = KBlack666TextColor;
-        [sectionTwoAry addObject:model];
-    }{
-        orderDataModel *model = [[orderDataModel alloc]init];
-        model.titleStr = @"成交时间";
-        if (self.detailModel.recvRime) {
-            model.detailStr = [AppTool changeTimpStampFormate:self.detailModel.recvRime];
+            break;
+        case 2:{
+            statusS = @"待发货";
+            [sectionTwoAry addObject:payModel];
         }
-        model.rightFont = DEFAULT_FONT_R(15);
-        model.rightColor = KBlack666TextColor;
-        model.showLineV = YES;
-        [sectionTwoAry addObject:model];
-    }{
+            break;
+        case 3:{
+            statusS = @"卖家已发货";
+            [sectionTwoAry addObject:payModel];
+            [sectionTwoAry addObject:fahuoModel];
+        }
+            break;
+        case 9:{
+            statusS = @"已完成";
+            [sectionTwoAry addObject:payModel];
+            [sectionTwoAry addObject:fahuoModel];
+            [sectionTwoAry addObject:dealModel];
+        }
+            break;
+        case -1:
+        case -2:
+        case -6:
+        case -7:{
+            statusS = @"已取消";
+            [sectionTwoAry addObject:cancelModel];
+        }
+            break;
+        default:
+            break;
+    }
+    {
         orderDataModel *model = [[orderDataModel alloc]init];
         model.type = 2;
         model.rowHeight = 50;

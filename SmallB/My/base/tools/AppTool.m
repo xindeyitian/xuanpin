@@ -318,7 +318,7 @@
     NSTimeInterval timeStamp = [timeStr integerValue];
     NSDate *creatDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd "];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *destDateString = [dateFormatter stringFromDate:creatDate];
     return destDateString;
 }
@@ -339,35 +339,80 @@
     return destDateString;
 }
 
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(int)WXScene{
-  
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url{
+
 //    WXImageObject *imageObject = [WXImageObject object];
 //    imageObject.imageData = UIImageJPEGRepresentation(image, 0.7);
-//    message.mediaObject = imageObject;
-    
+   
     WXWebpageObject *ext = [WXWebpageObject object];
     ext.webpageUrl = webpageUrl;
-    
+
     WXMediaMessage *message = [WXMediaMessage message];
     message.mediaObject = ext;
     message.description = description;
     message.title = title;
-    [message setThumbImage:IMAGE_NAMED(@"")];
-    
+//    [message setThumbImage:IMAGE_NAMED(@"icon_image")];
+    //message.thumbData = UIImageJPEGRepresentation(image, 0.2);
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    UIImage *result = [UIImage imageWithData:imageData];
+    [message setThumbImage:[AppTool compressImage:result toByte:32765]];
+    //缩略图要小于32KB，否则无法调起微信,32KB = 32*1024B=32678
+
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = NO;
     req.message = message;
     req.scene = WXScene;
-    
-    NSLog(@"标题--%@\n--描述-%@\n--链接-%@",title,description,webpageUrl);
+    NSLog(@"====%@",url);
     if ([WXApi isWXAppInstalled]) {
         [WXApi sendReq:req completion:^(BOOL success) {
-            
+
         }];
     }else{
         [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
     }
 }
+
+#pragma mark - 压缩图片
++ (UIImage *)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength {
+    // Compress by quality
+    CGFloat compression = 1;
+    NSData *data = UIImageJPEGRepresentation(image, compression);
+    if (data.length < maxLength) return image;
+    
+    CGFloat max = 1;
+    CGFloat min = 0;
+    for (int i = 0; i < 6; ++i) {
+        compression = (max + min) / 2;
+        data = UIImageJPEGRepresentation(image, compression);
+        if (data.length < maxLength * 0.9) {
+            min = compression;
+        } else if (data.length > maxLength) {
+            max = compression;
+        } else {
+            break;
+        }
+    }
+    UIImage *resultImage = [UIImage imageWithData:data];
+    if (data.length < maxLength) return resultImage;
+    
+    // Compress by size
+    NSUInteger lastDataLength = 0;
+    while (data.length > maxLength && data.length != lastDataLength) {
+        lastDataLength = data.length;
+        CGFloat ratio = (CGFloat)maxLength / data.length;
+        CGSize size = CGSizeMake((NSUInteger)(resultImage.size.width * sqrtf(ratio)),
+                                 (NSUInteger)(resultImage.size.height * sqrtf(ratio))); // Use NSUInteger to prevent white blank
+        UIGraphicsBeginImageContext(size);
+        [resultImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+        resultImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        data = UIImageJPEGRepresentation(resultImage, compression);
+    }
+    
+    return resultImage;
+}
+
+
 
 + (UIImage *)createQRImageWithString:(NSString *)string{
     return [self createQRImageWithString:string size:CGSizeMake(80, 80)];
@@ -407,9 +452,9 @@
     
     [qrImage drawInRect:CGRectMake(0, 0, qrImage.size.width, qrImage.size.height)];
     
-    UIImage *image = [UIImage imageNamed:@"my_share_bottom_logo"];
+    UIImage *image = [UIImage imageNamed:@"icon_image"];
     
-    CGFloat imageW = 30;
+    CGFloat imageW = 18;
     CGFloat imaegX = (qrImage.size.width - imageW) * 0.5;
     CGFloat imageY = (qrImage.size.height - imageW) * 0.5;
     
@@ -506,9 +551,44 @@
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }else{
-        //跳转appstore下载
-        [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"下载地址"]];
+        [AppTool openAppStore];
     }
+}
+
++ (void)openAppStore{
+    //跳转appstore下载
+    //https://apps.apple.com/us/app/小莲云仓/id1632169993
+    NSString *url = @"https://apps.apple.com/cn/app/id1632169993";
+    [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]];
+}
+
++ (NSString *)getProductShareUrl:(NSString *)productID shopID:(NSString *)shopId{
+    
+    THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
+    [vc startLoadingHUD];
+    __block NSString  *resultUrl = @"";
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:productID forKey:@"goodsID"];
+    [signDic setObject:@"-1" forKey:@"otherID"];
+    [signDic setObject:@"g" forKey:@"shareGroup"];
+    [signDic setObject:[AppTool getLocalDataWithKey:@"shopID"] forKey:@"shopID"];
+    [signDic setObject:[AppTool getLocalDataWithKey:@"userID"] forKey:@"userID"];
+    [THHttpManager FormatPOST:@"https://tpi.tuanhuoit.com/user/share/cpi/shortUrl" parameters:signDic dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [vc stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSString class]]) {
+            resultUrl = (NSString *)data;
+        }
+    }];
+    return resultUrl;
+}
+
++(NSMutableDictionary *)getRequestSign{
+    
+    NSMutableString *sign = [[NSMutableString alloc] initWithString:NSStringFormat(@"ThTec_%@",[NSString new].currentTimeStr)];
+    return [@{@"platCode":@"yb_iOS",
+             @"sign":sign.md5Str,
+             @"timeStamp":[NSString new].currentTimeStr,
+             } mutableCopy];
 }
 
 @end

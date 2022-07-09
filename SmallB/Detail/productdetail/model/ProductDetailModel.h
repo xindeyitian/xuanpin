@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , strong)appraisesListVoPageRecordModel *appraisesListVoPage;
 
 @property (nonatomic , copy)NSString *ifCollect;
+@property (nonatomic , copy)NSString *shopId;
 @property (nonatomic , strong)supplyInfoGoodsVoModel *supplyInfoGoodsVo;
 @property (nonatomic , copy)NSString *applauseRate;
 @property (nonatomic , copy)NSString *serviceTel;

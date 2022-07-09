@@ -132,9 +132,9 @@
             self.shopId = model.shopId;
             self.shopName = model.shopName;
             
-            if (self.shopDesc.length) {
-                self.isEdit = YES;
-            }
+       
+            self.isEdit = YES;
+      
         }
         [self.tableView reloadData];
     }];

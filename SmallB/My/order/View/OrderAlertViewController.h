@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, orderAlertType) {
 @interface OrderAlertViewController : BaseAlertViewController
 
 @property (nonatomic , assign)orderAlertType alertType;
+@property (nonatomic , copy)NSString *orderID;
 
 @end
 

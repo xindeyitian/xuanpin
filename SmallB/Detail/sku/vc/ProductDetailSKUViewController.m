@@ -168,7 +168,7 @@
         
         [AppTool roleBtnClickWithID:self.model.goodsId withModel:model];
     }else{
-        [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.supplyInfoGoodsVo.supplyId]];
+        [AppTool openOthersAppUrl:[NSString stringWithFormat:@"LLWF:productID:%@&supplierID:%@",self.model.goodsId,self.model.shopId]];
     }
 }
 

@@ -77,7 +77,7 @@
 }
 - (void)searchBtnClicked:(UIButton *)sender{
     
-    [self.currentViewController.navigationController pushViewController:[[SearchListViewController alloc] init] animated:YES];
+    [[AppTool currentVC].navigationController pushViewController:[[SearchListViewController alloc] init] animated:YES];
 }
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize withHorizontalFittingPriority:(UILayoutPriority)horizontalFittingPriority verticalFittingPriority:(UILayoutPriority)verticalFittingPriority{
     

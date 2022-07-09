@@ -7,12 +7,14 @@
 
 #import "THBaseCommentTableViewCell.h"
 #import "orderDataModel.h"
-
+#import "OrderListModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface myOrderDetailProductTableViewCell : THBaseCommentTableViewCell
 
 @property(nonatomic , strong)UILabel *productTitleL;
+@property(nonatomic , strong)OrderListProductModel *model;
+@property (nonatomic ,assign)NSInteger type;
 
 @end
 

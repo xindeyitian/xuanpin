@@ -23,7 +23,13 @@
         id tmp = [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments | NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers error:nil];
         if (tmp) {
               if ([tmp isKindOfClass:[NSArray class]]) {
-                  return tmp;
+                  NSMutableArray *imageAry = [(NSArray *)tmp mutableCopy];
+                  for (int i =0; i < imageAry.count; i ++) {
+                      NSString *string = imageAry[i];
+                      NSString *result = [AppTool dealChineseUrl:string];
+                      [imageAry replaceObjectAtIndex:i withObject:result];
+                  }
+                  return imageAry;
               } else if([tmp isKindOfClass:[NSString class]]
                         || [tmp isKindOfClass:[NSDictionary class]]) {
                   return [@[] mutableCopy];

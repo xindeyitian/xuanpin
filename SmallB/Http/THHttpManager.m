@@ -170,6 +170,9 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
     NSLog(@"成功请求结果---%@",dictionary);
     NSInteger  code =  [[dictionary valueForKey:@"code"] integerValue];
     NSString *msg = [dictionary valueForKey:@"message"];
+    if ([msg isEqual:[NSNull null]]) {
+        msg = @"";
+    }
     NSDictionary * data1 = [NSDictionary new];
     if (code == 200) {
         status = THRequestStatusOK;
@@ -177,6 +180,9 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
             data1 = [dictionary valueForKey:@"result"];
         }else{
             data1 = nil;
+            if ([[dictionary allKeys] containsObject:@"data"]) {
+                data1 = [dictionary valueForKey:@"data"];
+            }
         }
     }else if(code == 401){
         //情况token

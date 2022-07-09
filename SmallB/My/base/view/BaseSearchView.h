@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)BOOL fieldEnabled;
 @property (strong, nonatomic) UIButton *searchBtn;
 @property (nonatomic, assign)BOOL showBackBtn;
+@property (strong, nonatomic) UIButton *backBtn;
 
 @end
 

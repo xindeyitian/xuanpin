@@ -22,6 +22,10 @@
 #import "MyNewOrderViewController.h"
 #import "MyShouHouViewController.h"
 
+#import "ApplySupplierFailAlertViewController.h"
+#import "ApplySupplierSuccessAlertViewController.h"
+#import "ApplySupplierUndereviewAlertViewController.h"
+
 @interface  MyVCInfoTableViewCell ()
 
 @property(nonatomic , strong)UIImageView *userLogoImg;
@@ -288,7 +292,6 @@
         view.tag = 100+i;
         [whiteBGView addSubview:view];
         view.viewClickBlock = ^(NSInteger index) {
-            
             UIViewController *selfVC = [AppTool currentVC];
             if (index == 0) {
                 [selfVC.navigationController pushViewController:[[myStoreManagerViewController alloc]init] animated:YES];
@@ -297,16 +300,7 @@
                 [AppTool currentVC].tabBarController.selectedIndex = 2;
             }
             if (index == 4) {
-                [THHttpManager GET:@"supply/supplyInfo/ifSupplyUser" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
-                    if (returnCode == 200 && [data isKindOfClass:[NSNumber class]]) {
-                        if ([data integerValue] == 1) {
-                            THBaseViewController *vc = (THBaseViewController *)AppTool.currentVC;
-                            [vc showSuccessMessageWithString:@"您当前已经是供货商"];
-                        }else{
-                            [selfVC.navigationController pushViewController:[[myToBeSupplierViewController alloc]init] animated:YES];
-                        }
-                    }
-                }];
+                [self dealSupplierData];
             }
             if (index == 2) {
                 [selfVC.navigationController pushViewController:[[myShimingViewController alloc]init] animated:YES];
@@ -324,6 +318,52 @@
             }
         };
     }
+}
+
+- (void)dealSupplierData{
+    THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
+    [vc startLoadingHUD];
+    [THHttpManager GET:@"supply/supplyInfo/supplyCheckSign" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [vc stopLoadingHUD];
+        if (returnCode == 200) {
+            if ([data isEqual:[NSNull null]]) {
+                myToBeSupplierViewController *vc = [[myToBeSupplierViewController alloc]init];
+                [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+            }else if([data isKindOfClass:[NSDictionary class]]){
+                //审核状态 1通过 2待审核 3驳回 4冻结
+                if ([data objectForKey:@"checkSign"]) {
+                    NSString *checkSign = [NSString stringWithFormat:@"%@",[data objectForKey:@"checkSign"]];
+                    if ([checkSign isEqualToString:@"1"]) {
+                        [THHttpManager GET:@"commons/articleInfo/getArticleInfo" parameters:@{@"articleCode":@"SupplyAdminUrl"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+                            if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+                                NSString *content = @"";
+                                if ([data objectForKey:@"content"]) {
+                                    id contentS = [data objectForKey:@"content"];
+                                    if (![contentS isEqual:[NSNull null]]) {
+                                        content = [data objectForKey:@"content"];
+                                    }
+                                }
+                                ApplySupplierSuccessAlertViewController *alertVC = [ApplySupplierSuccessAlertViewController new];
+                                alertVC.contentS = content;
+                                alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                                [[AppTool currentVC]  presentViewController:alertVC animated:NO completion:nil];
+                            }
+                        }];
+                    }
+                    if ([checkSign isEqualToString:@"2"]) {
+                        ApplySupplierUndereviewAlertViewController *alertVC = [ApplySupplierUndereviewAlertViewController new];
+                        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                        [[AppTool currentVC]  presentViewController:alertVC animated:NO completion:nil];
+                    }
+                    if ([checkSign isEqualToString:@"3"]) {
+                        ApplySupplierFailAlertViewController *alertVC = [ApplySupplierFailAlertViewController new];
+                        alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                        [[AppTool currentVC]  presentViewController:alertVC animated:NO completion:nil];
+                    }
+                }
+            }
+        }
+    }];
 }
 
 @end
@@ -387,7 +427,7 @@
     }];
     rightV.viewClickBlock = ^{
         MyNewOrderViewController *vc = [[MyNewOrderViewController alloc]init];
-        vc.orderType = myOrderTypeWaitingAllOrder;
+        vc.index = -1;
         [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
     };
     
@@ -405,13 +445,12 @@
             
             if (index == 4) {
                 MyShouHouViewController *vc = [[MyShouHouViewController alloc]init];
-    //            vc.orderType = index;
                 [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
                 return;
             }
             
             MyNewOrderViewController *vc = [[MyNewOrderViewController alloc]init];
-//            vc.orderType = index;
+            vc.index = index;
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
         };
     }
@@ -541,10 +580,19 @@
     view1.numString = [NSString stringWithFormat:@"%.2f",model.incomeStaVo.operableIncome];
     
     myInfoDetailView*view2  = [self.contentView viewWithTag:101];
-    view2.numString = K_NotNullHolder(model.incomeStaVo.totalIncome, 0);
+    if (model.incomeStaVo.totalIncome) {
+        view2.numString = K_NotNullHolder(model.incomeStaVo.totalIncome, 0);
+    }else{
+        view2.numString = @"-";
+    }
     
     myInfoDetailView*view3  = [self.contentView viewWithTag:102];
-    view3.numString = K_NotNullHolder(model.incomeStaVo.pendingIncome, 0);
+    if (model.incomeStaVo.pendingIncome) {
+        view3.numString = K_NotNullHolder(model.incomeStaVo.pendingIncome, 0);
+    }else{
+        view3.numString = @"-";
+    }
+    
 }
 
 @end

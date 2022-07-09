@@ -11,10 +11,13 @@
 @interface myOrderDetailProductTableViewCell ()
 
 @property(nonatomic , strong)UIImageView *productImgV;
+@property(nonatomic , strong)UILabel *productpriceL;
+@property(nonatomic , strong)UILabel *instrucL;
+@property(nonatomic , strong)UILabel *numL;
 
 @property(nonatomic , strong)UIView *lineV;
 
-@property(nonatomic , strong)UILabel *yongjinLab;
+@property(nonatomic , strong)UILabel *yongjinL;
 @property(nonatomic , strong)UILabel *hasSoldLab;
 @property(nonatomic , strong)UILabel *allpriceLab;
 
@@ -34,24 +37,26 @@
         make.top.mas_equalTo(self.bgView).offset(12);
         make.height.width.mas_equalTo(72);
     }];
-    
+    self.productImgV = productImgV;
+
     UILabel *productprice = [[UILabel alloc]init];
     productprice.font = DIN_Medium_FONT_R(13);
     productprice.textAlignment = NSTextAlignmentRight;
     productprice.textColor = KBlack333TextColor;
-    productprice.text = @"¥199.9";
+    productprice.text = @"";
     [self.bgView addSubview:productprice];
     [productprice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.bgView).offset(-12);
         make.top.mas_equalTo(productImgV.mas_top);
         make.height.mas_equalTo(22);
     }];
+    self.productpriceL = productprice;
     
     UILabel *productName = [[UILabel alloc]init];
     productName.font = DEFAULT_FONT_M(13);
     productName.textAlignment = NSTextAlignmentLeft;
     productName.textColor = KBlack333TextColor;
-    productName.text = @"三只松鼠坚果";
+    productName.text = @"";
     [self.bgView addSubview:productName];
     [productName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(productImgV.mas_right).offset(12);
@@ -72,7 +77,7 @@
         make.top.mas_equalTo(productName.mas_bottom).offset(8);
     }];
     
-    UILabel *instrucLable = [UILabel creatLabelWithTitle:@"桶装每日坚果" textColor:KBlack666TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(11)];
+    UILabel *instrucLable = [UILabel creatLabelWithTitle:@"" textColor:KBlack666TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(11)];
     [view addSubview:instrucLable];
     [instrucLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(view).offset(12);
@@ -80,16 +85,18 @@
         make.top.mas_equalTo(view.mas_top);
         make.height.mas_equalTo(20);
     }];
+    self.instrucL = instrucLable;
     
-    UILabel *numLable = [UILabel creatLabelWithTitle:@"X1" textColor:KBlack666TextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(15)];
+    UILabel *numLable = [UILabel creatLabelWithTitle:@"" textColor:KBlack666TextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(15)];
     [self.bgView addSubview:numLable];
     [numLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.bgView).offset(-12);
         make.top.mas_equalTo(productprice.mas_bottom).offset(10);
         make.height.mas_equalTo(20);
     }];
+    self.numL = numLable;
     
-    UILabel *yongjinLable = [UILabel creatLabelWithTitle:@"赚积分 199" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DIN_Medium_FONT_R(15)];
+    UILabel *yongjinLable = [UILabel creatLabelWithTitle:@"" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DIN_Medium_FONT_R(15)];
     yongjinLable.backgroundColor = UIColor.clearColor;
     [self.bgView addSubview:yongjinLable];
     [yongjinLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,6 +105,18 @@
         make.right.mas_equalTo(self.bgView).offset(-12);
         make.height.mas_equalTo(24);
     }];
+    self.yongjinL = yongjinLable;
+}
+
+- (void)setModel:(OrderListProductModel *)model{
+    _model = model;
+    [self.productImgV sd_setImageWithURL:[NSURL URLWithString:model.skuImgUrl] placeholderImage:[UIImage imageNamed:@"icon_image"]];
+    self.productpriceL.text = [NSString stringWithFormat:@"¥%@",model.priceSale];
+    self.productTitleL.text = model.goodsName;
+    self.instrucL.text = model.skuName;
+    self.numL.text = [NSString stringWithFormat:@"x%@",model.quantityTotal];
+    self.yongjinL.text = [NSString stringWithFormat:@"积分 %@",K_NotNullHolder(model.moneyAgent, @"-")];
+    self.yongjinL.hidden = self.type == 2;
 }
 
 @end
@@ -149,7 +168,7 @@
 - (void)copyClick{
     
     NSString *copyStr= [NSString stringWithFormat:@"订单号:%@",self.rightL.text];
-    [AppTool copyWithString:copyStr];
+    [AppTool copyWithString:self.rightL.text];
     [XHToast showCenterWithText:[NSString stringWithFormat:@"%@\n\n复制成功",copyStr]];
 }
 
@@ -190,9 +209,14 @@
 }
 
 - (void)chatClick{
-    chatAlertViewController *vc = [[chatAlertViewController alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+    [THHttpManager GET:@"commons/articleInfo/getArticleInfo" parameters:@{@"articleCode":@"ServiceTel"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            chatAlertViewController *alertVC = [chatAlertViewController new];
+            alertVC.phoneStr = [data objectForKey:@"content"];
+            alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [[AppTool currentVC] presentViewController:alertVC animated:NO completion:nil];
+        }
+    }];
 }
 
 @end

@@ -96,7 +96,12 @@
 //        };
         [[AppTool currentVC]  presentViewController:alertVC animated:NO completion:nil];
     }else{
-        [self dismissViewControllerAnimated:NO completion:nil];
+        [AppTool cleanLocalToken];
+        UIViewController *vc =self.presentingViewController;
+        while (![vc isKindOfClass:[LoginViewController class]]) {
+            vc = vc.presentingViewController;
+        }
+        [vc dismissViewControllerAnimated:NO completion:nil];
     }
 }
 

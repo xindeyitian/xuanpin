@@ -204,7 +204,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self.currentViewController.view addSubview:self.maskView];
+    [[AppTool currentVC].view addSubview:self.maskView];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = NO;
     NSLog(@"将要开始");
     return YES;

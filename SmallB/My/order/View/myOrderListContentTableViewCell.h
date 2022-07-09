@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)void(^viewClickBlock)(void);
 @property(nonatomic , strong)OrderListRecordsModel *model;
+@property (nonatomic ,assign)NSInteger type;//1 云仓 2自营
 
 @end
 

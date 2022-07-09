@@ -135,6 +135,7 @@
 
 - (void)loadNewData{
     [self getHomeData];
+    [self judgeBottom];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -364,10 +365,30 @@
     }
 }
 
+- (void)judgeBottom{
+
+    [self startLoadingHUD];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:[NSString stringWithFormat:@"supply_ios_%@",app_Version] forKey:@"versionCode"];
+    [THHttpManager GET:[NSString stringWithFormat:@"%@version/getVersion",XTAppBaseUseURL] parameters:signDic block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"ifShow"]) {
+                NSString *result = [NSString stringWithFormat:@"%@",[data objectForKey:@"ifShow"]];
+                self.bottomView.hiddenBuy = (result.integerValue == 0);
+            }
+        }
+    }];
+}
+
 - (void)getHomeData{
     if (!self.productDetailTable.mj_header.isRefreshing && !self.productDetailTable.mj_footer.isRefreshing) {
         [self startLoadingHUD];
     }
+    self.bottomView.hidden = NO;
+    self.productDetailTable.frame = CGRectMake(0, RootStatusBarHeight, ScreenWidth, ScreenHeight - RootStatusBarHeight - TabbarSafeBottomMargin - 45);
     [THHttpManager GET:@"goods/goodsInfo/get" parameters:@{@"goodsId":self.productID} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         [self.productDetailTable.mj_header endRefreshing];
@@ -379,6 +400,10 @@
             self.bottomView.model = model;
             [self.productDetailTable reloadData];
             [self getSimProduct];
+        }
+        if (returnCode == 500) {
+            self.bottomView.hidden = YES;
+            self.productDetailTable.frame = CGRectMake(0, RootStatusBarHeight, ScreenWidth, ScreenHeight - RootStatusBarHeight);
         }
     }];
 }
@@ -506,6 +531,7 @@
     model.marketPrice = self.productDetailModel.marketPrice;
     model.saleCount = self.productDetailModel.saleCount;
     model.salePrice = self.productDetailModel.salePrice;
+    model.supplierId = self.productDetailModel.supplyId;
     vc.model = model;
     [[AppTool currentVC] presentViewController:vc animated:NO completion:nil];
 }

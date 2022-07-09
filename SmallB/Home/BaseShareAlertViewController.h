@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *titleS;
 @property (nonatomic , copy)NSString *descriptionS;
 @property (nonatomic , copy)NSString *webpageUrlS;
+@property (nonatomic , copy)NSString *thumbImg;
 
 - (void)creatSubViews;
+
+- (void)shareBtnClick:(UIControl *)contro;
 
 @end
 

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic ,assign)NSInteger type;//1 云仓 2自营
 @property (nonatomic ,assign)myOrderType orderType;
 @property (nonatomic ,assign)BOOL isShouhou;
+@property (nonatomic ,assign)NSInteger index;
 
 @end
 

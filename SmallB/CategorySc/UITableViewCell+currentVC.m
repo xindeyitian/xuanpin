@@ -9,10 +9,5 @@
 #import "UITableViewCell+currentVC.h"
 
 @implementation UITableViewCell (currentVC)
-- (THBaseViewController *)currentViewController
-{
-    
-    return [THAPPService shareAppService].currentViewController;
-}
 
 @end

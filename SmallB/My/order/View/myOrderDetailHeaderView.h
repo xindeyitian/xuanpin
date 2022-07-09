@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic , copy)NSString *addressStr;
 @property(nonatomic , assign)BOOL showWuliu;
 @property(nonatomic , assign)BOOL haveBtn;
+@property (nonatomic , strong)OrderDetailModel *detailModel;
 
 @end
 

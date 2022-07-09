@@ -12,14 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface THBaseView : UIView
 
-/**
- 当前显示的控制器
- 
- @return 控制器
- */
-- (THBaseViewController *)currentViewController;
-
-
 @end
 
 NS_ASSUME_NONNULL_END

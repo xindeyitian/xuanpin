@@ -96,10 +96,13 @@
     [THHttpManager GET:@"user/UserStatistics/queryIncomeSta" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
             if ([data objectForKey:@"operableIncome"]) {
-                self.moneyStr = [NSString stringWithFormat:@"%.2f",[[data objectForKey:@"operableIncome"] floatValue]];
-                NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
-                //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
-                self.moneyL.attributedText = attributeMarket;
+                id operableIncome = [data objectForKey:@"operableIncome"];
+                if (![operableIncome isEqual:[NSNull null]]) {
+                    self.moneyStr = [NSString stringWithFormat:@"%.2f",[[data objectForKey:@"operableIncome"] floatValue]];
+                    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.moneyStr]];
+                    //[attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(30) range:NSMakeRange(0,1)];
+                    self.moneyL.attributedText = attributeMarket;
+                }
             }
         }
     }];

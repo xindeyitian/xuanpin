@@ -11,7 +11,6 @@
 @interface BaseSearchView()<UITextFieldDelegate>
 //JXCategoryViewDelegate
 @property (strong, nonatomic) UIView *searchV;
-@property (strong, nonatomic) UIButton *backBtn;
 
 @end
 

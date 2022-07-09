@@ -141,7 +141,7 @@
     maskLayer.path = maskPath.CGPath;
     whiteBGView.layer.mask = maskLayer;
     
-    self.statusL = [UILabel creatLabelWithTitle:@"待卖家发货" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(13)];
+    self.statusL = [UILabel creatLabelWithTitle:@"-" textColor:KMaintextColor textAlignment:NSTextAlignmentRight font:DEFAULT_FONT_R(13)];
     [whiteBGView addSubview:self.statusL];
     [self.statusL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(22);
@@ -201,6 +201,38 @@
 
 - (void)setModel:(OrderListRecordsModel *)model{
     _model = model;
+    
+    NSString *statusS = @"";
+    switch (model.orderState.integerValue) {
+        case 1:{
+            statusS = @"待买家付款";
+        }
+            break;
+        case 2:{
+            statusS = @"待卖家发货";
+        }
+            break;
+        case 3:{
+            statusS = @"待买家收货";
+        }
+            break;
+        case 9:{
+            statusS = @"已完成";
+            self.statusL.textColor = KBlack666TextColor;
+        }
+            break;
+        case -1:
+        case -2:
+        case -6:
+        case -7:{
+            statusS = @"订单已取消";
+        }
+            break;
+            
+        default:
+            break;
+    }
+    self.statusL.text = statusS;
     
     self.orderL.text = [NSString stringWithFormat:@"订单编号:%@",model.orderNo];
     
@@ -303,32 +335,33 @@
 
 - (void)setModel:(OrderListRecordsModel *)model{
     _model = model;
-    
     //待付款   已付款
     //佣金
-    NSString *pay = @"已付款 ¥199";
-    if ([model.orderState isEqual:@"1"]) {
-        pay = @"待付款 ¥199";
+    NSString *moneyS = K_NotNullHolder(model.totalMoneyOrder, @"-");
+    NSString *payS = [NSString stringWithFormat:@"已付款 ¥%@",moneyS];
+    switch (model.orderState.integerValue) {
+        case 1:{
+            payS = [NSString stringWithFormat:@"待付款 ¥%@",moneyS];
+        }
+        default:
+            break;
     }
-    NSString *yongjin = [NSString stringWithFormat:@"赚积分 %@",model.totalMoneyAgent];
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   %@",pay,yongjin]];
-    
+    NSString *yongjinStr = @"";
+    if (model.totalMoneyAgent) {
+        yongjinStr = model.totalMoneyAgent;
+    }else{
+        yongjinStr = @"";
+    }
+    NSString *yongjin = [NSString stringWithFormat:@"赚积分 %@",yongjinStr];
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",payS]];
     NSRange rang = [attributeMarket.string rangeOfString:@"¥"];
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(13) range:rang];
     
-    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:NSMakeRange(0, pay.length)];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KMaintextColor range:NSMakeRange(0, payS.length)];
     self.moneyL.attributedText = attributeMarket;
-    
-}
-
-- (void)setOrderType:(myOrderType)orderType{
-    _orderType = orderType;
-    /**
-     myOrderTypeWaitingToBeDelivered,//待发货
-     myOrderTypeWaitingPendingReceipt,//待收货
-     myOrderTypeWaitingRefund,//退款/售后
-     */
-    if (_orderType == myOrderTypeWaitingToBeDelivered) {
+    // 订单状态（1待支付默认，2待发货、3待收货，9完成，-1客户取消、-2管理员取消、-6订单超时未支付取消、-7行云订单生成失败取消
+    NSInteger orderStatus = model.orderState.integerValue;
+    if (orderStatus == 2) {
         //取消订单  发货
         self.leftBtn.hidden = NO;
         self.rightBtn.frame = CGRectMake(ScreenWidth - 50 - 12 - 24, 54, 50, 27);
@@ -337,7 +370,7 @@
         [self.leftBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         [self.leftBtn setTitleColor:KBlack999TextColor forState:UIControlStateNormal];
         self.leftBtn.layer.borderColor = KBlack999TextColor.CGColor;
-    }else if (_orderType == myOrderTypeWaitingPendingReceipt) {
+    }else if (orderStatus == 3) {
         //已发货  查看详情
         self.rightBtn.frame = CGRectMake(ScreenWidth - 76 - 12 - 24, 54, 76, 27);
         self.leftBtn.frame = CGRectMake(ScreenWidth - 163 - 24, 54, 63, 27);
@@ -345,7 +378,7 @@
         self.leftBtn.layer.borderColor = KBlack999TextColor.CGColor;
         [self.leftBtn setTitle:@"已发货" forState:UIControlStateNormal];
         [self.rightBtn setTitle:@"查看详情" forState:UIControlStateNormal];
-    }else if (_orderType == myOrderTypeWaitingRefund) {
+    }else if (orderStatus == 10) {
         //售后处理
         self.leftBtn.hidden = YES;
         self.rightBtn.frame = CGRectMake(ScreenWidth - 76 - 12 - 24, 54, 76, 27);
@@ -354,31 +387,35 @@
 }
 
 - (void)bottomBtnClick:(BaseButton *)btn{
-    /**
-      myOrderTypeWaitingToBeDelivered,//待发货
-      myOrderTypeWaitingPendingReceipt,//待收货
-      myOrderTypeWaitingRefund,//退款/售后
-      */
+    NSInteger orderStatus = self.model.orderState.integerValue;
     if (btn.tag == 4) {
-        if (self.orderType == myOrderTypeWaitingToBeDelivered) {
+        if (orderStatus == 2) {
             OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
             vc.alertType = orderAlertType_CancelOrder;
+            vc.orderID = self.model.orderId;
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
         }
     }
     if (btn.tag == 3) {
-        if (self.orderType == myOrderTypeWaitingToBeDelivered) {
+        if (orderStatus == 2) {
             MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
             vc.haveBottom = YES;
+            vc.orderID = self.model.orderId;
+            vc.productAry = self.model.orderGoodsListVos;
+            vc.successBlock = ^{
+                if (_successBlock) {
+                    _successBlock();
+                }
+            };
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
         }
-        if (self.orderType == myOrderTypeWaitingPendingReceipt) {
-            MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
-            vc.haveBottom = NO;
+        if (orderStatus == 3) {
+            MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
+            vc.orderID = self.model.orderId;
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
         }
-        if (self.orderType == myOrderTypeWaitingRefund) {
+        if (orderStatus == 10) {
             MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
             vc.isShouHou = YES;
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];

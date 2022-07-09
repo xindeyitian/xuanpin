@@ -7,6 +7,7 @@
 
 #import "myVCGuideView.h"
 #import "shopShareAlertViewController.h"
+
 @interface myVCGuideView ()
 
 @property (nonatomic ,strong)SDCycleScrollView *bannerCycle;
@@ -43,7 +44,7 @@
     _bannerAry = bannerAry;
     NSMutableArray *resultBannerAry = [NSMutableArray array];
     for (BannerListVosModel *model in _bannerAry) {
-        [resultBannerAry addObject:model.ossImgPath];
+        [resultBannerAry addObject:[NSString stringWithFormat:@"%@%@",model.ossImgPath,model.ossImgName]];
     }
     self.bannerCycle.imageURLStringsGroup = resultBannerAry;
 }
@@ -61,7 +62,6 @@
         alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [AppTool.currentVC  presentViewController:alertVC animated:NO completion:nil];
     }
-    
 }
 
 @end

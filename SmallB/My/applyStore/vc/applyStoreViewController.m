@@ -571,7 +571,7 @@
         if (returnCode == 200) {
             OpenStoreAlertViewController *alertVC = [OpenStoreAlertViewController new];
             alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [self  presentViewController:alertVC animated:NO completion:nil];
+            [self presentViewController:alertVC animated:NO completion:nil];
         }
     }];
 }

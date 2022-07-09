@@ -21,6 +21,26 @@
 
 @implementation BannerListVosModel
 
+- (NSString *)ossImgPath{
+    if ([_ossImgPath isEqual:[NSNull null]]) {
+        _ossImgPath = @"";
+    }
+    if (!_ossImgPath) {
+        _ossImgPath = @"";
+    }
+    return _ossImgPath;
+}
+
+- (NSString *)ossImgName{
+    if ([_ossImgName isEqual:[NSNull null]]) {
+        _ossImgName = @"";
+    }
+    if (!_ossImgName) {
+        _ossImgName = @"";
+    }
+    return _ossImgName;
+}
+
 @end
 
 @implementation BlockDefineGoodsVosModel
@@ -81,24 +101,35 @@
     return allHeight;
 }
 
+- (NSString *)goodsThumb{
+    NSString *result = @"";
+    if (_goodsThumb) {
+        result = [AppTool dealChineseUrl:_goodsThumb];
+    }
+    return result;
+}
+
 - (NSString *)salePrice{
     if (_salePrice) {
         _salePrice = [NSString stringWithFormat:@"%.2f",_salePrice.floatValue];
+        return _salePrice;
     }
-    return _salePrice;
+    return @"0";
 }
 
 - (NSString *)marketPrice{
     if (_marketPrice) {
         _marketPrice = [NSString stringWithFormat:@"%.2f",_marketPrice.floatValue];
+        return _marketPrice;
     }
-    return _marketPrice;
+    return @"0";
 }
 
 - (NSString *)commission{
     if (_commission) {
         NSString *commisso = K_NotNullHolder(_commission, @"0");
         _commission = [NSString stringWithFormat:@"%.2f",commisso.floatValue];
+        return _commission;
     }
     return @"0";
 }

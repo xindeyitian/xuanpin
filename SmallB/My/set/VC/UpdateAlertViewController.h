@@ -6,10 +6,13 @@
 //
 
 #import "BaseAlertViewController.h"
+#import "VersionModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UpdateAlertViewController : BaseAlertViewController
+
+@property (nonatomic , strong)VersionModel *model;
 
 @end
 

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BannerListVosModel : THBaseModel
 
 @property (nonatomic , copy)NSString *ossImgPath;
+@property (nonatomic , copy)NSString *ossImgName;
 @property (nonatomic , copy)NSString *linkId;
 @property (nonatomic , copy)NSString *bannerName;
 @property (nonatomic , copy)NSString *linkType;
@@ -59,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *ifOnSale;
 @property (nonatomic , copy)NSString *stockQuantity;
 @property (nonatomic , copy)NSString *shopGoodsId;
+
+@property (nonatomic , copy)NSString *supplierId;
 
 @end
 

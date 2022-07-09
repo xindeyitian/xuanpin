@@ -42,11 +42,4 @@
     
 }
 
-- (THBaseViewController *)currentViewController
-{
-
-     return [THAPPService shareAppService].currentViewController;
-}
-
-
 @end

@@ -6,7 +6,7 @@
 //
 
 #import "myOrderDetailHeaderView.h"
-#import "MyOrderLogisticsViewController.h"
+#import "OrderLogistedListViewController.h"
 
 @interface myOrderDetailHeaderView ()
 
@@ -14,6 +14,7 @@
 @property (nonatomic , strong)UILabel *instroL;
 @property (nonatomic , strong)UIImageView *statusImgV;
 @property (nonatomic , strong)UILabel *addressL;
+@property (nonatomic , strong)UILabel *nameL;
 @property (nonatomic , strong)UIView *wuliuV;
 @property (nonatomic , strong)UIView *whiteV;
 @property (nonatomic , strong)UIImageView *addressImage;
@@ -49,7 +50,7 @@
         make.top.mas_equalTo(self).offset(12);
     }];
     
-    self.statusL = [UILabel creatLabelWithTitle:@"卖家已发货" textColor:KWhiteTextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(20)];
+    self.statusL = [UILabel creatLabelWithTitle:@"-" textColor:KWhiteTextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_M(20)];
     [self addSubview:self.statusL];
     [self.statusL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(28);
@@ -58,7 +59,7 @@
         make.left.mas_equalTo(self).offset(12);
     }];
     
-    self.instroL = [UILabel creatLabelWithTitle:@"还剩9天13小时自动确认" textColor:KWhiteTextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
+    self.instroL = [UILabel creatLabelWithTitle:@"-" textColor:KWhiteTextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
     [self addSubview:self.instroL];
     [self.instroL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(21);
@@ -89,7 +90,7 @@
     }];
     self.addressImage = addressIcon;
     
-    UILabel *titleL = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
+    UILabel *titleL = [UILabel creatLabelWithTitle:@"-" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
     [whiteView addSubview:titleL];
     [titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(addressIcon.mas_centerY);
@@ -97,6 +98,7 @@
         make.left.mas_equalTo(addressIcon.mas_right).offset(12);
         make.height.mas_equalTo(22);
     }];
+    self.nameL = titleL;
     
     self.addressL = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(13)];
     [whiteView addSubview:self.addressL];
@@ -104,14 +106,8 @@
     [self.addressL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(whiteView).offset(43);
         make.right.mas_equalTo(whiteView).offset(-12);
-        //make.bottom.mas_equalTo(whiteView).offset(-12);
         make.top.mas_equalTo(titleL.mas_bottom).offset(4);
     }];
-    
-    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",@"李先生 19999999999"]];
-    NSRange range = NSMakeRange(0,3);
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
-    titleL.attributedText = attributeMarket;
     
     UIView *wuliuView = [[UIView alloc]init];
     wuliuView.backgroundColor = UIColor.clearColor;
@@ -208,6 +204,80 @@
     }];
 }
 
+- (void)setDetailModel:(OrderDetailModel *)detailModel{
+    _detailModel = detailModel;
+    
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",detailModel.deliveryRealName,detailModel.deliveryPhoneNum]];
+    NSRange range = NSMakeRange(0,detailModel.deliveryRealName.length);
+    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
+    self.nameL.attributedText = attributeMarket;
+    
+    self.addressL.text = detailModel.deliveryAddress;
+    self.wuliuV.hidden = !self.showWuliu;
+    self.moreBtnView.hidden = !self.haveBtn;
+    [self.addressImage mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.whiteV).offset(self.showWuliu ? 64+20:20);
+    }];
+    /**
+     待付款  待买家付款   等待支付，剩余23时59分自动关闭  order_detail_header1
+     待发货  待发货    等待卖家发货  order_detail_header3
+     已发货  卖家已发货  还剩9天13小时自动确认  order_detail_header2
+     已完成  已完成     交易已完成  order_detail_header4
+     已取消  已取消    交易已取消  order_detail_header5
+     售后    售后   退款中   order_detail_header6
+     */
+
+    NSString *statusS = @"";
+    NSString *contentS = @"";
+    NSString *imageName = @"";
+    switch (detailModel.orderState.integerValue) {
+        case 1:{
+            statusS = @"待买家付款";
+            contentS = @"等待支付，-自动关闭";
+            if (detailModel.autoCloseTime) {
+                contentS = [NSString stringWithFormat:@"等待支付，%@自动关闭",detailModel.autoCloseTime];
+            }
+            imageName = @"order_detail_header1";
+        }
+            break;
+        case 2:{
+            statusS = @"待发货";
+            contentS = @"等待卖家发货";
+            imageName = @"order_detail_header3";
+        }
+            break;
+        case 3:{
+            statusS = @"卖家已发货";
+            contentS = @"-自动确认";
+            if (detailModel.autoRecvRime) {
+                contentS = [NSString stringWithFormat:@"%@自动确认",detailModel.autoRecvRime];
+            }
+            imageName = @"order_detail_header2";
+        }
+            break;
+        case 9:{
+            statusS = @"已完成";
+            contentS = @"交易已完成";
+            imageName = @"order_detail_header4";
+        }
+            break;
+        case -1:
+        case -2:
+        case -6:
+        case -7:{
+            statusS = @"已取消";
+            contentS = @"交易已取消";
+            imageName = @"order_detail_header5";
+        }
+            break;
+        default:
+            break;
+    }
+    self.statusL.text = statusS;
+    self.instroL.text = contentS;
+    self.statusImgV.image = [UIImage imageNamed:imageName];
+}
+
 - (void)btnClick:(UIButton *)btn{
     if (btn.tag == 4) {
         [AppTool copyWithString:self.addressL.text];
@@ -219,31 +289,19 @@
 
 - (void)tapClick{
     //wuliuView
-    MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
+    OrderLogistedListViewController *vc = [[OrderLogistedListViewController alloc]init];
+    vc.detailModel = self.detailModel;
     [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setHaveBtn:(BOOL)haveBtn{
     _haveBtn = haveBtn;
+    self.moreBtnView.hidden = _haveBtn;
 }
 
-- (void)setAddressStr:(NSString *)addressStr{
-    _addressStr = addressStr;
-    self.addressL.text = _addressStr;
-    self.wuliuV.hidden = !self.showWuliu;
-    self.moreBtnView.hidden = !self.haveBtn;
-    [self.addressImage mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.whiteV).offset(self.showWuliu ? 64+20:20);
-    }];
+- (void)setShowWuliu:(BOOL)showWuliu{
+    _showWuliu = showWuliu;
+    self.wuliuV.hidden = !_showWuliu;
 }
-
-/**
- 待付款  待买家付款   等待支付，剩余23时59分自动关闭  order_detail_header1
- 待发货  待发货    等待卖家发货  order_detail_header3
- 已发货  卖家已发货  还剩9天13小时自动确认  order_detail_header2
- 已完成  已完成     交易已完成  order_detail_header4
- 已取消  已取消    交易已取消  order_detail_header5
- 售后    售后   退款中   order_detail_header6
- */
 
 @end

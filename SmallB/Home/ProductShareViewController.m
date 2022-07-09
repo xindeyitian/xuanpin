@@ -59,13 +59,34 @@
 
     UIImageView *code = [[UIImageView alloc]initWithImage:nil];
     code.frame = CGRectMake(262*KScreenW_Ratio - 70, 390*KScreenW_Ratio - 70, 58, 58);
-    NSString *url = [NSString stringWithFormat:@"https://h5.tuanhuoit.com/goodsShow.html?id=%@&uid=%@",self.model.goodsId,[AppTool getLocalDataWithKey:@"userID"]];
-    code.image = [AppTool createQRImageWithString:url];
+    
     [self.BGWhiteV addSubview:code];
     
+    /**
+     商品：  pages/home/pages/goodsDetails/goodsDetails?goodsId=100&shopId=10000
+     小程序用户版appId：'wx373b68803208c8cb'
+     小程序商家版appId:   'wx19dbc62b5b4a21ee'
+     */
     self.titleS = @"商品分享";
     self.descriptionS = self.model.goodsName;
-    self.webpageUrlS = url;
+    self.thumbImg = self.model.goodsThumb;
+    
+    [self startLoadingHUD];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:self.model.goodsId forKey:@"goodsID"];
+    [signDic setObject:@"-1" forKey:@"otherID"];
+    [signDic setObject:@"g" forKey:@"shareGroup"];
+    [signDic setObject:[AppTool getLocalDataWithKey:@"shopID"] forKey:@"shopID"];
+    [signDic setObject:[AppTool getLocalDataWithKey:@"userID"] forKey:@"userID"];
+    
+    [THHttpManager FormatPOST:[NSString stringWithFormat:@"%@share/cpi/shortUrl",XTAppBaseUseURL] parameters:signDic dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSString class]]) {
+            self.webpageUrlS = (NSString *)data;
+            NSString *url = [NSString stringWithFormat:@"%@",data];
+            code.image = [AppTool createQRImageWithString:url];
+        }
+    }];
 }
 
 #pragma mark - 保存至相册

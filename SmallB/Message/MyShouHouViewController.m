@@ -100,7 +100,7 @@
     [self.view addSubview:self.listContainerView];
     [self.listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(categoryLy.mas_bottom).offset(5);
+        make.top.mas_equalTo(categoryV.mas_bottom).offset(5);
     }];
     self.categoryView.listContainer = self.listContainerView;
 }
@@ -113,7 +113,6 @@
 - (id<JXCategoryListContentViewDelegate>)listContainerView:(JXCategoryListContainerView *)listContainerView initListForIndex:(NSInteger)index {
     ContentViewController *vc = [[ContentViewController alloc]init];
     vc.isShouhou = YES;
-    vc.orderType = self.orderType;
     if (self.titleAry.count == 1 && [self.titleAry containsObject:@"云仓订单"]) {
         vc.type = 1;
     }else  if (self.titleAry.count == 1 && [self.titleAry containsObject:@"自营订单"]) {

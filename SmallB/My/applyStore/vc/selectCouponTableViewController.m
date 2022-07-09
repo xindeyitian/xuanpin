@@ -139,10 +139,5 @@
     //[_bgView.layer addAnimation:animation forKey:nil];
 }
 
-- (THBaseViewController *)currentVC
-{
-    return [THAPPService shareAppService].currentViewController;
-}
-
 @end
 

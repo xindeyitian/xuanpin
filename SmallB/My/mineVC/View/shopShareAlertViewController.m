@@ -96,6 +96,30 @@
         self.descriptionS = @"这里是邀请开店";
         self.webpageUrlS = @"这里是邀请开店url";
     }
+    
+    [self startLoadingHUD];
+    [THHttpManager GET:@"system/share/share" parameters:@{@"invitationCode":[AppTool getLocalDataWithKey:@"inviteCode"],
+                                                          @"shopId":[AppTool getLocalDataWithKey:@"shopID"],
+                                                          @"type":self.isOpenShop ? @"2":@"1",
+                                                          @"userId":[AppTool getLocalDataWithKey:@"userID"],
+                                                        } block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"title"]) {
+                self.titleS = [data objectForKey:@"title"];
+            }
+            if ([data objectForKey:@"content"]) {
+                self.descriptionS = [data objectForKey:@"content"];
+            }
+            if ([data objectForKey:@"shareUrl"]) {
+                self.webpageUrlS = [data objectForKey:@"shareUrl"];
+            }
+            if ([data objectForKey:@"thumbImg"]) {
+                self.thumbImg = [data objectForKey:@"thumbImg"];
+            }
+            codeImage.image = [AppTool createQRImageWithString:self.webpageUrlS];
+        }
+    }];
 }
 
 @end

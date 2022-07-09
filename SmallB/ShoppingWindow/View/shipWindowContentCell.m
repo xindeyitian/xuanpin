@@ -18,6 +18,7 @@
 
 @property(nonatomic , strong)UIImageView *shenheImgV;
 @property(nonatomic , strong)UIButton *statusOperationBtn;
+@property(nonatomic , strong)UIButton *deleteButton;
 
 @end
 
@@ -42,6 +43,7 @@
     [whiteV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 12, 0, 12));
     }];
+    whiteV.userInteractionEnabled = YES;
     
     self.productImgV = [[UIImageView alloc]init];
     self.productImgV.layer.cornerRadius = 4;
@@ -105,6 +107,24 @@
     }];
     self.statusOperationBtn = statusBtn;
     
+    UIButton *deleteBtn = [BaseButton CreateBaseButtonTitle:@"删除" Target:self Action:@selector(deleteClick) Font:[UIFont systemFontOfSize:12] BackgroundColor:KWhiteBGColor Color:KBlack666TextColor Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:1];
+    [deleteBtn setImage:IMAGE_NAMED(@"window_delete") forState:UIControlStateNormal];
+    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
+    deleteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+    deleteBtn.layer.cornerRadius = 13;
+    deleteBtn.layer.masksToBounds = YES;
+    deleteBtn.layer.borderWidth = 1;
+    deleteBtn.layer.borderColor = KBGColor.CGColor;
+    [whiteV addSubview:deleteBtn];
+    [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(statusBtn.mas_left).offset(-12);
+        make.height.mas_equalTo(26);
+        make.width.mas_equalTo(87);
+        make.bottom.mas_equalTo(whiteV.mas_bottom).offset(-12);
+    }];
+    deleteBtn.hidden = YES;
+    self.deleteButton = deleteBtn;
+    
     //上架   KMainBGColor  tab_window-shangjia
     //下架   KOrangeBGtColor   tab_window-xiajia
     //审核   tab_window-shenhe
@@ -146,6 +166,12 @@
     self.allpriceLab.attributedText = attributeMarket;
 }
 
+- (void)deleteClick{
+    if (_deleteViewBlock) {
+        _deleteViewBlock();
+    }
+}
+
 - (void)setShopType:(NSInteger)shopType{
     _shopType = shopType;
     if (self.index == 0) {
@@ -154,6 +180,7 @@
         [self.statusOperationBtn setImage:IMAGE_NAMED(@"tab_window-xiajia") forState:UIControlStateNormal];
         [self.statusOperationBtn setTitle:@"下架" forState:UIControlStateNormal];
         self.statusString = @"下架";
+        self.deleteButton.hidden = YES;
     }
     if (self.index == 2 || (self.index == 1 && self.shopType == 0)) {
         self.shenheImgV.hidden = YES;
@@ -162,13 +189,17 @@
         [self.statusOperationBtn setTitle:@"发布" forState:UIControlStateNormal];
         self.statusOperationBtn.backgroundColor = KMainBGColor;
         self.statusString = @"发布";
+        self.deleteButton.hidden = NO;
     }
     if (self.index == 1 && self.shopType == 1) {
         [self.statusOperationBtn setTitle:@"审核中" forState:UIControlStateNormal];
     }
     if (self.index == 1 && self.shopType == 1) {
-        [self.statusOperationBtn setTitle:@"发布" forState:UIControlStateNormal];
-        self.statusOperationBtn.backgroundColor = KMainBGColor;
+        [self.statusOperationBtn setTitle:@"审核中" forState:UIControlStateNormal];
+        self.statusOperationBtn.hidden = NO;
+        [self.statusOperationBtn setImage:IMAGE_NAMED(@"tab_window-shenhe") forState:UIControlStateNormal];
+        self.statusOperationBtn.backgroundColor = kRGB(249, 196, 41);
+        self.deleteButton.hidden = YES;
     }
 }
 

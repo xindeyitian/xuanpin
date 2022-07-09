@@ -80,6 +80,9 @@
         CJStrongSelf()
         [self pustToDetailWithSection:section];
     };
+    view.successBlock = ^{
+        
+    };
     return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

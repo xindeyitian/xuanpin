@@ -14,5 +14,5 @@
  
  @return 控制器
  */
-- (THBaseViewController *)currentViewController;
+
 @end

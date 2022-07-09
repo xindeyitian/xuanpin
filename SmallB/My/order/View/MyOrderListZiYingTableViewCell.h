@@ -27,8 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface myOrderListZiYingCellFootView : UIView
 
 @property(nonatomic,strong)void(^viewClickBlock)(void);
-@property (nonatomic ,assign)myOrderType orderType;
+@property(nonatomic,strong)void(^successBlock)(void);
 @property(nonatomic , strong)OrderListRecordsModel *model;
+@property (nonatomic ,assign)NSInteger type;//1 云仓 2自营
 
 @end
 

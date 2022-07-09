@@ -239,8 +239,8 @@
         [sectionOneAry addObject:model];
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
-        model.titleStr = @"佣金总额";
-        model.detailStr = @"¥199";
+        model.titleStr = @"积分总额";
+        model.detailStr = @"199";
         model.rightFont = DIN_Medium_FONT_R(18);
         model.rightColor = KMaintextColor;
         model.rowHeight = 50;

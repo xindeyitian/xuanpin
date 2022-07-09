@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ProductDetailBottomView : THBaseView
 
 @property (nonatomic , strong)ProductDetailModel *model;
+@property (nonatomic , assign)BOOL hiddenBuy;
 
 @end
 

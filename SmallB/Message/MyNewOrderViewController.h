@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MyNewOrderViewController : THBaseTableViewController
 
+@property (nonatomic ,assign)NSInteger index;
 @property (nonatomic ,assign)myOrderType orderType;
 @property (nonatomic ,assign)BOOL isShouhou;
 
