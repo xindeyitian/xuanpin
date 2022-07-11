@@ -92,15 +92,15 @@
 
 - (void)getOrderListData{
     
-    if (self.type == 2 || self.isShouhou) {
-        
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        [self.dataArray removeAllObjects];
-        [self.tableView reloadData];
-        self.emptyDataView.hidden = NO;
-        return;
-    }
+//    if (self.type == 2 || self.isShouhou) {
+//
+//        [self.tableView.mj_header endRefreshing];
+//        [self.tableView.mj_footer endRefreshing];
+//        [self.dataArray removeAllObjects];
+//        [self.tableView reloadData];
+//        self.emptyDataView.hidden = NO;
+//        return;
+//    }
     
     NSDictionary *dica;
     NSString *url = @"";
