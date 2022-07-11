@@ -123,7 +123,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.dataArray.count && self.index == 0) {
-        GoodsListVosModel *model = self.dataArray[indexPath.row];
+        GoodsListVosModel *model = self.dataArray[indexPath.section];
         [AppTool GoToProductDetailWithID:model.goodsId];
     }
 }

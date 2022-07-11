@@ -432,12 +432,6 @@
                 }
             }
             [AppTool dealCollectionDataAry:self.dataAry];
-            NSArray *titleAry = @[@"测试测试",@"测试测试测试测试",@"测试测试测试测试测试测试",@"测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",@"测试测试",@"测试测试",@"测试测试测试测试测试测试测试测试测试测试",@"测试",@"测试测试",@"测试测试测试测试测试测试测试测试"];
-            
-//            for (GoodsListVosModel *model in self.dataAry) {
-//                NSInteger index = [self.dataAry indexOfObject:model];
-//                model.goodsName = titleAry[index];
-//            }
             [self.productDetailTable reloadData];
         }
     }];

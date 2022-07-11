@@ -892,6 +892,7 @@ static const NSTimeInterval LSTPopViewDefaultDuration = -1.0f;
 //    if (!isOutStack){
 //        [self.parentView addSubview:self];
 //    }
+    
     if (!self.superview) {
         [self.container addSubview:self];
         [LSTPopViewM().showList addPointer:(__bridge void * _Nullable)self];
@@ -918,7 +919,9 @@ static const NSTimeInterval LSTPopViewDefaultDuration = -1.0f;
     });
     
     //保存popView
-    if (!isOutStack) { [LSTPopViewManager savePopView:self]; }
+    if (!isOutStack) {
+        [LSTPopViewManager savePopView:self];
+    }
 }
 
 - (void)popAnimationWithPopStyle:(LSTPopStyle)popStyle duration:(NSTimeInterval)duration {
