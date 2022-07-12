@@ -199,6 +199,35 @@
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)]];
 }
 
+- (void)setShouHouModel:(OrderShouHouListRecordsModel *)shouHouModel{
+    _shouHouModel = shouHouModel;
+    
+    NSInteger applyType = [NSString stringWithFormat:@"%@",_shouHouModel.applyType].integerValue;
+    //退款类型 1：仅退款 2：退货退款
+    NSString *statusS = @"";
+    if (applyType == 1) {
+        statusS = @"仅退款";
+    }
+    if (applyType == 2) {
+        statusS = @"退货退款";
+    }
+    self.statusL.text = statusS;
+    self.orderL.text = [NSString stringWithFormat:@"订单编号:%@",_shouHouModel.orderNo];
+    
+    NSString *name = @"";
+    NSString *phone = @"";
+//    if (_shouHouModel.deliveryRealName) {
+//        name = _shouHouModel.deliveryRealName;
+//    }
+//    if (_shouHouModel.deliveryPhoneNum) {
+//        phone = _shouHouModel.deliveryPhoneNum;
+//    }
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@",name,phone]];
+    NSRange range = NSMakeRange(0,name.length);
+    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(15) range:range];
+    self.nameL.attributedText = attributeMarket;
+}
+
 - (void)setModel:(OrderListRecordsModel *)model{
     _model = model;
     
@@ -386,7 +415,33 @@
     }
 }
 
+- (void)setShouHouModel:(OrderShouHouListRecordsModel *)shouHouModel{
+    _shouHouModel = shouHouModel;
+    self.leftBtn.hidden = YES;
+    self.rightBtn.hidden = NO;
+    self.rightBtn.frame = CGRectMake(ScreenWidth - 76 - 12 - 24, 54, 76, 27);
+    [self.rightBtn setTitle:@"售后处理" forState:UIControlStateNormal];
+    
+    NSString *moneyS = K_NotNullHolder(_shouHouModel.moneyAgent, @"-");
+    NSString *payS = [NSString stringWithFormat:@"已付款 ¥%@",moneyS];
+    NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",payS]];
+    NSRange rang = [attributeMarket.string rangeOfString:@"¥"];
+    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(13) range:rang];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KMaintextColor range:NSMakeRange(0, payS.length)];
+    self.moneyL.attributedText = attributeMarket;
+}
+
 - (void)bottomBtnClick:(BaseButton *)btn{
+    
+    if (self.shouHouModel) {
+        MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
+        vc.isShouHou = YES;
+        vc.type = self.type;
+        vc.orderID = self.shouHouModel.applyId;
+        [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
     NSInteger orderStatus = self.model.orderState.integerValue;
     if (btn.tag == 4) {
         if (orderStatus == 2) {
@@ -413,11 +468,6 @@
         if (orderStatus == 3) {
             MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
             vc.orderID = self.model.orderId;
-            [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
-        }
-        if (orderStatus == 10) {
-            MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
-            vc.isShouHou = YES;
             [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
         }
     }

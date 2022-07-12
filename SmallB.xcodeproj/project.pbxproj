@@ -32,6 +32,7 @@
 		1F2B76B02876C1D000540544 /* OrderLogistedListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76AF2876C1D000540544 /* OrderLogistedListDetailViewController.m */; };
 		1F2B76B32876C7EC00540544 /* OrderLogistDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76B22876C7EC00540544 /* OrderLogistDetailTableViewCell.m */; };
 		1F2B76B6287821A600540544 /* ShopWindowDeleteAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76B5287821A600540544 /* ShopWindowDeleteAlertVC.m */; };
+		1F2B76B9287C18FB00540544 /* OrderShouHouListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2B76B8287C18FB00540544 /* OrderShouHouListModel.m */; };
 		1F323E892809506F00A15BD9 /* commentV.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E882809506F00A15BD9 /* commentV.m */; };
 		1F323E90280A4F1B00A15BD9 /* applyStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E8F280A4F1B00A15BD9 /* applyStoreViewController.m */; };
 		1F323E93280A519800A15BD9 /* BaseSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F323E92280A519800A15BD9 /* BaseSelectTableViewCell.m */; };
@@ -785,6 +786,8 @@
 		1F2B76B22876C7EC00540544 /* OrderLogistDetailTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLogistDetailTableViewCell.m; sourceTree = "<group>"; };
 		1F2B76B4287821A600540544 /* ShopWindowDeleteAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopWindowDeleteAlertVC.h; sourceTree = "<group>"; };
 		1F2B76B5287821A600540544 /* ShopWindowDeleteAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopWindowDeleteAlertVC.m; sourceTree = "<group>"; };
+		1F2B76B7287C18FB00540544 /* OrderShouHouListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderShouHouListModel.h; sourceTree = "<group>"; };
+		1F2B76B8287C18FB00540544 /* OrderShouHouListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderShouHouListModel.m; sourceTree = "<group>"; };
 		1F323E872809506E00A15BD9 /* commentV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = commentV.h; sourceTree = "<group>"; };
 		1F323E882809506F00A15BD9 /* commentV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = commentV.m; sourceTree = "<group>"; };
 		1F323E8E280A4F1B00A15BD9 /* applyStoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = applyStoreViewController.h; sourceTree = "<group>"; };
@@ -2668,6 +2671,8 @@
 				1F60091C28054C8400F17D1F /* orderDataModel.m */,
 				1F98E8D9282F9C3E008ABD43 /* OrderListModel.h */,
 				1F98E8DA282F9C3E008ABD43 /* OrderListModel.m */,
+				1F2B76B7287C18FB00540544 /* OrderShouHouListModel.h */,
+				1F2B76B8287C18FB00540544 /* OrderShouHouListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -5520,6 +5525,7 @@
 				1FB33970285B1DC800F324FF /* BeforeScanSingleton.m in Sources */,
 				1FB338C5285B1DC700F324FF /* ZXDetectorResult.m in Sources */,
 				1FB3394D285B1DC800F324FF /* ZXGeoResultParser.m in Sources */,
+				1F2B76B9287C18FB00540544 /* OrderShouHouListModel.m in Sources */,
 				58AB7EA027E9BD56003D5B20 /* GuideViewController.m in Sources */,
 				1FAECB47286AD60E00B438DD /* MagicBoxMessageListModel.m in Sources */,
 				1FB338B2285B1DC700F324FF /* ZXQRCodeMultiReader.m in Sources */,

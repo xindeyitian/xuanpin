@@ -13,11 +13,13 @@
 #import "OrderListModel.h"
 #import "OrderAlertViewController.h"
 #import "MyOrderLogisticsViewController.h"
+#import "OrderShouHouListModel.h"
 
 @interface MyorderDetailViewController ()<UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic , strong)UIView *bottomView;
 @property (nonatomic , strong)OrderDetailModel *detailModel;
+@property (nonatomic , strong)OrderShouHouListRecordsModel *detailShouHouModel;
 @property (nonatomic , strong)BaseOwnerNavView *navView ;
 
 @end
@@ -67,11 +69,10 @@
     self.needPullDownRefresh = YES;
     
     if (self.isShouHou) {
-        [self creatShouHouHeaderView];
+        [self getOrderShouHouDetail];
     }else{
-        //[self creatNoramlHeaderView];
+        [self getOrderDetail];
     }
-    [self getOrderDetail];
 }
 
 - (void)cancelSuccess{
@@ -81,6 +82,38 @@
 - (void)loadNewData{
     [self getOrderDetail];
 }
+
+- (void)getOrderShouHouDetail{
+    if (!self.tableView.mj_header.isRefreshing) {
+        [self startLoadingHUD];
+    }
+    [THHttpManager GET:@"order/goodsBackApply/getApplyInfo" parameters:@{@"applyId":self.orderID} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            [self.tableView.mj_header endRefreshing];
+            
+            self.detailShouHouModel = [OrderShouHouListRecordsModel mj_objectWithKeyValues:data];
+            [self getDataAry];
+            [self.tableView reloadData];
+            [self creatShouHouHeaderView];
+//            NSInteger status = self.detailModel.orderState.integerValue;
+//            if (self.type == 2 && status == 2) {
+//                [self creatBottomView];
+//                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.top.mas_equalTo(self.navView.mas_bottom);
+//                    make.left.right.equalTo(self.view);
+//                    make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
+//                }];
+//            }else{
+//                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                    make.top.mas_equalTo(self.navView.mas_bottom);
+//                    make.left.right.bottom.equalTo(self.view);
+//                }];
+//            }
+        }
+    }];
+}
+
 
 - (void)getOrderDetail{
     if (!self.tableView.mj_header.isRefreshing) {
@@ -201,9 +234,16 @@
         make.height.mas_equalTo(24);
     }];
     
-    //退款进度   买家申请  商家确认   售后完成
-    //退货退款进度
-    NSArray *array = @[@"买家申请",@"商家确认",@"买家寄回",@"商家收货",@"售后完成"];
+    NSInteger applyType = [NSString stringWithFormat:@"%@",self.detailShouHouModel.applyType].integerValue;
+    //退款类型 1：仅退款 2：退货退款
+    NSArray *array;
+    NSString *statusS = @"";
+    if (applyType == 1) {
+        array = @[@"买家申请",@"商家确认",@"售后完成"];
+    }
+    if (applyType == 2) {
+        array = @[@"买家申请",@"商家确认",@"买家寄回",@"商家收货",@"售后完成"];
+    }
     float oneWidth = (ScreenWidth - 24 - 24 - array.count*5 - 5)/array.count;
     NSInteger num = 2;
     
@@ -521,7 +561,6 @@
     }
     payModel.rightFont = DEFAULT_FONT_R(15);
     payModel.rightColor = KBlack666TextColor;
-
 
     orderDataModel *fahuoModel = [[orderDataModel alloc]init];
     fahuoModel.titleStr = @"发货时间";

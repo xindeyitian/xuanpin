@@ -120,6 +120,15 @@
     self.numL.text = [NSString stringWithFormat:@"x%@",model.quantityTotal];
 }
 
+- (void)setShouHouModel:(OrderShouHouListRecordsModel *)shouHouModel{
+    _shouHouModel = shouHouModel;
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:_shouHouModel.skuImgUrl] placeholderImage:[UIImage imageNamed:@"icon_image"]];
+    self.productpriceL.text = [NSString stringWithFormat:@"¥%@",_shouHouModel.priceSale];
+    self.productTitleL.text = _shouHouModel.goodsName;
+    self.instrucL.text = _shouHouModel.skuName;
+    self.numL.text = [NSString stringWithFormat:@"x%@",_shouHouModel.quantityTotal];
+}
+
 @end
 
 @interface myOrderListContentCellHeadView ()

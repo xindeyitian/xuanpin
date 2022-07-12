@@ -11,6 +11,7 @@
 #import "MyOrderListZiYingTableViewCell.h"
 #import "OrderListModel.h"
 #import "BaseSearchView.h"
+#import "OrderShouHouListModel.h"
 
 @interface ContentViewController ()<JXCategoryViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic , copy)NSString *typeStatus;
@@ -146,7 +147,7 @@
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
             if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
-                OrderListModel *model = [OrderListModel mj_objectWithKeyValues:data];
+                OrderShouHouListModel *model = [OrderShouHouListModel mj_objectWithKeyValues:data];
                 if (self.page == 1) {
                     [self.dataArray removeAllObjects];
                     [self.dataArray addObjectsFromArray:model.records];
@@ -175,6 +176,9 @@
     return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.isShouhou) {
+        return 1;
+    }
     if (self.dataArray.count) {
         OrderListRecordsModel *model = self.dataArray[section];
         return model.orderGoodsListVos.count;
@@ -185,8 +189,13 @@
     
     myOrderListContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[myOrderListContentTableViewCell description]];
     if (self.dataArray.count) {
-        OrderListRecordsModel *model = self.dataArray[indexPath.section];
-        cell.model = model.orderGoodsListVos[indexPath.row];
+        if (self.isShouhou) {
+            OrderShouHouListRecordsModel*model = self.dataArray[indexPath.section];
+            cell.shouHouModel = model;
+        }else{
+            OrderListRecordsModel *model = self.dataArray[indexPath.section];
+            cell.model = model.orderGoodsListVos[indexPath.row];
+        }
     }
     return cell;
 }
@@ -209,6 +218,9 @@
   myOrderTypeWaitingPendingReceipt,//待收货
   myOrderTypeWaitingRefund,//退款/售后
   */
+    if (self.isShouhou) {
+        return 50 + 45;
+    }
     if (self.dataArray.count) {
         OrderListRecordsModel *model = self.dataArray[section];
         NSInteger status = model.orderState.integerValue;
@@ -224,7 +236,11 @@
         myOrderListContentCellFootView *view = [[myOrderListContentCellFootView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 50)];
         view.type = self.type;
         if (self.dataArray.count) {
-            view.model = self.dataArray[section];
+            if (self.isShouhou) {
+                view.shouHouModel = self.dataArray[section];
+            }else{
+                view.model = self.dataArray[section];
+            }
         }
         CJWeakSelf()
         view.viewClickBlock = ^{
@@ -235,16 +251,25 @@
     }
     float height = 50;
     if (self.dataArray.count) {
-        OrderListRecordsModel *model = self.dataArray[section];
-        NSInteger status = model.orderState.integerValue;
-        if (status == 2 || status == 3 || self.isShouhou) {
+        if (!self.isShouhou) {
+            OrderListRecordsModel *model = self.dataArray[section];
+            NSInteger status = model.orderState.integerValue;
+            if (status == 2 || status == 3) {
+                height = 50 + 45;
+            }
+        }
+        if (self.isShouhou) {
             height = 50 + 45;
         }
     }
     myOrderListZiYingCellFootView *view = [[myOrderListZiYingCellFootView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, height)];
     view.type = self.type;
     if (self.dataArray.count) {
-        view.model = self.dataArray[section];
+        if (self.isShouhou) {
+            view.shouHouModel = self.dataArray[section];
+        }else{
+            view.model = self.dataArray[section];
+        }
     }
     CJWeakSelf()
     view.viewClickBlock = ^{
@@ -266,7 +291,11 @@
     if (self.type == 1) {
         myOrderListContentCellHeadView *view = [[myOrderListContentCellHeadView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 44+12)];
         if (self.dataArray.count) {
-            view.model = self.dataArray[section];
+            if (self.isShouhou) {
+                view.shouHouModel = self.dataArray[section];
+            }else{
+                view.model = self.dataArray[section];
+            }
         }
         CJWeakSelf()
         view.viewClickBlock = ^{
@@ -277,7 +306,11 @@
     }
     myOrderListZiYingCellHeadView *view = [[myOrderListZiYingCellHeadView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 76+12+7)];
     if (self.dataArray.count) {
-        view.model = self.dataArray[section];
+        if (self.isShouhou) {
+            view.shouHouModel = self.dataArray[section];
+        }else{
+            view.model = self.dataArray[section];
+        }
     }
     CJWeakSelf()
     view.viewClickBlock = ^{
@@ -289,11 +322,21 @@
 
 - (void)pustToDetailWithSection:(NSInteger)section{
     
-    OrderListRecordsModel *model = self.dataArray[section];
-    MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
-    vc.type = self.type;
-    vc.orderID = model.orderId;
-    [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+    if (self.isShouhou) {
+        OrderShouHouListRecordsModel *model = self.dataArray[section];
+        MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
+        vc.isShouHou = self.isShouhou;
+        vc.type = self.type;
+        vc.orderID = model.applyId;
+        [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+    }else{
+        OrderListRecordsModel *model = self.dataArray[section];
+        MyorderDetailViewController *vc = [[MyorderDetailViewController alloc]init];
+        vc.isShouHou = self.isShouhou;
+        vc.type = self.type;
+        vc.orderID = model.orderId;
+        [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (UIView *)listView {

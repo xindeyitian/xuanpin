@@ -61,10 +61,9 @@
     self.categoryView.delegate = self;
     self.categoryView.titleSelectedColor = UIColor.whiteColor;
     self.categoryView.titleColor = UIColor.whiteColor;
-    self.categoryView.titleSelectedFont = [UIFont systemFontOfSize:18];
-    self.categoryView.titleFont = [UIFont systemFontOfSize:16];
+    self.categoryView.titleSelectedFont = DEFAULT_FONT_M(17);
+    self.categoryView.titleFont = DEFAULT_FONT_R(16);
     self.categoryView.titleColorGradientEnabled = YES;
-    self.categoryView.titleLabelZoomEnabled = YES;
     self.categoryView.backgroundColor = UIColor.clearColor;
     self.categoryView.frame = CGRectMake(0, 0, ScreenWidth, 40);
     self.categoryView.myWidth = ScreenWidth - 10 - 72;
