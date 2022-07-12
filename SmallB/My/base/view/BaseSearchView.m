@@ -10,7 +10,6 @@
 
 @interface BaseSearchView()<UITextFieldDelegate>
 //JXCategoryViewDelegate
-@property (strong, nonatomic) UIView *searchV;
 
 @end
 

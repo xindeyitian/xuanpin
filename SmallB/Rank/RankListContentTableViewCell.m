@@ -137,7 +137,7 @@
     BOOL isRankList = self.cellType == contentCellTypeRankList;
     self.yongjinLab.hidden = !isRankList;
     if (isRankList) {
-        self.hasSoldLab.text = [NSString stringWithFormat:@"已售%@件",model.saleCount];
+        self.hasSoldLab.text = [NSString stringWithFormat:@" 已售%@件 ",model.saleCount];
         self.yongjinLab.text = [NSString stringWithFormat:@"赚积分 %@",model.commission];
     }else{
         self.hasSoldLab.text = [NSString stringWithFormat:@"高佣%@%%赚积分%@",model.feeRate,model.commission];
@@ -149,7 +149,7 @@
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",newprice,oldprice]];
     NSRange oldPriceRange = NSMakeRange(newprice.length+1,oldprice.length);
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:oldPriceRange];
-    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:oldPriceRange];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(13) range:NSMakeRange(0, 1)];
     self.allpriceLab.attributedText = attributeMarket;

@@ -7,6 +7,7 @@
 
 #import "ThBaseTableViewCell.h"
 #import "incomeStatisticsModel.h"
+#import "rightPushView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MyVCInfoTableViewCell : ThBaseTableViewCell
@@ -20,6 +21,8 @@ NS_ASSUME_NONNULL_END
 
 @interface MyVCChatTableViewCell : ThBaseTableViewCell
 
+@property(nonatomic,assign)BOOL hiddenSupplier;
+
 @end
 
 @interface MyVCOrderTableViewCell : ThBaseTableViewCell
@@ -28,6 +31,7 @@ NS_ASSUME_NONNULL_END
 
 @interface MyVCProfitsTableViewCell : ThBaseTableViewCell
 
+@property (nonatomic ,strong)rightPushView *rightView;
 @property(nonatomic,strong)incomeStatisticsModel *model;
 
 @end

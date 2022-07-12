@@ -40,7 +40,7 @@
     [self.homeTable registerClass:[HomeYouXuanTableViewCell class] forCellReuseIdentifier:[HomeYouXuanTableViewCell description]];
     [self.homeTable registerClass:[HomeRecommendTableViewCell class] forCellReuseIdentifier:[HomeRecommendTableViewCell description]];
     
-    self.topView = [[HomeFirstTopView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 124 + 140*KScreenW_Ratio)];
+    self.topView = [[HomeFirstTopView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 112 + 140*KScreenW_Ratio)];
     self.topView.backgroundColor = UIColor.clearColor;
     self.homeTable.tableHeaderView = self.topView;
     CJWeakSelf()

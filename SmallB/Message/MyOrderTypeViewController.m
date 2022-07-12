@@ -33,8 +33,13 @@
     self.view.backgroundColor = KBGColor;
     self.searchStr = @"";
     
-    BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+    UIView *bgV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+    bgV.backgroundColor = KWhiteBGColor;
+    [self.view addSubview:bgV];
+    
+    BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 4, ScreenWidth, 40)];
     searchV.fieldEnabled = YES;
+    searchV.searchV.backgroundColor = KWhiteBGColor;
 
     NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"请输入订单号/手机号/收货人姓名" attributes:@{NSForegroundColorAttributeName:KBlack666TextColor,NSFontAttributeName:searchV.searchField.font}];
     searchV.searchField.attributedPlaceholder = attrString;
@@ -48,8 +53,8 @@
         }
     };
     searchV.backgroundColor = UIColor.whiteColor;
-    [self.view addSubview:searchV];
-    [self.view bringSubviewToFront:searchV];
+    [bgV addSubview:searchV];
+    [self.view bringSubviewToFront:bgV];
     
     UIView *categoryV = [[UIView alloc] initWithFrame:CGRectMake(0,44, ScreenWidth , 42)];
     categoryV.backgroundColor = KWhiteBGColor;

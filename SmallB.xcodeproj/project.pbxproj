@@ -6299,7 +6299,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 05;
+				CURRENT_PROJECT_VERSION = 06;
 				DEVELOPMENT_TEAM = AS4M3DAT8M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6339,10 +6339,10 @@
 				);
 				INFOPLIST_FILE = SmallB/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "小莲云仓";
-				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相册";
+				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机来进行开店资料的上传和头像的修改";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位来拍摄带有定位的照片";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册以方便用户快捷分享";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相机来进行开店资料的上传和头像的修改";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -6456,7 +6456,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 05;
+				CURRENT_PROJECT_VERSION = 06;
 				DEVELOPMENT_TEAM = AS4M3DAT8M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6496,10 +6496,10 @@
 				);
 				INFOPLIST_FILE = SmallB/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "小莲云仓";
-				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相册";
+				INFOPLIST_KEY_NSCameraUsageDescription = "请允许APP访问您的相机来进行开店资料的上传和头像的修改";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "请允许用户开启相机拍照的时候使用定位来拍摄带有定位的照片";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "请允许APP保存图片到相册以方便用户快捷分享";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "请允许APP访问您的相机来进行开店资料的上传和头像的修改";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self getSetDataAryWithModel:[MyInfoModel new]];
+    [self getSetDataAryWithModel:[MyInfoModel new] result:0];
     self.cacheStr = @"0B";
     [self getMyInfo];
     
@@ -94,7 +94,22 @@
             MyInfoModel *model = [MyInfoModel mj_objectWithKeyValues:data];
             self.myInfoModel = model;
             [self.headView.userLogo sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:KPlaceholder_DefaultImage];
-            [self getSetDataAryWithModel:model];
+            [self judgeHidden];
+        }
+    }];
+}
+
+- (void)judgeHidden{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:[NSString stringWithFormat:@"supply_ios_%@",app_Version] forKey:@"versionCode"];
+    [THHttpManager GET:[NSString stringWithFormat:@"%@version/getVersion",XTAppBaseUseURL] parameters:signDic block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"ifShow"]) {
+                NSString *result = [NSString stringWithFormat:@"%@",[data objectForKey:@"ifShow"]];
+                [self getSetDataAryWithModel:self.myInfoModel result:result.integerValue];
+            }
         }
     }];
 }
@@ -110,7 +125,7 @@
             if (self.myInfoModel.avatar) {
                 [AppTool saveToLocalDataWithValue:self.myInfoModel.avatar key:@"userLogo"];
             }
-            [self getSetDataAryWithModel:self.myInfoModel];
+            [self judgeHidden];
         }
     }];
 }
@@ -279,10 +294,20 @@
         }];
     }
     if (indexPath.section == 1 && indexPath.row == 1) {
-        ThirdBingDingViewController *vc = [ThirdBingDingViewController new];
-        vc.bingdAli = self.myInfoModel.bindAli.integerValue;
-        vc.bingWeichat = self.myInfoModel.bindWechat.integerValue;
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        NSArray *array = self.dataArray[indexPath.section];
+        mySetDataModel *model = array[indexPath.row];
+        if ([model.titleStr containsString:@"联系客服"]) {
+            chatAlertViewController *alertVC = [chatAlertViewController new];
+            alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            alertVC.phoneStr = self.myInfoModel.serviceTel;
+            [self presentViewController:alertVC animated:NO completion:nil];
+        }else{
+            ThirdBingDingViewController *vc = [ThirdBingDingViewController new];
+            vc.bingdAli = self.myInfoModel.bindAli.integerValue;
+            vc.bingWeichat = self.myInfoModel.bindWechat.integerValue;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     if (indexPath.section == 2 && indexPath.row == 1) {
         YinsiFuwuViewController * pvc = [[YinsiFuwuViewController alloc] init];
@@ -298,7 +323,7 @@
     }
 }
 
-- (void)getSetDataAryWithModel:(MyInfoModel *)infoModel{
+- (void)getSetDataAryWithModel:(MyInfoModel *)infoModel result:(NSInteger)result{
 
     NSMutableArray *sectionOneAry = [NSMutableArray array];
     {
@@ -384,22 +409,25 @@
         }
         [sectionTwoAry addObject:model];
     }
-    {
-        mySetDataModel *model = [[mySetDataModel alloc]init];
-        model.titleStr = @"绑定第三方提现账户";
-        model.detailStr = @"";
-        [sectionTwoAry addObject:model];
-    }
-    {
-        mySetDataModel *model = [[mySetDataModel alloc]init];
-        model.titleStr = @"修改提现密码";
-        if (infoModel.isPassword.integerValue == 0) {
-            model.titleStr = @"设置提现密码";
-        }else{
-            model.titleStr = @"修改提现密码";
+    
+    if (result == 1) {
+        {
+            mySetDataModel *model = [[mySetDataModel alloc]init];
+            model.titleStr = @"绑定第三方提现账户";
+            model.detailStr = @"";
+            [sectionTwoAry addObject:model];
         }
-        model.detailStr = @"";
-        [sectionTwoAry addObject:model];
+        {
+            mySetDataModel *model = [[mySetDataModel alloc]init];
+            model.titleStr = @"修改提现密码";
+            if (infoModel.isPassword.integerValue == 0) {
+                model.titleStr = @"设置提现密码";
+            }else{
+                model.titleStr = @"修改提现密码";
+            }
+            model.detailStr = @"";
+            [sectionTwoAry addObject:model];
+        }
     }
     {
         mySetDataModel *model = [[mySetDataModel alloc]init];

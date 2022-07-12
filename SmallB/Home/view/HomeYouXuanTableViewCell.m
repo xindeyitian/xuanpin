@@ -152,7 +152,7 @@
     soldLable.myWidth = MyLayoutSize.wrap;
     soldLable.layer.cornerRadius = 2;
     soldLable.layer.masksToBounds = YES;
-    soldLable.text = @"已售2568件";
+    soldLable.text = @" 已售0件 ";
     [self addSubview:soldLable];
     [soldLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.productTitleL.mas_left);
@@ -191,7 +191,7 @@
     
     UILabel *priceLable = [[UILabel alloc] initWithFrame:CGRectZero];
     priceLable.textColor = [UIColor colorWithHexString:@"#FF3B30"];
-    priceLable.font = FONTWEIGHT_MEDIUM_FONT_R(15);
+    priceLable.font = DIN_Medium_FONT_R(17);
     priceLable.text = @"¥108.88";
     [self addSubview:priceLable];
     [priceLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -215,9 +215,9 @@
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",newprice,oldprice]];
     NSRange oldPriceRange = NSMakeRange(newprice.length+1,oldprice.length);
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:oldPriceRange];
-    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:oldPriceRange];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:oldPriceRange];
-    [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_R(11) range:NSMakeRange(0, 1)];
+    [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(13) range:NSMakeRange(0, 1)];
     self.allpriceLab.attributedText = attributeMarket;
 }
 

@@ -31,7 +31,7 @@
     [NSLayoutConstraint constraintWithItem:self.maskTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1 constant:0].active = YES;
 
     self.upImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_up"]];
-    //self.upImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.upImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.upImageView.hidden = YES;
     self.upImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.upImageView];
@@ -41,7 +41,7 @@
     self.upCenterYCons.active = YES;
 
     self.downImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_down"]];
-    //self.downImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.downImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.downImageView.hidden = YES;
     self.downImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.downImageView];
@@ -51,7 +51,7 @@
     self.downCenterYCons.active = YES;
     
     self.bothImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"both"]];
-    //self.bothImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.bothImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.bothImageView.hidden = YES;
     self.bothImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:self.bothImageView];

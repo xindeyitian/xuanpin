@@ -77,7 +77,6 @@
     self.categoryView.titleFont = DEFAULT_FONT_R(15);
     self.categoryView.titleColorGradientEnabled = YES;
     self.categoryView.titleLabelZoomEnabled = YES;
-    self.categoryView.backgroundColor = KWhiteBGColor;
     [categoryLy addSubview:self.categoryView];
     
     self.lineView = [[JXCategoryIndicatorLineView alloc] init];
@@ -100,7 +99,7 @@
     [self.view addSubview:self.listContainerView];
     [self.listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(categoryLy.mas_bottom).offset(5);
+        make.top.mas_equalTo(categoryLy.mas_bottom);
     }];
     self.categoryView.listContainer = self.listContainerView;
 }

@@ -59,7 +59,7 @@
         make.right.equalTo(self.BGWhiteV).offset(-12);
         make.top.equalTo(image.mas_bottom).offset(16*KScreenW_Ratio);
     }];
-    codeImage.image = [AppTool createQRImageWithString:@"这里是分享店铺"];
+    //codeImage.image = [AppTool createQRImageWithString:@"这里是分享店铺"];
     
     self.titleS = @"分享店铺";
     self.descriptionS = @"这里是分享店铺";
@@ -90,7 +90,7 @@
         if (inviteCode.length) {
             codeTitle.text = [NSString stringWithFormat:@"邀请码：%@",inviteCode];
         }
-        codeImage.image = [AppTool createQRImageWithString:@"这里是邀请开店"];
+        //codeImage.image = [AppTool createQRImageWithString:@"这里是邀请开店"];
     
         self.titleS = @"邀请开店";
         self.descriptionS = @"这里是邀请开店";

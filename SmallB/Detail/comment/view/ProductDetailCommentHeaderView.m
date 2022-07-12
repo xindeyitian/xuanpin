@@ -114,7 +114,7 @@
     [attributeMarket addAttribute:NSFontAttributeName value:DEFAULT_FONT_M(17) range:range];
     title.attributedText = attributeMarket;
     
-    UILabel *content = [UILabel creatLabelWithTitle:@"评价" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(12)];
+    UILabel *content = [UILabel creatLabelWithTitle:@"暂时还没有评价哦~" textColor:KBlack666TextColor textAlignment:NSTextAlignmentLeft font:DEFAULT_FONT_R(12)];
     content.frame = CGRectMake(12, 45, ScreenWidth - 48, 20);
     [whiteV addSubview:content];
 }

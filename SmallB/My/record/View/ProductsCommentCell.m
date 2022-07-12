@@ -149,7 +149,7 @@
     NSMutableAttributedString *attributeMarket = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",newprice,oldprice]];
     NSRange oldPriceRange = NSMakeRange(newprice.length+1,oldprice.length);
     [attributeMarket setAttributes:@{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:oldPriceRange];
-    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack333TextColor range:oldPriceRange];
+    [attributeMarket addAttribute:NSForegroundColorAttributeName value:KBlack999TextColor range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DIN_Regular_FONT_R(12) range:oldPriceRange];
     [attributeMarket addAttribute:NSFontAttributeName value:DIN_Medium_FONT_R(18) range:NSMakeRange(0, 1)];
     if ([newprice containsString:@"."]) {

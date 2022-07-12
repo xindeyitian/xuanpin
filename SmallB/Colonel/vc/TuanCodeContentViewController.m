@@ -185,7 +185,7 @@
         _emptyView.noDataTitleLabel.text = @"暂无数据哦～";
         [self.tableView addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
+            make.centerY.mas_equalTo(self.tableView.centerY).offset(10*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.tableView.mas_centerX);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(170);

@@ -72,7 +72,8 @@
     
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(10);
-        make.left.right.equalTo(self.view);
+        make.left.equalTo(self.view).offset(self.typeIndex == vcTypeIndexStoreAttention ? 0 : 12);
+        make.right.equalTo(self.view).offset(self.typeIndex == vcTypeIndexStoreAttention ? 0 : -12);
         make.bottom.equalTo(self.view.mas_bottom).offset(-5);
     }];
     self.bottomView = [[MyVCCollectionAndRecordsBottomView alloc]init];
@@ -96,6 +97,9 @@
         [self deleteWithDeleteCurrent:YES row:0];;
     };
     self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, TabbarSafeBottomMargin+5)];
+    if (!(self.typeIndex == vcTypeIndexStoreAttention)) {
+        self.view.backgroundColor = KBGColor;
+    }
 }
 
 - (void)loadNewData{
@@ -208,6 +212,7 @@
     ProductsCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProductsCommentCell description]];
     cell.autoCorner = 1;
     [cell defualtCornerInTableView:tableView atIndexPath:indexPath];
+    cell.bgViewContentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     cell.isManager = isManager;
     if (self.dataArray.count) {
         cell.dataModel = self.dataArray[indexPath.row];
