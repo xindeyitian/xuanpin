@@ -10,8 +10,4 @@
 
 @interface MainTabarViewController : UITabBarController
 
-
-
-
-
 @end

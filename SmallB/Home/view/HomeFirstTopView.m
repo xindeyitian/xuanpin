@@ -92,9 +92,15 @@
     }
     self.bannerCycle.imageURLStringsGroup = imageAry;
     
+    for (int i = 0; i < 5; i++) {
+        DKSButton *btn = [self viewWithTag:100+i];
+        btn.hidden = YES;
+    }
+    
     for (int i =0; i< dataModel.blockDefineVos.count; i ++) {
         BlockDefineVosModel *model = dataModel.blockDefineVos[i];
         DKSButton *btn = [self viewWithTag:100+i];
+        btn.hidden = NO;
         [btn setTitle:model.blockName forState:UIControlStateNormal];
         [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateNormal];
         [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateHighlighted];

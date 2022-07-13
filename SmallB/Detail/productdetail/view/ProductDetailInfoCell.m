@@ -145,7 +145,7 @@
     self.yongjin.text = titleStr;
     self.yongjin.frame = CGRectMake(26, 0, width, 22);
     
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.yongjinBGView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomLeft cornerRadii:CGSizeMake(4, 4)];
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.yongjinBGView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.yongjinBGView.bounds;
     maskLayer.path = maskPath.CGPath;

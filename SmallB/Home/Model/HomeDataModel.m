@@ -51,6 +51,13 @@
     };
 }
 
+- (NSString *)blockCode{
+    if (_blockId) {
+        _blockCode = _blockId;
+    }
+    return _blockCode;
+}
+
 @end
 
 @implementation GoodsListVosModel

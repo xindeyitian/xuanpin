@@ -84,7 +84,6 @@
     self.categoryView.titleSelectedFont = DEFAULT_FONT_M(16);
     self.categoryView.titleFont = DEFAULT_FONT_R(15);
     self.categoryView.titleColorGradientEnabled = YES;
-    self.categoryView.titleLabelZoomEnabled = YES;
     self.categoryView.backgroundColor = UIColor.clearColor;
     self.categoryView.myWidth = ScreenWidth - 10 - 72;
     [categoryLy addSubview:self.categoryView];

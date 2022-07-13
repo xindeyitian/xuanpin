@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) MyLinearLayout *rootLy, *historyLy, *searchLy;
 @property (strong, nonatomic)NSMutableArray *searchHotAry;
+@property (assign, nonatomic)NSInteger page;
 
 @end
 
@@ -41,8 +42,9 @@
 }
 
 - (void)getHotData{
-    [THHttpManager GET:@"goods/goodsInfo/searchFound" parameters:@{@"pageSize":@"9",@"pageNum":@"1"} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+    [THHttpManager GET:@"goods/goodsInfo/searchFound" parameters:@{@"pageSize":@"9",@"pageNum":[NSString stringWithFormat:@"%ld",(long)self.page]} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         if ([data isKindOfClass:[NSDictionary class]] && returnCode == 200) {
+            [self.searchHotAry removeAllObjects];
             SearchHotModel *model = [SearchHotModel mj_objectWithKeyValues:data];
             [self.searchHotAry addObjectsFromArray:model.records];
             [self creatFooterView];
@@ -74,6 +76,7 @@
     }];
     
     self.searchHotAry = [NSMutableArray array];
+    self.page = 1;
     [self getHotData];
 }
 
@@ -124,10 +127,9 @@
     searchTitle.frame = CGRectMake(12, 12, 180, 26);
     [footView addSubview:searchTitle];
 
-    UIButton *delBtn = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(deleteHistory) Font:[UIFont systemFontOfSize:10] Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:1 BackgroundImage:@"refersh" HeightLightBackgroundImage:@"refersh"];
+    UIButton *delBtn = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(reloadHotSearch) Font:[UIFont systemFontOfSize:10] Frame:CGRectZero Alignment:NSTextAlignmentCenter Tag:1 BackgroundImage:@"refersh" HeightLightBackgroundImage:@"refersh"];
     delBtn.frame = CGRectMake(ScreenWidth - 37, 12, 25, 25);
     [footView addSubview:delBtn];
-    delBtn.hidden = YES;
     
     NSMutableArray *resultAry = [NSMutableArray array];
     for (SearchHotDataModel *model in self.searchHotAry) {
@@ -149,6 +151,11 @@
     maxY += 12;
     footView.frame = CGRectMake(0, 0, ScreenWidth, maxY);
     self.tableView.tableFooterView = footView;
+}
+
+- (void)reloadHotSearch{
+    self.page ++ ;
+    [self getHotData];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{

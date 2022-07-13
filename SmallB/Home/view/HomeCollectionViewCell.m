@@ -147,8 +147,8 @@
     self.addShopWindowBtn.layer.cornerRadius = 12.5;
     self.addShopWindowBtn.layer.masksToBounds = YES;
     [bottomLy addSubview:self.addShopWindowBtn];
-    
 }
+
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize withHorizontalFittingPriority:(UILayoutPriority)horizontalFittingPriority verticalFittingPriority:(UILayoutPriority)verticalFittingPriority{
     return [self.rootLy sizeThatFits:targetSize];
 }

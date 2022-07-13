@@ -45,6 +45,7 @@
     self.storeImg = [[UIImageView alloc] initWithImage:KPlaceholder_DefaultImage];
     self.storeImg.frame = CGRectMake(12, 12, 44, 44);
     self.storeImg.layer.cornerRadius = 4;
+    self.storeImg.clipsToBounds = YES;
     [imgV addSubview:self.storeImg];
     
     self.storeName = [[UILabel alloc] initWithFrame:CGRectZero];

@@ -87,6 +87,10 @@
     num.attributedText = attributeMarket;
     self.numL = num;
 
+    UIImageView *topImgV = [[UIImageView alloc]initWithFrame:CGRectMake(0, KNavBarHeight+161, ScreenWidth, 31)];
+    topImgV.image = IMAGE_NAMED(@"tuan_shadow");
+    [self.view addSubview:topImgV];
+    
     //分类
     UIView *categoryV = [[UIView alloc] initWithFrame:CGRectMake(0, KNavBarHeight+175, ScreenWidth, 50)];
     categoryV.backgroundColor = KWhiteBGColor;
@@ -117,7 +121,6 @@
     self.categoryView.titleSelectedFont = DEFAULT_FONT_M(16);
     self.categoryView.titleFont = DEFAULT_FONT_R(15);
     self.categoryView.titleColorGradientEnabled = YES;
-    self.categoryView.titleLabelZoomEnabled = YES;
     self.categoryView.backgroundColor = UIColor.clearColor;
     [categoryLy addSubview:self.categoryView];
     
@@ -130,7 +133,7 @@
     [self.view addSubview:self.listContainerView];
     [self.listContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(categoryLy.mas_bottom).offset(5);
+        make.top.mas_equalTo(categoryLy.mas_bottom).offset(2);
     }];
     self.categoryView.listContainer = self.listContainerView;
     

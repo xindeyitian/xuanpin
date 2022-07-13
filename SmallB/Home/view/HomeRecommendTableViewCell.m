@@ -280,7 +280,7 @@
     [self addSubview:price];
     self.productPriceL = price;
     
-    UILabel *zhuan = [UILabel creatLabelWithTitle:@"" textColor:KBlack999TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *zhuan = [UILabel creatLabelWithTitle:@"" textColor:KBlack999TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(11)];
     zhuan.frame = CGRectMake(5, width+25, width - 10, 20);
     [self addSubview:zhuan];
     self.zhuanL = zhuan;
@@ -289,12 +289,7 @@
     btn.clipsToBounds = YES;
     btn.layer.cornerRadius = 13;
     btn.frame = CGRectMake(5, width+50, width - 10, 26);
-    [btn addTarget:self action:@selector(btnCLick1) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
-}
-
-- (void)btnCLick1{
-    NSLog(@"23456");
 }
 
 - (void)setGoodModel:(GoodsListVosModel *)goodModel{

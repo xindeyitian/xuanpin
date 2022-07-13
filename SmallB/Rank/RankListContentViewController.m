@@ -153,7 +153,7 @@
         _emptyView.backgroundColor = UIColor.clearColor;
         [self.tableView addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
+            make.centerY.mas_equalTo(self.tableView.centerY);
             make.centerX.mas_equalTo(self.tableView.centerX);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(170);

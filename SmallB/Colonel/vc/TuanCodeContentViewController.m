@@ -30,6 +30,7 @@
     
     [self.tableView addSubview:self.addView];
     
+    self.view.backgroundColor = self.tableView.backgroundColor = KWhiteBGColor;
     [self.tableView registerClass:[TuanCodeNoUseTableViewCell class] forCellReuseIdentifier:[TuanCodeNoUseTableViewCell description]];
     [self.tableView registerClass:[TuanUsedTableViewCell class] forCellReuseIdentifier:[TuanUsedTableViewCell description]];
     self.needPullUpRefresh = self.needPullDownRefresh = YES;
@@ -37,8 +38,6 @@
 
 - (void)setIndex:(NSInteger)index{
     _index = index;
-    
-   // [self loadNewData];
 }
 
 - (void)loadNewData{
