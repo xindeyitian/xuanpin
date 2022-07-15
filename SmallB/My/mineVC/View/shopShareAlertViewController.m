@@ -97,6 +97,7 @@
         self.webpageUrlS = @"这里是邀请开店url";
     }
     
+    self.inventStore = self.isOpenShop;
     [self startLoadingHUD];
     [THHttpManager GET:@"system/share/share" parameters:@{@"invitationCode":[AppTool getLocalDataWithKey:@"inviteCode"],
                                                           @"shopId":[AppTool getLocalDataWithKey:@"shopID"],

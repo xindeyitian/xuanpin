@@ -158,7 +158,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     CGFloat width = ScreenWidth - 105 - 40;
     if (section == 0) {
-        GoodsCategoryListVosModel *model = self.dataAry[section];
+        GoodsCategoryListVosModel *model = self.dataAry[self.selectedRow];
         if (model.bannerUrls.count) {
             return CGSizeMake(width, 143);
         }
@@ -171,8 +171,7 @@
     if([kind isEqualToString:UICollectionElementKindSectionHeader])
     {
         if (indexPath.section == 0) {
-            GoodsCategoryListVosModel *cateModel = self.dataAry[0];
-            NSLog(@"----%@",cateModel.bannerUrls);
+            GoodsCategoryListVosModel *cateModel = self.dataAry[self.selectedRow];
             if (cateModel.bannerUrls.count) {
                 CJCategoryRightSectionOneHeaderView * headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CJCategoryRightSectionOneHeaderView" forIndexPath:indexPath];
                 if (self.currentAry.count) {
@@ -216,6 +215,7 @@
     if (allAry.count) {
         GoodsCategoryListVosModel *model = allAry[Row];
         self.currentAry = model.listVos;
+        self.selectedRow = Row;
         [self reloadData];
     }
 }

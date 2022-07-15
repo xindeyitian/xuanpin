@@ -108,7 +108,7 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 /*
  分享到微信平台
  */
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url;
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop;
 /**
  创建二维码
  */

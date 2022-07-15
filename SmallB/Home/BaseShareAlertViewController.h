@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *descriptionS;
 @property (nonatomic , copy)NSString *webpageUrlS;
 @property (nonatomic , copy)NSString *thumbImg;
+@property (nonatomic , assign)BOOL inventStore;
 
 - (void)creatSubViews;
 

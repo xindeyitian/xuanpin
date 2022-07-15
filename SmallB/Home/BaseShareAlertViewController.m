@@ -96,10 +96,10 @@
 - (void)shareBtnClick:(UIControl *)contro{
     UIImage *image = [self shotShareImageFromView:self.BGWhiteV withHeight:self.BGWhiteV.height];
     if (contro.tag == 120) {
-        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneTimeline thumbUrl:self.thumbImg];
+        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneTimeline thumbUrl:self.thumbImg isOpenShop:self.inventStore];
     }
     if (contro.tag == 121) {
-        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneSession thumbUrl:self.thumbImg];
+        [AppTool shareWebPageToPlatformTypeWithData:image title:self.titleS description:self.descriptionS webpageUrl:self.webpageUrlS WXScene:WXSceneSession thumbUrl:self.thumbImg isOpenShop:self.inventStore];
     }
     if (contro.tag == 122) {
         [self saveImageToPhotoAlbum:image];

@@ -339,36 +339,93 @@
     return destDateString;
 }
 
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url{
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop{
 
-//    WXImageObject *imageObject = [WXImageObject object];
-//    imageObject.imageData = UIImageJPEGRepresentation(image, 0.7);
-   
-    WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = webpageUrl;
+    if (WXScene == WXSceneTimeline) {
+     
+        WXImageObject *imageObject = [WXImageObject object];
+        imageObject.imageData = UIImageJPEGRepresentation(image, 0.7);
 
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.mediaObject = ext;
-    message.description = description;
-    message.title = title;
-//    [message setThumbImage:IMAGE_NAMED(@"icon_image")];
-    //message.thumbData = UIImageJPEGRepresentation(image, 0.2);
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    UIImage *result = [UIImage imageWithData:imageData];
-    [message setThumbImage:[AppTool compressImage:result toByte:32765]];
-    //缩略图要小于32KB，否则无法调起微信,32KB = 32*1024B=32678
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.mediaObject = imageObject;
 
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    req.bText = NO;
-    req.message = message;
-    req.scene = WXScene;
-    NSLog(@"====%@",url);
-    if ([WXApi isWXAppInstalled]) {
-        [WXApi sendReq:req completion:^(BOOL success) {
-
-        }];
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneTimeline;
+        if ([WXApi isWXAppInstalled]) {
+            [WXApi sendReq:req completion:^(BOOL success) {
+    
+            }];
+        }else{
+            [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
+        }
     }else{
-        [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
+        if (isOpenShop) {
+            WXWebpageObject *ext = [WXWebpageObject object];
+            ext.webpageUrl = webpageUrl;
+        
+            WXMediaMessage *message = [WXMediaMessage message];
+            message.mediaObject = ext;
+            message.description = description;
+            message.title = title;
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            UIImage *result = [UIImage imageWithData:imageData];
+            [message setThumbImage:[AppTool compressImage:result toByte:32765]];
+            //缩略图要小于32KB，否则无法调起微信,32KB = 32*1024B=32678
+        
+            SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+            req.bText = NO;
+            req.message = message;
+            req.scene = WXScene;
+            if ([WXApi isWXAppInstalled]) {
+                [WXApi sendReq:req completion:^(BOOL success) {
+        
+                }];
+            }else{
+                [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
+            }
+        }else{
+            WXMiniProgramObject *object = [WXMiniProgramObject object];
+            object.webpageUrl = webpageUrl;
+            if ([AppTool getCurrentLevalIsAdd]) {
+                object.userName = @"gh_9268eea0b2db";
+            }else{
+                object.userName = @"gh_778f11844130";
+            }
+            object.path = webpageUrl;
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            UIImage *result = [UIImage imageWithData:imageData];
+            UIImage *new = [AppTool compressImage:result toByte:128*1024];
+            object.hdImageData = UIImageJPEGRepresentation(new, 0.2); ;
+            object.withShareTicket = NO;
+            //object.miniProgramType = WXMiniProgramTypeRelease;
+//            if ([AppTool getCurrentLevalIsAdd]) {
+//                object.miniProgramType = WXMiniProgramTypeRelease;
+//            }else{
+//                object.miniProgramType = WXMiniProgramTypePreview;
+//            }
+            object.miniProgramType = WXMiniProgramTypeRelease;
+
+            WXMediaMessage *message = [WXMediaMessage message];
+            message.title = description;
+            message.description = description;
+            message.thumbData = nil;  //兼容旧版本节点的图片，小于32KB，新版本优先
+                                      //使用WXMiniProgramObject的hdImageData属性
+            message.mediaObject = object;
+
+            SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+            req.bText = NO;
+            req.message = message;
+            req.scene = WXSceneSession;  //目前只支持会话
+            if ([WXApi isWXAppInstalled]) {
+                [WXApi sendReq:req completion:^(BOOL success) {
+        
+                }];
+            }else{
+                [(THBaseViewController *)[AppTool currentVC] showMessageWithString:@"请先安装微信"];
+            }
+        }
     }
 }
 
@@ -408,11 +465,8 @@
         UIGraphicsEndImageContext();
         data = UIImageJPEGRepresentation(resultImage, compression);
     }
-    
     return resultImage;
 }
-
-
 
 + (UIImage *)createQRImageWithString:(NSString *)string{
     return [self createQRImageWithString:string size:CGSizeMake(80, 80)];
@@ -440,7 +494,6 @@
     UIGraphicsEndPDFContext();
     
     CGImageRelease(cgImage);
-    
     //return codeImage;
     return [self addImageForQRImage:codeImage];
 }
