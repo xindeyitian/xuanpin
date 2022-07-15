@@ -34,12 +34,13 @@
         UIButton *btn = [[UIButton alloc]init];
         btn.frame = CGRectMake(ScreenWidth - 20 - 206*KScreenW_Ratio + (103 *KScreenW_Ratio+8)*i, 10, 103*KScreenW_Ratio, 44);
         [btn setTitle:i == 0 ? @"转发赚":@"立即购买" forState:UIControlStateNormal];
+        btn.titleLabel.font = DEFAULT_FONT_R(11);
         if ([AppTool getCurrentLevalIsAdd]) {
             [btn setTitle:i == 0 ? @"加入橱窗":@"立即购买" forState:UIControlStateNormal];
+            btn.titleLabel.font = DEFAULT_FONT_M(15);
         }
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 114+i ;
-        btn.titleLabel.font = DEFAULT_FONT_R(11);
         btn.titleLabel.numberOfLines = 2;
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         btn.titleLabel.textColor = KBlack333TextColor;
@@ -68,7 +69,7 @@
         [btn setImage:IMAGE_NAMED(imageAry[i]) forState:UIControlStateHighlighted];
         if ( i == 2) {
             [btn setImage:IMAGE_NAMED(@"product_detail_collectioned") forState:UIControlStateSelected];
-            [btn setTitleColor:KMaintextColor forState:UIControlStateSelected];
+            [btn setTitleColor:[UIColor colorWithHexString:@"#FF7332"] forState:UIControlStateSelected];
             [btn setTitle:@"已收藏" forState:UIControlStateSelected];
             self.collectionBtn = btn;
         }
@@ -90,6 +91,9 @@
     if ([AppTool getCurrentLevalIsAdd]) {
         [shareBtn setTitle:@"加入橱窗" forState:UIControlStateNormal];
         [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+        
+        shareBtn.titleLabel.font = DEFAULT_FONT_M(15);
+        buyBtn.titleLabel.font = DEFAULT_FONT_M(15);
     }
     self.collectionBtn.selected = [model.ifCollect intValue] == 1;
     

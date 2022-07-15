@@ -44,7 +44,7 @@
     
     self.bannerCycle = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:KPlaceholder_DefaultImage];
     self.bannerCycle.imageURLStringsGroup = @[];
-    self.bannerCycle.frame = CGRectMake(12, 20, ScreenWidth - 24, 140*KScreenW_Ratio);
+    self.bannerCycle.frame = CGRectMake(12, 12, ScreenWidth - 24, 140*KScreenW_Ratio);
     self.bannerCycle.autoScroll = YES;
     self.bannerCycle.pageControlDotSize = CGSizeMake(10, 10);
     self.bannerCycle.currentPageDotImage = IMAGE_NAMED(@"banner_select_image");
@@ -60,7 +60,7 @@
     
     float width = (ScreenWidth - 12 * 6)/5.0;
     
-    UIView *whiteV = [[UIView alloc]initWithFrame:CGRectMake(12, 140*KScreenW_Ratio + 32, ScreenWidth - 24, 80)];
+    UIView *whiteV = [[UIView alloc]initWithFrame:CGRectMake(12, 140*KScreenW_Ratio + 18, ScreenWidth - 24, 80)];
     whiteV.backgroundColor = UIColor.clearColor;
     [self addSubview:whiteV];
     
@@ -92,9 +92,15 @@
     }
     self.bannerCycle.imageURLStringsGroup = imageAry;
     
+    for (int i = 0; i < 5; i++) {
+        DKSButton *btn = [self viewWithTag:100+i];
+        btn.hidden = YES;
+    }
+    
     for (int i =0; i< dataModel.blockDefineVos.count; i ++) {
         BlockDefineVosModel *model = dataModel.blockDefineVos[i];
         DKSButton *btn = [self viewWithTag:100+i];
+        btn.hidden = NO;
         [btn setTitle:model.blockName forState:UIControlStateNormal];
         [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateNormal];
         [btn sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",model.logoImgPath,model.logoImgName]] forState:UIControlStateHighlighted];

@@ -59,7 +59,7 @@
     [btn setImage:IMAGE_NAMED(@"bar_back") forState:UIControlStateNormal];
     [imgV addSubview:btn];
     
-    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现积分" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *instro = [UILabel creatLabelWithTitle:@"可提现收益" textColor:KWhiteTextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
     [imgV addSubview:instro];
     [instro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(title.mas_bottom).offset(29);
@@ -176,7 +176,7 @@
         make.height.mas_equalTo(23);
     }];
     
-    UILabel *money = [UILabel creatLabelWithTitle:@"" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Medium_FONT_R(30)];
+    UILabel *money = [UILabel creatLabelWithTitle:@"¥" textColor:KBlack333TextColor textAlignment:NSTextAlignmentLeft font:DIN_Medium_FONT_R(30)];
     money.frame = CGRectMake(12, 63, 20, 50);
     [contentWhiteView addSubview:money];
     
@@ -187,18 +187,20 @@
     [contentWhiteView addSubview:btn];
     
     UITextField *field = [[UITextField alloc]initWithFrame:CGRectZero];
-    field.placeholder = @"请输入提现积分";
+    field.placeholder = @"请输入提现金额";
     field.keyboardType = UIKeyboardTypeNumberPad;
-    field.font = DEFAULT_FONT_R(30);
+//    field.clearButtonMode = UITextFieldViewModeWhileEditing;
+    field.font = DIN_Medium_FONT_R(40);
     [contentWhiteView addSubview:field];
     [field mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(money.mas_centerY);
-        //make.left.mas_equalTo(money.mas_right).offset(5);
-        make.left.mas_equalTo(contentWhiteView).offset(12);
+        make.left.mas_equalTo(money.mas_right).offset(5);
         make.right.mas_equalTo(btn.mas_left).offset(-10);
         make.height.mas_equalTo(40);
     }];
     self.moneyField = field;
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:@"请输入提现金额" attributes:@{NSForegroundColorAttributeName:KBlack999TextColor,NSFontAttributeName:DEFAULT_FONT_R(18)}];
+    field.attributedPlaceholder = attrString;
     
     UIView *lineV = [[UIView alloc]init];
     lineV.backgroundColor = KBlackLineColor;
@@ -297,15 +299,15 @@
             return;
         }
         if (self.moneyField.text.length == 0) {
-            [self showMessageWithString:@"请输入提现积分"];
+            [self showMessageWithString:@"请输入提现金额"];
             return;
         }
         if ([self.moneyField.text integerValue]  > [self.moneyStr integerValue]) {
-            [self showMessageWithString:@"请输入正确的提现积分"];
+            [self showMessageWithString:@"请输入正确的提现金额"];
             return;
         }
         if ([self.moneyField.text integerValue] % 100 !=0) {
-            [self showMessageWithString:@"请输入整百提现积分"];
+            [self showMessageWithString:@"请输入整百提现金额"];
             return;
         }
         [self withdrawOperation];
@@ -378,7 +380,7 @@
     UIImageView *rightImage = [[UIImageView alloc]initWithImage:KPlaceholder_DefaultImage];
     [self addSubview:rightImage];
     [rightImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.mas_equalTo(18);
+        make.height.width.mas_equalTo(24);
         make.centerY.equalTo(image.mas_centerY);
         make.right.equalTo(self).offset(-12);
     }];

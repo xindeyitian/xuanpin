@@ -8,6 +8,7 @@
 #import "ProductDetailSKUViewController.h"
 #import "ProductDetailSKUHeaderView.h"
 #import "SKUDetailTableViewCell.h"
+#import "UIButton+ImageTitleSpacing.h""
 
 @interface ProductDetailSKUViewController ()
 
@@ -45,7 +46,8 @@
 - (void)setModel:(ProductDetailModel *)model{
     _model = model;
     [self creatHeaderView];
-    [self creatBottom];
+    [self creatBottomWithInteger:0];
+    [self judgeHidden];
 }
 
 - (float)getHeightWithAry:(NSArray *)array{
@@ -115,7 +117,22 @@
     [self.view addSubview: headerView];
 }
 
-- (void)creatBottom{
+- (void)judgeHidden{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:[NSString stringWithFormat:@"supply_ios_%@",app_Version] forKey:@"versionCode"];
+    [THHttpManager GET:[NSString stringWithFormat:@"%@version/getVersion",XTAppBaseUseURL] parameters:signDic block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"ifShow"]) {
+                NSString *result = [NSString stringWithFormat:@"%@",[data objectForKey:@"ifShow"]];
+                [self creatBottomWithInteger:result.integerValue];
+            }
+        }
+    }];
+}
+
+- (void)creatBottomWithInteger:(NSInteger)result{
     
     UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenHeight - TabbarSafeBottomMargin - 50, ScreenWidth, TabbarSafeBottomMargin + 50)];
     bottomView.backgroundColor = KWhiteBGColor;
@@ -125,8 +142,9 @@
     linV.backgroundColor = KBGColor;
     [bottomView addSubview:linV];
     
-    float oneWidth = (ScreenWidth - 36)/2.0;
-    for (int i = 0; i < 2; i ++) {
+    int num = result == 0 ? 1 : 2;
+    float oneWidth = (ScreenWidth - 36)/num;
+    for (int i = 0; i < num; i ++) {
         
         UIButton *btn = [[UIButton alloc]init];
         btn.frame = CGRectMake(12 + (oneWidth+12)*i, 5, oneWidth, 40);
@@ -150,6 +168,8 @@
     if ([AppTool getCurrentLevalIsAdd]) {
         [shareBtn setTitle:@"加入橱窗" forState:UIControlStateNormal];
         [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+        shareBtn.titleLabel.font = DEFAULT_FONT_M(15);
+        buyBtn.titleLabel.font = DEFAULT_FONT_M(15);
     }
 }
 

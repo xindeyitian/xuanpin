@@ -9,5 +9,4 @@
 
 @implementation ProductDetailTableViewCell
 
-
 @end

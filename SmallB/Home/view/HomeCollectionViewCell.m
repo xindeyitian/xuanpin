@@ -39,7 +39,7 @@
     _model = model;
     self.productName.text = model.goodsName;
     [self.productImage sd_setImageWithURL:[NSURL URLWithString:model.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
-    self.productSoldNum.text = [NSString stringWithFormat:@"已售%@",K_NotNullHolder(model.saleCount, @"0")];
+    self.productSoldNum.text = [NSString stringWithFormat:@" 已售%@ ",K_NotNullHolder(model.saleCount, @"0")];
     self.commissionNum.text = [NSString stringWithFormat:@" 赚积分 %.2f ",[K_NotNullHolder(model.commission, @"0") floatValue]];
     
     NSString *price = [NSString stringWithFormat:@"¥%@",model.salePrice];
@@ -147,8 +147,8 @@
     self.addShopWindowBtn.layer.cornerRadius = 12.5;
     self.addShopWindowBtn.layer.masksToBounds = YES;
     [bottomLy addSubview:self.addShopWindowBtn];
-    
 }
+
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize withHorizontalFittingPriority:(UILayoutPriority)horizontalFittingPriority verticalFittingPriority:(UILayoutPriority)verticalFittingPriority{
     return [self.rootLy sizeThatFits:targetSize];
 }

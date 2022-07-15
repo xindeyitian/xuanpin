@@ -49,7 +49,8 @@
  
     __weak typeof(self) weakSelf = self;
     [leftView setCellSelectedBlock:^(NSIndexPath *indexPath) {
-         weakSelf.selectedIndex = indexPath.row ;
+        weakSelf.selectedIndex = indexPath.row;
+        weakSelf.rightView.selectedRow = indexPath.row;
         [weakSelf.rightView setDataWithDataAry:weakSelf.dataAry withSelectedRow:weakSelf.selectedIndex];
     }];
 

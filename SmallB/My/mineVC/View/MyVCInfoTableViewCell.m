@@ -9,7 +9,6 @@
 #import "myInfoDetailView.h"
 #import "myVCOrderView.h"
 #import "MyVCCollectionAndRecordsViewController.h"
-#import "rightPushView.h"
 #import "myOrderViewController.h"
 #import "myStoreManagerViewController.h"
 #import "myShimingViewController.h"
@@ -320,6 +319,21 @@
     }
 }
 
+- (void)setHiddenSupplier:(BOOL)hiddenSupplier{
+    _hiddenSupplier = hiddenSupplier;
+    
+    float whiteWidth = ScreenWidth - 24 - 30 ;
+    if (hiddenSupplier) {
+        for (int i =0; i < 5; i ++) {
+            myVCOrderView *view = [self viewWithTag:100+i];
+            view.frame = CGRectMake(whiteWidth/4.0*(i%4) + 5*(i%4+1), 16+(62+16)*(i/4), whiteWidth/4.0, 62);
+            if (i == 4) {
+                view.hidden = YES;
+            }
+        }
+    }
+}
+
 - (void)dealSupplierData{
     THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
     [vc startLoadingHUD];
@@ -506,6 +520,7 @@
     rightV.titleL.font = DEFAULT_FONT_M(14);
     rightV.imageNameString = @"my_right_white";
     [bgImgV addSubview:rightV];
+    self.rightView = rightV;
     rightV.viewClickBlock = ^{
         WithdrawFirstViewController *vc = [[WithdrawFirstViewController alloc]init];
         if (self.model) {
@@ -534,7 +549,7 @@
     }];
     
     float whiteWidth = ScreenWidth - 48 - 20;
-    NSArray *titleAry = @[@"可提现积分",@"店铺累计收入",@"待结算积分"];
+    NSArray *titleAry = @[@"可提现收益",@"店铺累计收入",@"待结算收益"];
     NSArray *numAry = @[@"0",@"0",@"0"];
     for (int i =0; i < titleAry.count; i ++) {
         myInfoDetailView *view = [[myInfoDetailView alloc]initWithFrame:CGRectMake(whiteWidth/3.0*i+5*(i+1), 13, whiteWidth/3.0, 52)];

@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BlockDefineGoodsVosModel : THBaseModel
 
 @property (nonatomic , copy)NSString *blockId;
+@property (nonatomic , copy)NSString *blockCode;
 @property (nonatomic , copy)NSString *blockName;
 @property (nonatomic , strong)NSMutableArray *goodsListVos;
 @property (nonatomic , strong)NSMutableArray *brandConceptVos;

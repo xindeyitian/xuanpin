@@ -314,7 +314,7 @@
         _emptyView.backgroundColor = UIColor.clearColor;
         [self.homeCollection addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.homeCollection.centerY).offset(30*KScreenW_Ratio);
+            make.centerY.mas_equalTo(self.homeCollection.centerY).offset(10*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.homeCollection.mas_centerX);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(170);

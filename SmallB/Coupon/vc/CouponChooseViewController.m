@@ -24,6 +24,7 @@
 @property (nonatomic , strong)UIImageView *couponView;
 @property (nonatomic , copy)NSString *contentStr;
 @property (nonatomic , copy)NSString *titleStr;
+@property (nonatomic , assign)NSInteger ifShow;
 @end
 
 @implementation CouponChooseViewController
@@ -31,7 +32,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.delegate = self;
-  
 }
 
 - (void)viewDidLoad {
@@ -41,6 +41,8 @@
     selectIndex = 0;
     self.contentStr = @"";
     self.titleStr = @"";
+    
+    self.ifShow = NO;
     
     self.couponAry = [NSMutableArray array];
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -75,6 +77,7 @@
     btnImage.frame = CGRectMake(0, 340*KScreenW_Ratio - 100, 268, 62);
     btnImage.centerX = headerV.centerX;
     [headerV addSubview:btnImage];
+    btnImage.hidden = YES;
     self.couponView = btnImage;
     
     btnImage.userInteractionEnabled = YES;
@@ -99,8 +102,28 @@
     btn.layer.cornerRadius = 22;
     [footerV addSubview:btn];
     self.tableView.tableFooterView = footerV;
-    [self getCouponList];
-    [self getCouponMessage];
+
+    [self judgeShow];
+}
+
+- (void)judgeShow{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:[NSString stringWithFormat:@"supply_ios_%@",app_Version] forKey:@"versionCode"];
+    [THHttpManager GET:[NSString stringWithFormat:@"%@version/getVersion",XTAppBaseUseURL] parameters:signDic block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"ifShow"]) {
+                NSString *result = [NSString stringWithFormat:@"%@",[data objectForKey:@"ifShow"]];
+                self.ifShow = result.integerValue;
+                self.couponView.hidden = (self.ifShow == 0);
+                if (result.integerValue == 1) {
+                    [self getCouponList];
+                    [self getCouponMessage];
+                }
+            }
+        }
+    }];
 }
 
 - (void)tapClick{
@@ -121,15 +144,17 @@
 
 - (void)nextClick{
     
-    if (self.couponAry.count > 0) {
-        [self showMessageWithString:@"请先领取优惠券"];
-        return;
+    if (self.ifShow) {
+        if (self.couponAry.count > 0) {
+            [self showMessageWithString:@"请先领取优惠券"];
+            return;
+        }
     }
-    
     applyStoreViewController *vc = [[applyStoreViewController alloc]init];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     vc.token = self.token;
     vc.typeIndex = selectIndex + 1;
+    vc.ifShow = self.ifShow;
     [self  presentViewController:vc animated:NO completion:nil];
 }
 

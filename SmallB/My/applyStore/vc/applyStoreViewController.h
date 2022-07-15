@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign)BOOL isEdit;//是否是编辑状态
 @property (nonatomic , copy)NSString *token;
 @property (nonatomic , assign)NSInteger typeIndex;
+@property (nonatomic , assign)NSInteger ifShow;
 @property (nonatomic , strong)void(^viewBlock)(void);
 
 @end

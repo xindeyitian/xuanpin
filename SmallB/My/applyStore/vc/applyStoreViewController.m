@@ -178,7 +178,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (self.isEdit) {
+    if (self.isEdit || self.ifShow == 0) {
         return self.placeholderAry.count + 1;
     }
     return self.placeholderAry.count + 3;
@@ -249,7 +249,6 @@
         }
         cell.viewBlock = ^(NSMutableArray * _Nonnull array) {
             self.imageAry = array;
-            //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:(UITableViewRowAnimationNone)];
         };
         return cell;
     }
@@ -463,13 +462,13 @@
                 if (self.dataArray.count) {
                     model = self.dataArray[self.selectIndex];
                 }
-                NSDictionary *dica = @{@"areaCode":self.areaModel.code,
+                NSMutableDictionary *dica = [@{@"areaCode":self.areaModel.code,
                                        @"areaName":self.areaModel.name,
                                        @"cityCode":self.cityModel.code,
                                        @"cityName":self.cityModel.name,
-                                       @"couponId":self.selectModel.couponId,
+                                       //@"couponId":self.selectModel.couponId,
                                        @"detailAddress":self.address,
-                                       @"discountRateSub":self.selectModel.moneyCouponSub,
+                                       //@"discountRateSub":self.selectModel.moneyCouponSub,
                                        @"idCardBack":idCardBack,
                                        @"idCardFront":idCardFront,
                                        @"idCardHand":idCardHand,
@@ -478,12 +477,19 @@
                                        @"provinceName":self.provinceModel.name,
                                        @"realName":self.userName,
                                        @"shopName":self.storeName,
-                                       @"storeDisplayType":[NSString stringWithFormat:@"%d",self.typeIndex],
+                                       @"storeDisplayType":[NSString stringWithFormat:@"%ld",self.typeIndex],
                                        @"totalMoneyOrder":@"0",
                                        @"totalMoneySale":@"0",
-                                       @"typeId":model.typeId,//开店类型编号,一年开店,永久开店
+                                       //@"typeId":model.typeId,//开店类型编号,一年开店,永久开店
 
-                };
+                } mutableCopy];
+                if (self.ifShow) {
+                    [dica setObject:self.selectModel.moneyCouponSub forKey:@"discountRateSub"];
+                    [dica setObject:self.selectModel.couponId forKey:@"couponId"];
+                    [dica setObject:model.typeId forKey:@"typeId"];
+                }else{
+                    [dica setObject:@"1" forKey:@"typeId"];
+                }
                 [THHttpManager POST:@"shop/shopInfo/applyShop" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
                     [self stopLoadingHUD];
                     if (returnCode == 200) {

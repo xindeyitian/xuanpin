@@ -67,6 +67,7 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
     [self getMyincomeStatistics];
     [self banner];
     [self getUserInfo];
+    [self judgeHidden];
 }
 
 - (void)getUserInfo{
@@ -105,6 +106,25 @@ typedef NS_ENUM(NSInteger, CJMyListVMType) {
             incomeStatisticsModel *model = [incomeStatisticsModel mj_objectWithKeyValues:data];
             self.myDataModel = model;
             [self.tableView reloadData];
+        }
+    }];
+}
+
+- (void)judgeHidden{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *signDic = [AppTool getRequestSign];
+    [signDic setObject:[NSString stringWithFormat:@"supply_ios_%@",app_Version] forKey:@"versionCode"];
+    [THHttpManager GET:[NSString stringWithFormat:@"%@version/getVersion",XTAppBaseUseURL] parameters:signDic block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+            if ([data objectForKey:@"ifShow"]) {
+                NSString *result = [NSString stringWithFormat:@"%@",[data objectForKey:@"ifShow"]];
+                MyVCProfitsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:myVCProfits]];
+                cell.rightView.hidden = (result.integerValue == 0);
+                
+                MyVCChatTableViewCell *chatCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:myVCChat]];
+                chatCell.hiddenSupplier = (result.integerValue == 0);
+            }
         }
     }];
 }

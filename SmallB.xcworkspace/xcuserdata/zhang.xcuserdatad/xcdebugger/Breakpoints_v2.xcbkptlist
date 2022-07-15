@@ -387,7 +387,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
          <BreakpointContent
             uuid = "269910BB-2A90-409E-BC64-602AC87C2A5B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No">
          </BreakpointContent>
@@ -396,7 +396,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "4B8D8D77-3DB2-42AC-838E-6E93A287EFBF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"
@@ -546,5 +546,24 @@
             continueAfterRunningActions = "No">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
+=======
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "59FF6E42-A16D-4AE8-AAAE-8C099CD17D59"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmallB/Coupon/vc/CouponChooseViewController.m"
+            startingColumnNumber = "5"
+            endingColumnNumber = "5"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "-nextClick"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+>>>>>>> 33027db2c93b0d0d6f64020f9eb61a19454b229a
    </Breakpoints>
 </Bucket>

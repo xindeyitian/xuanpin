@@ -33,7 +33,7 @@
     maskLayer.path = maskPath.CGPath;
     self.BGView.layer.mask = maskLayer;
     
-    float height = 252 - 76 + 76*KScreenW_Ratio - 28;
+    float height = 252 - 76 + 76*KScreenW_Ratio - 20;
     
     UIScrollView *scrol = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth - 24, height)];
     scrol.contentSize = CGSizeMake((ScreenWidth - 24)*3, 0);
@@ -42,14 +42,15 @@
     scrol.pagingEnabled = YES;
     scrol.userInteractionEnabled = YES;
     [bgView addSubview:scrol];
+    
     for (int i =0; i < 3; i ++) {
         HomeRecommendStoreView *storeV = [[HomeRecommendStoreView alloc]initWithFrame:CGRectMake((ScreenWidth-24)*i, 0, ScreenWidth-24, height)];
         storeV.haveBtn = self.haveBtn;
         [scrol addSubview:storeV];
     }
     self.scrolView = scrol;
-    
-    XHPageControl *pageC = [[XHPageControl alloc] initWithFrame:CGRectMake(0, height+10,[UIScreen mainScreen].bounds.size.width, 15)];
+
+    XHPageControl *pageC = [[XHPageControl alloc] initWithFrame:CGRectMake(0, height+3,[UIScreen mainScreen].bounds.size.width, 15)];
     pageC.numberOfPages = 3;
     pageC.otherMultiple = 1;
     pageC.currentMultiple = 2;
@@ -61,6 +62,10 @@
     self.pageControl = pageC;
     
     self.scrolView.hidden = self.pageControl.hidden = YES;
+    
+    UIView *blackV = [[UIView alloc]initWithFrame:CGRectMake(0, height, ScreenWidth, 20)];
+    blackV.backgroundColor = UIColor.blueColor;
+    //[bgView addSubview:blackV];
 }
 
 - (void)setModel:(BlockDefineGoodsVosModel *)model{
@@ -275,7 +280,7 @@
     [self addSubview:price];
     self.productPriceL = price;
     
-    UILabel *zhuan = [UILabel creatLabelWithTitle:@"" textColor:KBlack999TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(12)];
+    UILabel *zhuan = [UILabel creatLabelWithTitle:@"" textColor:KBlack999TextColor textAlignment:NSTextAlignmentCenter font:DEFAULT_FONT_R(11)];
     zhuan.frame = CGRectMake(5, width+25, width - 10, 20);
     [self addSubview:zhuan];
     self.zhuanL = zhuan;
@@ -284,12 +289,7 @@
     btn.clipsToBounds = YES;
     btn.layer.cornerRadius = 13;
     btn.frame = CGRectMake(5, width+50, width - 10, 26);
-    [btn addTarget:self action:@selector(btnCLick1) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
-}
-
-- (void)btnCLick1{
-    NSLog(@"23456");
 }
 
 - (void)setGoodModel:(GoodsListVosModel *)goodModel{

@@ -35,6 +35,9 @@
     self.startTime = self.endTime = @"";
     self.dealSign = @"";
     
+    self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
+    self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
+    
     self.navigationController.delegate = self;
     self.navigationItem.title = @"提现记录";
     self.view.backgroundColor = KBGColor;

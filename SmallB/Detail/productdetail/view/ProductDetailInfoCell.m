@@ -110,7 +110,7 @@
     self.yongjinBGView = yongjinV;
     
     UIImageView *image = [[UIImageView alloc]initWithImage:IMAGE_NAMED(@"home_product_qianbao")];
-    image.frame = CGRectMake(8, 8, 14, 14);
+    image.frame = CGRectMake(8, 4, 14, 14);
     [yongjinV addSubview:image];
     
     self.yongjin = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -119,7 +119,7 @@
     self.yongjin.textColor = [UIColor colorWithHexString:@"#FF3B30"];
     self.yongjin.text = @"";
     self.yongjin.font = DEFAULT_FONT_M(12);
-    self.yongjin.frame = CGRectMake(26, 0, width, 30);
+    self.yongjin.frame = CGRectMake(26, 0, width, 22);
     [yongjinV addSubview:self.yongjin];
 }
 
@@ -131,7 +131,7 @@
     _detailModel = detailModel;
     self.productTitle.text = detailModel.goodsName;
     
-    self.soldNum.text = [NSString stringWithFormat:@"已售: %@",detailModel.saleCount];
+    self.soldNum.text = [NSString stringWithFormat:@" 已售: %@ ",detailModel.saleCount];
 
     self.cycleView.imageURLStringsGroup = detailModel.productImgAry;
     if (detailModel.productImgAry.count) {
@@ -140,11 +140,12 @@
    
     NSString *titleStr = [NSString stringWithFormat:@"赚积分 %@",K_NotNullHolder(detailModel.commission, @"")];
     float width = [titleStr sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:DEFAULT_FONT_M(12), NSFontAttributeName, nil]].width+1;
-    self.yongjinBGView.frame = CGRectMake(12, 0, width + 34, 30);
+    self.yongjinBGView.frame = CGRectMake(12, 0, width + 34, 22);
     self.yongjinBGView.backgroundColor = [UIColor bm_colorGradientChangeWithSize:self.yongjinBGView.size direction:IHGradientChangeDirectionLevel startColor:kRGB(255, 212, 212) endColor:kRGB(255, 227, 197)];
     self.yongjin.text = titleStr;
-    self.yongjin.frame = CGRectMake(26, 0, width, 30);
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.yongjinBGView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomLeft cornerRadii:CGSizeMake(4, 4)];
+    self.yongjin.frame = CGRectMake(26, 0, width, 22);
+    
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.yongjinBGView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomLeft cornerRadii:CGSizeMake(10, 10)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
     maskLayer.frame = self.yongjinBGView.bounds;
     maskLayer.path = maskPath.CGPath;

@@ -30,6 +30,7 @@
     
     [self.tableView addSubview:self.addView];
     
+    self.view.backgroundColor = self.tableView.backgroundColor = KWhiteBGColor;
     [self.tableView registerClass:[TuanCodeNoUseTableViewCell class] forCellReuseIdentifier:[TuanCodeNoUseTableViewCell description]];
     [self.tableView registerClass:[TuanUsedTableViewCell class] forCellReuseIdentifier:[TuanUsedTableViewCell description]];
     self.needPullUpRefresh = self.needPullDownRefresh = YES;
@@ -37,8 +38,6 @@
 
 - (void)setIndex:(NSInteger)index{
     _index = index;
-    
-   // [self loadNewData];
 }
 
 - (void)loadNewData{
@@ -185,7 +184,7 @@
         _emptyView.noDataTitleLabel.text = @"暂无数据哦～";
         [self.tableView addSubview:_emptyView];
         [_emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(self.tableView.centerY).offset(30*KScreenW_Ratio);
+            make.centerY.mas_equalTo(self.tableView.centerY).offset(10*KScreenW_Ratio);
             make.centerX.mas_equalTo(self.tableView.mas_centerX);
             make.width.mas_equalTo(278);
             make.height.mas_equalTo(170);
