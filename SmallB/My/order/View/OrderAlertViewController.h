@@ -15,12 +15,14 @@ typedef NS_ENUM(NSInteger, orderAlertType) {
     orderAlertType_NotAgreeRefund,//不同意退款
     orderAlertType_AgreeRefunds,//确定同意退货退款
     orderAlertType_NotAgreeRefunds,//不同意退货退款
+    orderAlertType_ConfirmOrder,//确认收货
 };
 
 @interface OrderAlertViewController : BaseAlertViewController
 
 @property (nonatomic , assign)orderAlertType alertType;
 @property (nonatomic , copy)NSString *orderID;
+@property (nonatomic , copy)NSString *applyId;
 
 @end
 

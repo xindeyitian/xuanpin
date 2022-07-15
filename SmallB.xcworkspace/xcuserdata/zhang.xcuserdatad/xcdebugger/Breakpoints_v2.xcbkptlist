@@ -546,8 +546,6 @@
             continueAfterRunningActions = "No">
          </BreakpointContent>
       </BreakpointProxy>
-<<<<<<< HEAD
-=======
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -564,6 +562,21 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
->>>>>>> 33027db2c93b0d0d6f64020f9eb61a19454b229a
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6E68CDA-DB29-4ADC-A03B-6DC9DA3B2369"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SmallB/My/order/VC/MyorderDetailViewController.m"
+            startingColumnNumber = "17"
+            endingColumnNumber = "39"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-getOrderShouHouDetail"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

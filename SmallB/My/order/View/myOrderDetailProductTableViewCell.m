@@ -273,12 +273,16 @@
     _dataModel = dataModel;
     self.titleL.text = dataModel.propertyData;
     
-    NSArray *array = (NSArray *)dataModel.propertyDatAry;
+    NSArray *array = [NSArray array];
+    if ([dataModel.propertyDatAry isKindOfClass:[NSArray class]]) {
+        array = (NSArray *)dataModel.propertyDatAry;
+    }
     float oneWidth = (ScreenWidth - 72 - 16)/3.0;
     [self.photoView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (int i = 0; i < array.count; i ++) {
         UIImageView *img = [[UIImageView alloc]init];
         img.frame = CGRectMake((oneWidth + 8)*(i%3), 12+(oneWidth + 8)*(i/3), oneWidth, oneWidth);
+        [img sd_setImageWithURL:[NSURL URLWithString:array[i]] placeholderImage:KPlaceholder_DefaultImage];
         [self.photoView addSubview:img];
         
         if (i == array.count -1) {

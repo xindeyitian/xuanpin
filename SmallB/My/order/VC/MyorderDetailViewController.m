@@ -37,7 +37,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"cancelSuccess" object:nil];
     self.detailModel = [[OrderDetailModel alloc]init];
-    [self getDataAry];
+    [self getDataAryWithIsshouhou:self.isShouHou];
     self.navigationController.delegate = self;
     self.navigationItem.title = @"订单详情";
     self.view.backgroundColor = KBGColor;
@@ -67,20 +67,19 @@
     }];
     
     self.needPullDownRefresh = YES;
-    
+    [self loadNewData];
+}
+
+- (void)cancelSuccess{
+    [self loadNewData];
+}
+
+- (void)loadNewData{
     if (self.isShouHou) {
         [self getOrderShouHouDetail];
     }else{
         [self getOrderDetail];
     }
-}
-
-- (void)cancelSuccess{
-    [self getOrderDetail];
-}
-
-- (void)loadNewData{
-    [self getOrderDetail];
 }
 
 - (void)getOrderShouHouDetail{
@@ -93,27 +92,26 @@
             [self.tableView.mj_header endRefreshing];
             
             self.detailShouHouModel = [OrderShouHouListRecordsModel mj_objectWithKeyValues:data];
-            [self getDataAry];
+            [self getDataAryWithIsshouhou:self.isShouHou];
             [self.tableView reloadData];
             [self creatShouHouHeaderView];
-//            NSInteger status = self.detailModel.orderState.integerValue;
-//            if (self.type == 2 && status == 2) {
-//                [self creatBottomView];
-//                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                    make.top.mas_equalTo(self.navView.mas_bottom);
-//                    make.left.right.equalTo(self.view);
-//                    make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
-//                }];
-//            }else{
-//                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                    make.top.mas_equalTo(self.navView.mas_bottom);
-//                    make.left.right.bottom.equalTo(self.view);
-//                }];
-//            }
+            NSInteger dealSign = self.detailShouHouModel.dealSign.integerValue;
+            if (dealSign == 1 || dealSign == 4) {
+                [self creatBottomView];
+                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.navView.mas_bottom);
+                    make.left.right.equalTo(self.view);
+                    make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
+                }];
+            }else{
+                [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.navView.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
+                }];
+            }
         }
     }];
 }
-
 
 - (void)getOrderDetail{
     if (!self.tableView.mj_header.isRefreshing) {
@@ -124,7 +122,7 @@
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
             [self.tableView.mj_header endRefreshing];
             self.detailModel = [OrderDetailModel mj_objectWithKeyValues:data];
-            [self getDataAry];
+            [self getDataAryWithIsshouhou:self.isShouHou];
             [self.tableView reloadData];
             [self creatNoramlHeaderView];
             
@@ -156,12 +154,12 @@
     }];
     
     //取消订单  发货
-    BaseButton *right = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 109 - 12, 12, 109, 27) Alignment:NSTextAlignmentCenter Tag:4];
+    BaseButton *right = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 122 - 12, 12, 122, 27) Alignment:NSTextAlignmentCenter Tag:4];
     right.clipsToBounds = YES;
     right.layer.cornerRadius = 13.5;
     [self.bottomView addSubview:right];
     
-    BaseButton *left = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 251, 12, 122, 27) Alignment:NSTextAlignmentCenter Tag:3];
+    BaseButton *left = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 264, 12, 122, 27) Alignment:NSTextAlignmentCenter Tag:3];
     left.clipsToBounds = YES;
     left.layer.cornerRadius = 13.5;
     [self.bottomView addSubview:left];
@@ -171,46 +169,91 @@
     
     left.layer.borderColor = KMainBGColor.CGColor;
     left.layer.borderWidth = 1;
-    
-    //不同意退款   同意退款
-    //不同意退款/退货   同意退款/退货
-    [right setTitle:@"不同意退款/退货" forState:UIControlStateNormal];
-    [left setTitle:@"同意退款/退货" forState:UIControlStateNormal];
-  
-    //确认收货
-    left.hidden = YES;
-    right.frame = CGRectMake(ScreenWidth - 76 - 12, 12, 76, 27);
-    [right setTitle:@"确认收货" forState:UIControlStateNormal];
-    
-    //取消订单  发货
-    left.hidden = NO;
-    right.frame = CGRectMake(ScreenWidth - 50 - 12, 12, 50, 27);
-    [right setTitle:@"发货" forState:UIControlStateNormal];
-    left.frame = CGRectMake(ScreenWidth - 150, 12, 76, 27);
-    [left setTitle:@"取消订单" forState:UIControlStateNormal];
-    [left setTitleColor:KBlack999TextColor forState:UIControlStateNormal];
-    left.layer.borderColor = KBlack999TextColor.CGColor;
+
+    if (self.detailShouHouModel) {
+        NSInteger dealSign = self.detailShouHouModel.dealSign.integerValue;
+        if (dealSign == 1) {
+            NSInteger applyType = self.detailShouHouModel.applyType.integerValue;
+            if (applyType == 1) {
+                [right setTitle:@"不同意退款" forState:UIControlStateNormal];
+                [left setTitle:@"同意退款" forState:UIControlStateNormal];
+            }else{
+                [right setTitle:@"不同意退款/退货" forState:UIControlStateNormal];
+                [left setTitle:@"同意退款/退货" forState:UIControlStateNormal];
+            }
+        }
+        if (dealSign == 4) {
+            //确认收货
+            left.hidden = YES;
+            right.frame = CGRectMake(ScreenWidth - 76 - 12, 12, 76, 27);
+            [right setTitle:@"确认收货" forState:UIControlStateNormal];
+        }
+    }else{
+        //取消订单  发货
+        left.hidden = NO;
+        right.frame = CGRectMake(ScreenWidth - 50 - 12, 12, 50, 27);
+        [right setTitle:@"发货" forState:UIControlStateNormal];
+        left.frame = CGRectMake(ScreenWidth - 150, 12, 76, 27);
+        [left setTitle:@"取消订单" forState:UIControlStateNormal];
+        [left setTitleColor:KBlack999TextColor forState:UIControlStateNormal];
+        left.layer.borderColor = KBlack999TextColor.CGColor;
+    }
 }
 
 - (void)bottomBtnClick:(BaseButton *)btn{
-    // 订单状态（1待支付默认，2待发货、3待收货，9完成，-1客户取消、-2管理员取消、-6订单超时未支付取消、-7行云订单生成失败取消
-    NSInteger orderStatus = self.detailModel.orderState.integerValue;
-    if (btn.tag == 3) {
-        if (orderStatus == 2) {
-            OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
-            vc.alertType = orderAlertType_CancelOrder;
-            vc.orderID = self.orderID;
-            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+    
+    if (self.detailModel) {
+        // 订单状态（1待支付默认，2待发货、3待收货，9完成，-1客户取消、-2管理员取消、-6订单超时未支付取消、-7行云订单生成失败取消
+        NSInteger orderStatus = self.detailModel.orderState.integerValue;
+        if (btn.tag == 3) {
+            if (orderStatus == 2) {
+                OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
+                vc.alertType = orderAlertType_CancelOrder;
+                vc.orderID = self.orderID;
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+            }
+        }
+        if (btn.tag == 4) {
+            if (orderStatus == 2) {
+                MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
+                vc.haveBottom = YES;
+                vc.orderID = self.orderID;
+                vc.productAry = self.detailModel.orderGoodsListVo;
+                [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+            }
         }
     }
-    if (btn.tag == 4) {
-        if (orderStatus == 2) {
-            MyOrderLogisticsViewController *vc = [[MyOrderLogisticsViewController alloc]init];
-            vc.haveBottom = YES;
-            vc.orderID = self.orderID;
-            vc.productAry = self.detailModel.orderGoodsListVo;
-            [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
+    if (self.detailShouHouModel) {
+        NSInteger dealSign = self.detailShouHouModel.dealSign.integerValue;
+        NSInteger applyType = self.detailShouHouModel.applyType.integerValue;
+        if (dealSign == 1) {
+            //不同意退款   同意退款
+            //不同意退款/退货   同意退款/退货
+            if (btn.tag == 3) {
+                //同意
+                OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
+                vc.alertType = applyType == 1 ? orderAlertType_AgreeRefund : orderAlertType_AgreeRefunds;
+                vc.applyId = self.orderID;
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+            }
+            if (btn.tag == 4) {
+                //不同意
+                OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
+                vc.alertType = applyType == 1 ?  orderAlertType_NotAgreeRefund : orderAlertType_NotAgreeRefunds;
+                vc.applyId = self.orderID;
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
+            }
+        }
+        if (dealSign == 4 && btn.tag == 4) {
+            //确认收货
+            OrderAlertViewController *vc = [[OrderAlertViewController alloc]init];
+            vc.alertType = orderAlertType_ConfirmOrder;
+            vc.applyId = self.orderID;
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [[AppTool currentVC]  presentViewController:vc animated:NO completion:nil];
         }
     }
 }
@@ -237,7 +280,6 @@
     NSInteger applyType = [NSString stringWithFormat:@"%@",self.detailShouHouModel.applyType].integerValue;
     //退款类型 1：仅退款 2：退货退款
     NSArray *array;
-    NSString *statusS = @"";
     if (applyType == 1) {
         array = @[@"买家申请",@"商家确认",@"售后完成"];
     }
@@ -245,8 +287,32 @@
         array = @[@"买家申请",@"商家确认",@"买家寄回",@"商家收货",@"售后完成"];
     }
     float oneWidth = (ScreenWidth - 24 - 24 - array.count*5 - 5)/array.count;
-    NSInteger num = 2;
-    
+    //处理状态（1 等待商家同意、2等待揽件、3等待退款、4待商家确认收货、9退货完成、-1退货失败、-2客户取消、-3商家取消）
+    NSInteger num = 1;
+    if (self.detailShouHouModel) {
+        NSInteger dealSign = self.detailShouHouModel.dealSign.integerValue;
+        switch (dealSign) {
+            case 1:{
+                num = 1;
+            }
+                break;
+            case 2:
+            case 3:{
+                num = 2;
+            }
+                break;
+            case 4:{
+                num = 3;
+            }
+                break;
+            case 9:{
+                num = 5;
+            }
+                break;
+            default:
+                break;
+        }
+    }
     float start = .0f;
     float end = .0f;
     for (int i =0; i < array.count; i ++) {
@@ -292,7 +358,6 @@
             seeWuliu = YES;
         }
     }
-    seeWuliu = NO;
     float height = [address sizeWithLabelWidth:ScreenWidth - 55 - 24 font:DEFAULT_FONT_R(13)].height;
     
     myOrderDetailHeaderView *headView = [[myOrderDetailHeaderView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 98+(76+height)+(seeWuliu?64:0) + (haveBtn ? 47 : 0))];
@@ -370,7 +435,7 @@
 
 }
 
-- (void)getDataAry{
+- (void)getDataAryWithIsshouhou:(BOOL)isShouhou{
     self.dataArray = [NSMutableArray array];
     
     NSMutableArray *shopAry = [NSMutableArray array];
@@ -384,7 +449,10 @@
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"商家操作";
-        model.detailStr = @"不同意";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = @"待定";
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         model.type = 3;
@@ -392,7 +460,10 @@
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"操作时间";
-        model.detailStr = @"2020.04.05 14:00";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = @"待定";
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         model.showLineV = YES;
@@ -409,9 +480,12 @@
         model.titleStr = @"";
         model.detailStr = @"";
         model.type = 1;
-        NSArray *array = @[@"1",@"2",@"3",@"4"];
-        model.propertyData = @"就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同意就是不同";
+        NSArray *array = @[];
+        model.propertyData = @"-";
         model.propertyDatAry = array;
+        if (self.detailShouHouModel) {
+            model.propertyData = [NSString stringWithFormat:@"%@",K_NotNullHolder(self.detailShouHouModel.dealDesc, @"-")];
+        }
         [shopAry addObject:model];
     }
     
@@ -427,7 +501,10 @@
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"退款原因";
-        model.detailStr = @"我不想要了我不想要了我不想要了我不想要了我不想要了我不想要了我不想要了我不想要了我不想要了我不想";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = K_NotNullHolder(self.detailShouHouModel.applyReason, @"-");
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         model.type = 3;
@@ -435,21 +512,30 @@
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"退款金额";
-        model.detailStr = @"¥199";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = [NSString stringWithFormat:@"¥%@",K_NotNullHolder(self.detailShouHouModel.moneyBackValue, @"-")];
+        }
         model.rightFont = DIN_Medium_FONT_R(15);
         model.rightColor = KMaintextColor;
         [sectionAry addObject:model];
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"申请时间";
-        model.detailStr = @"2020.04.05 14:00";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = @"暂无";
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         [sectionAry addObject:model];
     }{
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"售后单号";
-        model.detailStr = @"45574676354736";
+        model.detailStr = @"-";
+        if (self.detailShouHouModel) {
+            model.detailStr = [NSString stringWithFormat:@"暂定%@",K_NotNullHolder(self.detailShouHouModel.applyId, @"-")];
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         model.showLineV = YES;
@@ -466,9 +552,13 @@
         model.titleStr = @"";
         model.detailStr = @"";
         model.type = 1;
-        NSArray *array = @[@"1",@"2",@"3",@"4"];
-        model.propertyData = @"物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢，质量差物流太慢";
-        model.propertyDatAry = array;
+        NSArray *array = @[];
+        model.propertyData = @"";
+        if (self.detailShouHouModel) {
+            model.propertyData = [NSString stringWithFormat:@"%@",K_NotNullHolder(self.detailShouHouModel.dealDesc, @"-")];
+            NSArray *array = self.detailShouHouModel.imgUrlList;
+            model.propertyDatAry = array;
+        }
         [sectionAry addObject:model];
     }
     
@@ -532,6 +622,9 @@
         if (self.detailModel.orderNo) {
             model.detailStr = self.detailModel.orderNo;
         }
+        if (self.detailShouHouModel) {
+            model.detailStr = self.detailShouHouModel.orderNo;
+        }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
         model.showCopy = YES;
@@ -541,6 +634,9 @@
         model.titleStr = @"下单时间";
         if (self.detailModel.orderTime) {
             model.detailStr = self.detailModel.orderTime;
+        }
+        if (self.detailShouHouModel) {
+            model.detailStr = self.detailShouHouModel.orderTime;
         }
         model.rightFont = DEFAULT_FONT_R(15);
         model.rightColor = KBlack666TextColor;
@@ -559,8 +655,14 @@
     if (self.detailModel.payTime) {
         payModel.detailStr = self.detailModel.payTime;
     }
+    if (self.detailShouHouModel.payTime) {
+        payModel.detailStr = self.detailShouHouModel.payTime;
+    }
     payModel.rightFont = DEFAULT_FONT_R(15);
     payModel.rightColor = KBlack666TextColor;
+    if (self.isShouHou) {
+        [sectionTwoAry addObject:payModel];
+    }
 
     orderDataModel *fahuoModel = [[orderDataModel alloc]init];
     fahuoModel.titleStr = @"发货时间";
@@ -632,8 +734,9 @@
     if (self.isShouHou) {
         [self.dataArray addObject:shopAry];
         [self.dataArray addObject:sectionAry];
+    }else{
+        [self.dataArray addObject:sectionOneAry];
     }
-    [self.dataArray addObject:sectionOneAry];
     [self.dataArray addObject:sectionTwoAry];
     [self.tableView reloadData];
 }
@@ -648,6 +751,9 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
+    if (self.isShouHou) {
+        return UIStatusBarStyleDefault;
+    }
     return UIStatusBarStyleLightContent;
 }
 

@@ -32,7 +32,7 @@
         make.left.right.mas_equalTo(self.bgView);
     }];
     
-    BaseButton *btn = [BaseButton CreateBaseButtonTitle:@"拨打电话" Target:self Action:@selector(btnClick:) Font:DEFAULT_FONT_M(15) BackgroundColor:KMainBGColor Color:KWhiteTextColor Frame:CGRectMake(0, 0, 0, 0) Alignment:NSTextAlignmentCenter Tag:22];
+    BaseButton *btn = [BaseButton CreateBaseButtonTitle:@"拨打电话" Target:self Action:@selector(btnClick:) Font:DEFAULT_FONT_M(15) BackgroundColor:KMainBGColor Color:KWhiteTextColor Frame:CGRectMake(0, 0, 0, 0) Alignment:NSTextAlignmentCenter Tag:23];
     [self.bgView addSubview:btn];
     btn.clipsToBounds = YES;
     btn.layer.cornerRadius = 22;
@@ -43,7 +43,7 @@
         make.right.mas_equalTo(self.bgView).offset(-12);
     }];
     
-    BaseButton *cancel = [BaseButton CreateBaseButtonTitle:@"取消" Target:self Action:@selector(btnClick:) Font:DEFAULT_FONT_M(15) BackgroundColor:KBGColor Color:KBlack666TextColor Frame:CGRectMake(0, 0, 0, 0) Alignment:NSTextAlignmentCenter Tag:23];
+    BaseButton *cancel = [BaseButton CreateBaseButtonTitle:@"取消" Target:self Action:@selector(btnClick:) Font:DEFAULT_FONT_M(15) BackgroundColor:KBGColor Color:KBlack666TextColor Frame:CGRectMake(0, 0, 0, 0) Alignment:NSTextAlignmentCenter Tag:22];
     [self.bgView addSubview:cancel];
     cancel.clipsToBounds = YES;
     cancel.layer.cornerRadius = 22;

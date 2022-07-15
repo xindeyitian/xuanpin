@@ -151,18 +151,34 @@
                 break;
             case orderAlertType_AgreeRefund:{
                 title = @"确定同意退款";
+                [self selfOperationWithAgree:YES];
             }
                 break;
             case orderAlertType_NotAgreeRefund:{
                 title = @"不同意退款";
+                [self selfOperationWithAgree:NO];
             }
                 break;
             case orderAlertType_AgreeRefunds:{
                 title = @"确定同意退货退款";
+                [self selfOperationWithAgree:YES];
             }
                 break;
             case orderAlertType_NotAgreeRefunds:{
                 title = @"不同意退货退款";
+                [self selfOperationWithAgree:NO];
+            }
+                break;
+            case orderAlertType_ConfirmOrder:{
+                title = @"确认收货";
+                [self startLoadingHUD];
+                [THHttpManager POST:@"order/goodsBackApply/confirmReceipt" parameters:@{@"applyId":self.orderID} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+                    [self stopLoadingHUD];
+                    if (returnCode == 200) {
+                        [self showSuccessMessageWithString:@"确认收货成功"];
+                        [self success];
+                    }
+                }];
             }
                 break;
                 
@@ -170,10 +186,26 @@
                 break;
         }
     }
-   
+}
+
+- (void)selfOperationWithAgree:(BOOL)isAgree{
+    [self startLoadingHUD];
+    NSMutableDictionary *dica = [@{@"applyId":self.applyId} mutableCopy];
+    if (self.textV.text.length) {
+        [dica setObject:self.textV.text forKey:@"refuseReason"];
+    }
+    [dica setObject:@(isAgree) forKey:@"agree"];
+    [THHttpManager POST:@"order/goodsBackApply/handleApply" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [self stopLoadingHUD];
+        if (returnCode == 200) {
+            [self showSuccessMessageWithString:@"操作成功"];
+            [self success];
+        }
+    }];
 }
 
 - (void)success{
+    [self dismissViewControllerAnimated:NO completion:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelSuccess" object:nil];
 }
 

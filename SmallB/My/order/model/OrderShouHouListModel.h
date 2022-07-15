@@ -22,7 +22,7 @@
 @property (nonatomic , strong)NSString *goodsName;//商品名称
 @property (nonatomic , strong)NSString *skuId;//
 @property (nonatomic , strong)NSString *applyType;//退款类型 1：仅退款 2：退货退款
-@property (nonatomic , strong)NSString *imgUrlList;
+@property (nonatomic , strong)NSMutableArray *imgUrlList;
 @property (nonatomic , strong)NSString *skuName;
 @property (nonatomic , strong)NSString *applyReason;//申请原因
 @property (nonatomic , strong)NSString *dealSign;//处理状态（1 等待商家同意、2等待揽件、3等待退款、4待商家确认收货、9退货完成、-1退货失败、-2客户取消、-3商家取消）
