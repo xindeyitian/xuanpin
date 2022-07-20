@@ -20,6 +20,13 @@
     self.navigationItem.title = @"物流信息";
     self.view.backgroundColor = KBGLightColor;
     [self.tableView registerClass:[OrderLogistedListTableViewCell class] forCellReuseIdentifier:[OrderLogistedListTableViewCell description]];
+    [self getData];
+}
+
+- (void)getData{
+    [THHttpManager GET:@"goods/orderInfo/getOrderExpressLog" parameters:@{@"orderId":self.orderID} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -40,6 +47,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderLogistedListDetailViewController *vc = [[OrderLogistedListDetailViewController alloc]init];
+    vc.detailModel = self.detailModel;
+    vc.orderID = self.orderID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

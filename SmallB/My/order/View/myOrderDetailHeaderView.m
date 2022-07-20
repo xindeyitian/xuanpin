@@ -291,6 +291,7 @@
     //wuliuView
     OrderLogistedListViewController *vc = [[OrderLogistedListViewController alloc]init];
     vc.detailModel = self.detailModel;
+    vc.orderID = self.orderID;
     [[AppTool currentVC].navigationController pushViewController:vc animated:YES];
 }
 
@@ -302,6 +303,14 @@
 - (void)setShowWuliu:(BOOL)showWuliu{
     _showWuliu = showWuliu;
     self.wuliuV.hidden = !_showWuliu;
+}
+
+- (void)setHiddenTopStatus:(BOOL)hiddenTopStatus{
+    _hiddenTopStatus = hiddenTopStatus;
+    [self.whiteV mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self).offset(12);
+    }];
+    
 }
 
 @end

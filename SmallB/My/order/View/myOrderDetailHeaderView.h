@@ -13,8 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface myOrderDetailHeaderView : UIView
 
 @property(nonatomic , copy)NSString *addressStr;
+@property(nonatomic , copy)NSString *orderID;
 @property(nonatomic , assign)BOOL showWuliu;
 @property(nonatomic , assign)BOOL haveBtn;
+@property(nonatomic , assign)BOOL hiddenTopStatus;
 @property (nonatomic , strong)OrderDetailModel *detailModel;
 
 @end

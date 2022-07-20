@@ -26,6 +26,7 @@
 #import "RecordsModel.h"
 #import "ProductShareViewController.h"
 #import "ProductDetailBottomRecommendCell.h"
+#import "ProductShareWarningViewController.h"
 
 @interface ProductDetailViewController ()<UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate,THFlowLayoutDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate,JXCategoryViewDelegate>
 
@@ -512,6 +513,47 @@
 }
 
 - (void)shareProduct{
+    
+    if ([AppTool getCurrentLevalIsAdd]) {
+        [THHttpManager FormatPOST:@"goods/shopGoods/ifSaveShopGoods" parameters:@{@"goodsId":self.productID,@"shopId":[AppTool getLocalDataWithKey:@"shopID"]} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+            if (returnCode == 200 && [data isKindOfClass:[NSNumber class]]) {
+                NSInteger result = [data integerValue];
+                if (result == 1) {
+                    [self shareOperation];
+                }else{
+                    [self alertShow];
+                }
+            }
+        }];
+    }else{
+        [self shareOperation];
+    }
+}
+
+- (void)alertShow{
+    
+    ProductShareWarningViewController *vc = [[ProductShareWarningViewController alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    vc.confirmBlock = ^{
+        [self joinWindow];
+    };
+    [self  presentViewController:vc animated:NO completion:nil];
+}
+
+- (void)joinWindow{
+    THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
+    [vc startLoadingHUD];
+    [THHttpManager FormatPOST:@"goods/shopGoods/saveShopGoods" parameters:@{@"goodsId":K_NotNullHolder(self.productID, @"")} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+        [vc stopLoadingHUD];
+        if(returnCode == 200){
+            [XHToast dismiss];
+            [XHToast showCenterWithText:@"加入橱窗成功" withName:@""];
+            [self shareOperation];
+        }
+    }];
+}
+
+- (void)shareOperation{
     ProductShareViewController *vc = [[ProductShareViewController alloc]init];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     

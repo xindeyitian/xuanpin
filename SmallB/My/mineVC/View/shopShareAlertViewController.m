@@ -95,7 +95,10 @@
         self.titleS = @"邀请开店";
         self.descriptionS = @"这里是邀请开店";
         self.webpageUrlS = @"这里是邀请开店url";
+        self.path = @"";
     }
+    
+    self.path = [NSString stringWithFormat:@"pages/tabBar/shop/shop?shopId=%@&userID=%@",[AppTool getLocalDataWithKey:@"shopID"],[AppTool getLocalDataWithKey:@"userID"]];
     
     self.inventStore = self.isOpenShop;
     [self startLoadingHUD];

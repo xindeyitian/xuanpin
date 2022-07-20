@@ -108,7 +108,7 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 /*
  分享到微信平台
  */
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop;
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop appletspath:(NSString *)AppletsPath;
 /**
  创建二维码
  */
@@ -143,6 +143,7 @@ typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>*
 
 +(NSMutableDictionary *)getRequestSign;
 
++(NSMutableAttributedString *)mf_htmlAttribute:(NSString *)htmlString;
 @end
 
 NS_ASSUME_NONNULL_END

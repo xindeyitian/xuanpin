@@ -211,7 +211,7 @@
     NSString *price = self.selectPriceBtn.model.salePrice;
     UILabel *lable1 = [self.view viewWithTag:123];
     UILabel *lable2 = [self.view viewWithTag:124];
-    lable2.text = [NSString stringWithFormat:@"%.2f",price.floatValue * self.payRate *self.buyNum];
+    lable2.text = [NSString stringWithFormat:@"¥%.2f",price.floatValue * self.payRate *self.buyNum];
     lable1.text = [NSString stringWithFormat:@"¥%.2f",price.floatValue *(1 - self.payRate) *self.buyNum];;
 }
 

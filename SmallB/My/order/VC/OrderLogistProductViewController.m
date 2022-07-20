@@ -79,10 +79,10 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.productAry.count;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return self.productAry.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -90,7 +90,7 @@
     cell.autoCorner = YES;
     [cell defualtCornerInTableView:tableView atIndexPath:indexPath];
     if (self.productAry.count) {
-        OrderListProductModel *model = self.productAry[indexPath.section];
+        OrderListProductModel *model = self.productAry[indexPath.row];
         cell.model = model;
     }
     return cell;
@@ -102,7 +102,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    OrderListProductModel *model = self.productAry[indexPath.section];
+    OrderListProductModel *model = self.productAry[indexPath.row];
     if (!model.isNoChoose) {
         model.isSelected = !model.isSelected;
         [self.tableView reloadData];

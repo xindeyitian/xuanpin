@@ -41,7 +41,11 @@
 }
 
 - (void)tapClick{
-    [self dismissViewControllerAnimated:NO completion:nil];
+    if (self.notEnabled) {
+        
+    }else{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

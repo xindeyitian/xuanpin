@@ -52,6 +52,7 @@
     UIView *footereV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 5.01f)];
     footereV.backgroundColor = UIColor.whiteColor;
     self.homeTable.tableFooterView = footereV;
+
 }
 
 - (void)setDataModel:(HomeDataModel *)dataModel{

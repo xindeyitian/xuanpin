@@ -30,7 +30,7 @@
     self.bannerCycle.imageURLStringsGroup = @[];
     self.bannerCycle.frame = CGRectMake(12*KScreenW_Ratio, 0, ScreenWidth - 24 * KScreenW_Ratio, 80*KScreenW_Ratio);
     self.bannerCycle.autoScroll = YES;
-    self.bannerCycle.pageControlDotSize = CGSizeMake(10, 10);
+    self.bannerCycle.pageControlDotSize = CGSizeMake(7, 3);
     self.bannerCycle.currentPageDotImage = IMAGE_NAMED(@"banner_select_image");
     self.bannerCycle.pageDotImage = IMAGE_NAMED(@"banner_normal_image");
     self.bannerCycle.showPageControl = YES;

@@ -9,7 +9,6 @@ pod 'JXPagingView/Pager'
 pod 'TZImagePickerController'
 pod 'MJExtension'
 pod 'MJRefresh'
-pod 'SDCycleScrollView'
 pod 'YYModel'
 pod 'IQKeyboardManager'
 pod 'HBDNavigationBar'
@@ -28,12 +27,5 @@ pod 'Masonry', '~> 1.1.0'
 pod "Qiniu", "~> 8.4.1"
 
 pod 'WechatOpenSDK'
-#pod 'AlipaySDK-iOS'
-
-#pod 'UMCommon'
-#pod 'UMDevice'
-#pod 'UMLink'
-#pod 'UMShare/Social/WeChat'
-#pod 'UMShare/Social/AlipayShare'
 
 end

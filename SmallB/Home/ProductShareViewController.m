@@ -79,6 +79,8 @@
     [signDic setObject:[AppTool getLocalDataWithKey:@"shopID"] forKey:@"shopID"];
     [signDic setObject:[AppTool getLocalDataWithKey:@"userID"] forKey:@"userID"];
     
+    self.path = [NSString stringWithFormat:@"pages/home/pages/goodsDetails/goodsDetails?goodsId=%@&shopId=%@&userID=%@",self.model.goodsId,[AppTool getLocalDataWithKey:@"shopID"],[AppTool getLocalDataWithKey:@"userID"]];
+    
     [THHttpManager FormatPOST:[NSString stringWithFormat:@"%@share/cpi/shortUrl",XTAppBaseUseURL] parameters:signDic dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200 && [data isKindOfClass:[NSString class]]) {

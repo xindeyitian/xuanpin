@@ -170,11 +170,11 @@
     if (indexPath.row == 1) {
         OrderLogistCompanyViewController *vc = [[OrderLogistCompanyViewController alloc]init];
         vc.selectBlock = ^(OrderLogistCompanyModel * _Nonnull model) {
-            [self judgeIsComplete];
             MyOrderLogisticsDataModel *listModel = self.listDataAry[indexPath.section];
             listModel.compantName = model.companyName;
             listModel.companyModel = model;
             [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+            [self judgeIsComplete];
         };
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -184,10 +184,10 @@
         vc.allListAry = self.listDataAry;
         vc.section = indexPath.section;
         vc.selectBlock = ^(NSMutableArray * _Nonnull productAry) {
-            [self judgeIsComplete];
             MyOrderLogisticsDataModel *listModel = self.listDataAry[indexPath.section];
             listModel.productList = productAry;
             [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+            [self judgeIsComplete];
         };
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -219,7 +219,6 @@
     
     NSMutableArray *list = [NSMutableArray array];
     for (MyOrderLogisticsDataModel *dataModel in self.listDataAry) {
-        
         if (dataModel.compantName.length && dataModel.logistNO.length && dataModel.productList.count) {
             NSMutableArray *idItems = [NSMutableArray array];
             for (OrderListProductModel *model in dataModel.productList) {
@@ -237,9 +236,7 @@
         [self stopLoadingHUD];
         if (returnCode == 200) {
             [self showSuccessMessageWithString:@"订单发货成功"];
-            if (_successBlock) {
-                _successBlock();
-            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"fahuoSuccess" object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];

@@ -140,7 +140,7 @@
         self.hasSoldLab.text = [NSString stringWithFormat:@" 已售%@件 ",model.saleCount];
         self.yongjinLab.text = [NSString stringWithFormat:@"赚积分 %@",model.commission];
     }else{
-        self.hasSoldLab.text = [NSString stringWithFormat:@"高佣%@%%赚积分%@",model.feeRate,model.commission];
+        self.hasSoldLab.text = [NSString stringWithFormat:@"赚积分%@",model.commission];
     }
     self.allpriceLab.font =  isRankList ? BOLD_FONT_R(15) : DIN_Medium_FONT_R(18);
     

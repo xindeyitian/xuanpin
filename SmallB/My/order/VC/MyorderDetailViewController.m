@@ -36,6 +36,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"cancelSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"fahuoSuccess" object:nil];
     self.detailModel = [[OrderDetailModel alloc]init];
     [self getDataAryWithIsshouhou:self.isShouHou];
     self.navigationController.delegate = self;
@@ -60,6 +61,8 @@
     }
     [self.view addSubview:view];
     self.navView =view;
+    
+    [self creatBottomView];
     
     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view.mas_bottom);
@@ -86,18 +89,19 @@
     if (!self.tableView.mj_header.isRefreshing) {
         [self startLoadingHUD];
     }
+    self.bottomView.hidden = YES;
     [THHttpManager GET:@"order/goodsBackApply/getApplyInfo" parameters:@{@"applyId":self.orderID} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
             [self.tableView.mj_header endRefreshing];
-            
             self.detailShouHouModel = [OrderShouHouListRecordsModel mj_objectWithKeyValues:data];
             [self getDataAryWithIsshouhou:self.isShouHou];
             [self.tableView reloadData];
             [self creatShouHouHeaderView];
             NSInteger dealSign = self.detailShouHouModel.dealSign.integerValue;
             if (dealSign == 1 || dealSign == 4) {
-                [self creatBottomView];
+                self.bottomView.hidden = NO;
+                [self setBottomSubViews];
                 [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(self.navView.mas_bottom);
                     make.left.right.equalTo(self.view);
@@ -117,6 +121,7 @@
     if (!self.tableView.mj_header.isRefreshing) {
         [self startLoadingHUD];
     }
+    self.bottomView.hidden = YES;
     [THHttpManager GET:@"goods/orderInfo/get" parameters:@{@"orderId":self.orderID,@"orderType":[NSString stringWithFormat:@"%ld",self.type]} block:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
@@ -128,7 +133,8 @@
             
             NSInteger status = self.detailModel.orderState.integerValue;
             if (self.type == 2 && status == 2) {
-                [self creatBottomView];
+                self.bottomView.hidden = NO;
+                [self setBottomSubViews];
                 [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.mas_equalTo(self.navView.mas_bottom);
                     make.left.right.equalTo(self.view);
@@ -152,8 +158,7 @@
         make.left.right.bottom.mas_equalTo(self.view);
         make.height.mas_equalTo(TabbarSafeBottomMargin + 50);
     }];
-    
-    //取消订单  发货
+    self.bottomView.hidden = YES;
     BaseButton *right = [BaseButton CreateBaseButtonTitle:@"" Target:self Action:@selector(bottomBtnClick:) Font:DEFAULT_FONT_R(13) BackgroundColor:KWhiteBGColor Color:KMaintextColor Frame:CGRectMake(ScreenWidth - 122 - 12, 12, 122, 27) Alignment:NSTextAlignmentCenter Tag:4];
     right.clipsToBounds = YES;
     right.layer.cornerRadius = 13.5;
@@ -163,6 +168,12 @@
     left.clipsToBounds = YES;
     left.layer.cornerRadius = 13.5;
     [self.bottomView addSubview:left];
+}
+
+- (void)setBottomSubViews{
+    //取消订单  发货
+    BaseButton *left = [self.bottomView viewWithTag:3];
+    BaseButton *right = [self.bottomView viewWithTag:4];
     
     right.layer.borderColor = KMainBGColor.CGColor;
     right.layer.borderWidth = 1;
@@ -364,6 +375,7 @@
     headView.haveBtn = haveBtn;
     headView.showWuliu = seeWuliu;
     headView.addressStr = address;
+    headView.orderID = self.orderID;
     if (self.detailModel.deliveryAddress) {
         headView.detailModel = self.detailModel;
     }
@@ -584,7 +596,7 @@
         orderDataModel *model = [[orderDataModel alloc]init];
         model.titleStr = @"订单总价";
         if (self.detailModel.totalMoneyPayed) {
-            model.detailStr = [NSString stringWithFormat:@"¥%@",self.detailModel.totalMoneyPayed];
+            model.detailStr = [NSString stringWithFormat:@"¥%.2f",self.detailModel.totalMoneyPayed.floatValue];
         }
         model.rightFont = DIN_Medium_FONT_R(15);
         model.rightColor = KBlack333TextColor;
@@ -765,6 +777,10 @@
     }else {
         [navigationController setNavigationBarHidden:NO animated:YES];
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

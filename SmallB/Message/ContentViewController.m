@@ -35,6 +35,7 @@
     self.emptyDataView.noDataImageView.image = IMAGE_NAMED(@"no_data_list");
     self.emptyDataView.noDataTitleLabel.text = @"暂无数据哦～";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"cancelSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSuccess) name:@"fahuoSuccess" object:nil];
     
     BaseSearchView *searchV = [[BaseSearchView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     searchV.fieldEnabled = YES;
@@ -348,6 +349,10 @@
     
     SetIOS13;
     [navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

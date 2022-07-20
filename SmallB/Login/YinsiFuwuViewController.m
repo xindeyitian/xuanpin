@@ -45,6 +45,7 @@
 
 - (void)getContent{
     NSString *articleCode = @"";
+    NSString *title = @"";
     switch (self.agreeType) {
         case PrivacyAgreementTypeLogin:
             articleCode = @"";
@@ -52,11 +53,15 @@
         case PrivacyAgreementTypeRegist:
             articleCode = @"";
             break;
-        case PrivacyAgreementTypeUser:
+        case PrivacyAgreementTypeUser:{
             articleCode = @"ShopUserAgree";
+            title = @"用户协议";
+        }
             break;
-        case PrivacyAgreementTypePrivacyAgreement:
+        case PrivacyAgreementTypePrivacyAgreement:{
             articleCode = @"ShopPrivacy";
+            title = @"隐私协议";
+        }
             break;
         case PrivacyAgreementTypeShiMing:
             articleCode = @"AuthIdCardDeal";

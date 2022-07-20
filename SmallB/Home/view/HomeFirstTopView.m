@@ -50,7 +50,7 @@
     self.bannerCycle.currentPageDotImage = IMAGE_NAMED(@"banner_select_image");
     self.bannerCycle.pageDotImage = IMAGE_NAMED(@"banner_normal_image");
     self.bannerCycle.showPageControl = YES;
-    self.bannerCycle.backgroundColor = UIColor.clearColor;
+    self.bannerCycle.backgroundColor = KViewBGColor;
     self.bannerCycle.layer.cornerRadius = 10;
     self.bannerCycle.clipsToBounds = YES;
     [self addSubview:self.bannerCycle];

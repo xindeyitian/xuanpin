@@ -131,7 +131,7 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     if (btn.tag == 23) {
-        if (self.textV.text.length == 0) {
+        if (self.textV.text.length == 0 && !(self.alertType == orderAlertType_AgreeRefund || self.alertType == orderAlertType_AgreeRefunds )) {
             [self showMessageWithString:@"请输入原因"];
             return;
         }

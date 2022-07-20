@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderLogistedListViewController : THBaseTableViewController
 
 @property (nonatomic , strong)OrderDetailModel *detailModel;
+@property (nonatomic , copy)NSString *orderID;
 
 @end
 

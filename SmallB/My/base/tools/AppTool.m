@@ -339,7 +339,7 @@
     return destDateString;
 }
 
-+(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop{
++(void)shareWebPageToPlatformTypeWithData:(UIImage *)image title:(NSString *)title description:(NSString *)description webpageUrl:(NSString *)webpageUrl  WXScene:(NSInteger)WXScene thumbUrl:(NSString *)url isOpenShop:(BOOL)isOpenShop appletspath:(NSString *)AppletsPath{
 
     if (WXScene == WXSceneTimeline) {
      
@@ -393,18 +393,12 @@
             }else{
                 object.userName = @"gh_778f11844130";
             }
-            object.path = webpageUrl;
+            object.path = AppletsPath;
             NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
             UIImage *result = [UIImage imageWithData:imageData];
             UIImage *new = [AppTool compressImage:result toByte:128*1024];
             object.hdImageData = UIImageJPEGRepresentation(new, 0.2); ;
             object.withShareTicket = NO;
-            //object.miniProgramType = WXMiniProgramTypeRelease;
-//            if ([AppTool getCurrentLevalIsAdd]) {
-//                object.miniProgramType = WXMiniProgramTypeRelease;
-//            }else{
-//                object.miniProgramType = WXMiniProgramTypePreview;
-//            }
             object.miniProgramType = WXMiniProgramTypeRelease;
 
             WXMediaMessage *message = [WXMediaMessage message];
@@ -642,6 +636,18 @@
              @"sign":sign.md5Str,
              @"timeStamp":[NSString new].currentTimeStr,
              } mutableCopy];
+}
+
+- (NSMutableAttributedString *)mf_htmlAttribute:(NSString *)htmlString{
+    htmlString = [NSString stringWithFormat:@"<div>%@</div>",htmlString];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding]
+                                                                                          options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                                               documentAttributes:nil
+                                                                                            error:nil];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 3;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, attributedString.mutableString.length)];
+    return attributedString;
 }
 
 @end

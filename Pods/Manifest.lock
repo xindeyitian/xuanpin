@@ -30,8 +30,6 @@ PODS:
   - Qiniu (8.4.2):
     - HappyDNS (~> 1.0.0)
   - SDAutoLayout (2.2.1)
-  - SDCycleScrollView (1.82):
-    - SDWebImage (>= 5.0.0)
   - SDWebImage (5.12.5):
     - SDWebImage/Core (= 5.12.5)
   - SDWebImage/Core (5.12.5)
@@ -64,7 +62,6 @@ DEPENDENCIES:
   - pop (~> 1.0)
   - Qiniu (~> 8.4.1)
   - SDAutoLayout
-  - SDCycleScrollView
   - SDWebImage
   - SVProgressHUD
   - TMCache (~> 2.1.0)
@@ -91,7 +88,6 @@ SPEC REPOS:
     - pop
     - Qiniu
     - SDAutoLayout
-    - SDCycleScrollView
     - SDWebImage
     - SVProgressHUD
     - TMCache
@@ -119,7 +115,6 @@ SPEC CHECKSUMS:
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Qiniu: d4449a732a6146c2ada5f098e7882b89310fffa3
   SDAutoLayout: 8bf6b3bbc8b01f775d4defbb4fda2ace805461be
-  SDCycleScrollView: a0d74c3384caa72bdfc81470bdbc8c14b3e1fbcf
   SDWebImage: 0905f1b7760fc8ac4198cae0036600d67478751e
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
@@ -130,6 +125,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 32f864df7aea222af2b20c66e4ac70147e9b9a05
+PODFILE CHECKSUM: 61a7722ca459902219d3cac2f16251da7a7d3935
 
 COCOAPODS: 1.11.2

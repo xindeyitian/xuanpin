@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseAlertViewController : THBaseViewController
 
 @property (nonatomic, weak) UIView *bgView;
+@property (nonatomic, assign)BOOL notEnabled;//yes不能点击背景消失
 
 - (THBaseViewController *)currentVC;
 

@@ -576,6 +576,7 @@
         [self stopLoadingHUD];
         if (returnCode == 200) {
             OpenStoreAlertViewController *alertVC = [OpenStoreAlertViewController new];
+            alertVC.notEnabled = YES;
             alertVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [self presentViewController:alertVC animated:NO completion:nil];
         }

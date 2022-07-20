@@ -140,7 +140,7 @@
     self.productTitleL.text = dataModel.goodsName;
     [self.productImgV sd_setImageWithURL:[NSURL URLWithString:dataModel.goodsThumb] placeholderImage:KPlaceholder_DefaultImage];
     
-    self.yongjinL.text = [NSString stringWithFormat:@"高佣%@%@赚积分%@",dataModel.feeRate,@"%",dataModel.commission];
+    self.yongjinL.text = [NSString stringWithFormat:@"赚积分%@",dataModel.commission];
     
     self.selectImgV.image = dataModel.isSelect ? IMAGE_NAMED(@"all_select_selected") : IMAGE_NAMED(@"all_select_select");
     

@@ -16,6 +16,7 @@
 #import "WXApi.h"
 #import <AFServiceSDK/AFServiceSDK.h>
 #import <IQKeyboardManager.h>
+#import "VideoViewController.h"
 
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -41,7 +42,7 @@
 //    [self initQYKF];
     application.statusBarStyle = UIStatusBarStyleDefault;
     application.statusBarHidden = NO;
-    
+
     return YES;
 }
 
@@ -60,12 +61,21 @@
 
 -(void)firstDownload{
     //第一次安装时会有引导页展示  非第一次直接进入应用页
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isOne"] isEqualToString:@"isOne"]) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isOne"] isEqualToString:@"isOne"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"isVedio"] isEqualToString:@"isVedio"]) {
         //正常工作的UI
         [self WorkUI];
     }else{
-        GuideViewController *vc = [[GuideViewController alloc] init];
-        self.window.rootViewController = vc;
+        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"isOne"] isEqualToString:@"isOne"]) {
+            GuideViewController *vc = [[GuideViewController alloc] init];
+            self.window.rootViewController = vc;
+        }else{
+            if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"isVedio"] isEqualToString:@"isVedio"]) {
+                NSString*thePath=[[NSBundle mainBundle] pathForResource:@"小莲云仓" ofType:@"mp4"];
+                VideoViewController *vc = [[VideoViewController alloc] init];
+                vc.theurl = [NSURL fileURLWithPath:thePath];
+                self.window.rootViewController = vc;
+            }
+        }
     }
 }
 
