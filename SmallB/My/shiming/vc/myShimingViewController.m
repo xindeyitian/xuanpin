@@ -71,15 +71,15 @@
                 NSInteger checkSign = [[data objectForKey:@"checkSign"] integerValue];
                 if (checkSign == -1) {
                     [self creatHeaderViewWithDica:data];
-                    [self creatFooterView];
+                    //[self creatFooterView];
                 }else{
                     [self creatHeaderViewWithData:data];
-                    [self creatFooterView];
+                    //[self creatFooterView];
                 }
             }
         }else{
             [self creatHeaderViewWithDica:data];
-            [self creatFooterView];
+            //[self creatFooterView];
         }
     }];
 }

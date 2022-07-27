@@ -70,7 +70,12 @@
             self.window.rootViewController = vc;
         }else{
             if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"isVedio"] isEqualToString:@"isVedio"]) {
-                NSString*thePath=[[NSBundle mainBundle] pathForResource:@"小莲云仓" ofType:@"mp4"];
+                NSString *thePath = @"";
+                if (IS_IPHONEX_SERIE) {
+                    thePath = [[NSBundle mainBundle] pathForResource:@"小莲云仓" ofType:@"mp4"];
+                }else{
+                    thePath = [[NSBundle mainBundle] pathForResource:@"app_open_normal" ofType:@"mp4"];
+                }
                 VideoViewController *vc = [[VideoViewController alloc] init];
                 vc.theurl = [NSURL fileURLWithPath:thePath];
                 self.window.rootViewController = vc;

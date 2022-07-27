@@ -275,12 +275,12 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
     NSInteger errorCode = 000;//请求错误
     NSLog(@"失败请求结果---===%ld",(long)error.code);
     if ([[AFNetworkReachabilityManager sharedManager] isReachable] == NO) {
-            errorCode = 998;
+        errorCode = 998;
         [THHttpManager showHttpMsg:@"网络已断开，请检查网络"];
     }else{
+        errorCode = error.code;
         [THHttpManager showHttpMsg:@"服务器未连接"];
     }
-    
     if (block) {
         block(errorCode,THRequestStatusError,error);
     }
@@ -336,7 +336,7 @@ static NSString *AESKey = @"FA4ECD10BA9DB7CF";
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self responseError:error block:block];
-        
+
     }];
 }
 

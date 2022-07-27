@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上传回调
 typedef void(^uploadCallblock)(BOOL success, NSString* msg, NSArray<NSString *>* keys);
 
-+ (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback;
++ (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync fileName:(NSString *)fileName callback:(uploadCallblock)callback;
 /**
  存入历史搜索
  */

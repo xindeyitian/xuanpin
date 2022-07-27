@@ -190,22 +190,25 @@
     }
     [self startLoadingHUD];
     if (imageAry.count) {
-        [AppTool uploadImages:imageAry isAsync:YES callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
-            self.urlPath = msg;
-            self.bucket = @"llwf2";
-            if (imageAry.count == 1) {
-                if (self.logoImg) {
+        [AppTool uploadImages:imageAry isAsync:YES fileName:@"storeManager" callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.urlPath = msg;
+                self.bucket = @"llwf";
+                if (imageAry.count == 1) {
+                    if (self.logoImg) {
+                        self.logoImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
+                    }
+                    if (self.bgImg) {
+                        self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
+                    }
+                }
+                if (imageAry.count == 2) {
                     self.logoImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
+                    self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[1]];
                 }
-                if (self.bgImg) {
-                    self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
-                }
-            }
-            if (imageAry.count == 2) { 
-                self.logoImgUrl =  [NSString stringWithFormat:@"/%@",keys[0]];
-                self.bgImgUrl =  [NSString stringWithFormat:@"/%@",keys[1]];
-            }
-            [self updateShopInfoWithChange:YES];
+                [self updateShopInfoWithChange:YES];
+            }];
         }];
     }else{
         self.urlPath = @"";

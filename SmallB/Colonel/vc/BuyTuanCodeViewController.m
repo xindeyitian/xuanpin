@@ -225,37 +225,6 @@
     self.tableView.tableFooterView = view;
 }
 
-//- (void)submitClick1{
-//    if (!self.zhifuImage) {
-//        [self showMessageWithString:@"请选择上传凭证"];
-//        return;
-//    }
-//    [self startLoadingHUD];
-//    [AppTool uploadImages:@[self.zhifuImage] isAsync:YES callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
-//
-//        NSString *url = [NSString stringWithFormat:@"%@/%@",msg,[keys firstObject]];
-//        NSString *price = self.selectPriceBtn.model.salePrice;
-//        NSString *totalMoneySale = [NSString stringWithFormat:@"%.2f",price.floatValue * self.payRate *self.buyNum];
-//        NSString *discountRateSub = [NSString stringWithFormat:@"%.2f",price.floatValue *(1 - self.payRate) *self.buyNum];
-//
-//        NSDictionary *dica = @{@"codeTypeName":self.selectPriceBtn.model.codeTypeName,
-//                               @"discountRateSub":discountRateSub,
-//                               @"number":[NSString stringWithFormat:@"%ld",(long)self.buyNum],
-//                               @"payType":@"1",
-//                               @"totalMoneyOrder":totalMoneySale,
-//                               @"totalMoneySale":totalMoneySale,
-//                               @"typeId":self.selectPriceBtn.model.typId,
-//                               @"payEvidence":url
-//        };
-//        [THHttpManager FormatPOST:@"shop/shopActivateCodeInfo/buyActivateCode" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
-//            [self stopLoadingHUD];
-//            if (returnCode == 200) {
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }
-//        }];
-//    }];
-//}
-
 - (void)submitClick{
     if (!self.zhifuImage) {
         [self showMessageWithString:@"请选择上传凭证"];

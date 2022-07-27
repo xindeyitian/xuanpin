@@ -512,6 +512,7 @@
 		1FB33971285B1DC800F324FF /* LBXSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB33881285B1DC600F324FF /* LBXSlider.m */; };
 		1FBA18FF2828F990001FCB11 /* XHToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBA18FD2828F990001FCB11 /* XHToast.m */; };
 		1FBA190228292FF6001FCB11 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBA190128292FF6001FCB11 /* BrandModel.m */; };
+		1FBD3B7228912B9D0053004E /* app_open_normal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1FBD3B7128912B9D0053004E /* app_open_normal.mp4 */; };
 		1FCB7099281291C800D47E97 /* HomeFirstTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB7098281291C800D47E97 /* HomeFirstTopView.m */; };
 		1FCB709C2812955D00D47E97 /* ProductShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB709B2812955D00D47E97 /* ProductShareViewController.m */; };
 		1FCB709F2814E21800D47E97 /* ProductDetailCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FCB709E2814E21800D47E97 /* ProductDetailCommentViewController.m */; };
@@ -1769,6 +1770,7 @@
 		1FBA18FE2828F990001FCB11 /* XHToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHToast.h; sourceTree = "<group>"; };
 		1FBA190028292FF6001FCB11 /* BrandModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		1FBA190128292FF6001FCB11 /* BrandModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
+		1FBD3B7128912B9D0053004E /* app_open_normal.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = app_open_normal.mp4; sourceTree = "<group>"; };
 		1FCB7097281291C800D47E97 /* HomeFirstTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeFirstTopView.h; sourceTree = "<group>"; };
 		1FCB7098281291C800D47E97 /* HomeFirstTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeFirstTopView.m; sourceTree = "<group>"; };
 		1FCB709A2812955D00D47E97 /* ProductShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductShareViewController.h; sourceTree = "<group>"; };
@@ -4584,6 +4586,7 @@
 				58AB7E9827E9BD56003D5B20 /* AppDelegate.h */,
 				58AB7E9927E9BD56003D5B20 /* AppDelegate.m */,
 				1F2B76BD2882A3F900540544 /* 小莲云仓.mp4 */,
+				1FBD3B7128912B9D0053004E /* app_open_normal.mp4 */,
 				58AB7EA427E9BD56003D5B20 /* Assets.xcassets */,
 				58AB809727E9BEA2003D5B20 /* BaseClass */,
 				1F48759D280D496E00EA8833 /* Category */,
@@ -5474,6 +5477,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FBD3B7228912B9D0053004E /* app_open_normal.mp4 in Resources */,
 				1FB3396F285B1DC800F324FF /* logo.JPG in Resources */,
 				1FA9FA0228868524003E4108 /* launch_bottom@3x.png in Resources */,
 				587FA33227ED68E400AB2747 /* DIN-Black.otf in Resources */,
@@ -6411,6 +6415,7 @@
 					"$(PROJECT_DIR)/SmallB/My/base/tools/AFVodUpload",
 					"$(PROJECT_DIR)/Pods/Qiniu/QiniuSDK/QiniuSDK.h",
 					"$(PROJECT_DIR)/SmallB/Tools",
+					"$(PROJECT_DIR)/SmallB/Tools/AFVodUpload",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SmallB/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -6567,6 +6572,7 @@
 					"$(PROJECT_DIR)/SmallB/My/base/tools/AFVodUpload",
 					"$(PROJECT_DIR)/Pods/Qiniu/QiniuSDK/QiniuSDK.h",
 					"$(PROJECT_DIR)/SmallB/Tools",
+					"$(PROJECT_DIR)/SmallB/Tools/AFVodUpload",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SmallB/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;

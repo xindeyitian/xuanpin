@@ -211,42 +211,43 @@
                 NSMutableArray *allImage = [NSMutableArray arrayWithArray:self.otherImgAry];
                 [allImage insertObject:self.yingyeImg atIndex:0];
                 __block NSString *string = @"";
-                [AppTool uploadImages:allImage isAsync:YES callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
-                    
-                    for (int i =0; i < keys.count; i ++) {
-                        NSString *url = [NSString stringWithFormat:@"%@/%@",msg,keys[i]];
-                        if (i == 0) {
-                            self.yingye = url;
-                        }else{
-                            string =  [string stringByAppendingString:[NSString stringWithFormat:@"%@,",url]];
+                [AppTool uploadImages:allImage isAsync:YES fileName:@"applySupplier" callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        for (int i =0; i < keys.count; i ++) {
+                            NSString *url = [NSString stringWithFormat:@"%@/%@",msg,keys[i]];
+                            if (i == 0) {
+                                self.yingye = url;
+                            }else{
+                                string =  [string stringByAppendingString:[NSString stringWithFormat:@"%@,",url]];
+                            }
                         }
-                    }
-                    
-                    NSDictionary *dica = @{@"areaCode":self.areaModel.code,
-                                           @"areaName":self.areaModel.name,
-                                           @"cityCode":self.cityModel.code,
-                                           @"cityName":self.cityModel.name,
-                                           @"contactsName":self.userName,
-                                           @"detailAddress":self.adddress,
-                                           @"idCardBack":idCardBack,
-                                           @"idCardFront":idCardFront,
-                                           @"idCardHand":idCardHand,
-                                           @"idCardPath":idCardPath,
-                                           @"otherCertificates":string,
-                                           @"phoneNumber":self.phone,
-                                           @"provinceCode":self.provinceModel.code,
-                                           @"provinceName":self.provinceModel.name,
-                                           @"socialNo":self.yingye,
-                                           @"supplyName":self.supplierName,
-                                           @"verificationCode":self.phoneCode,
-                    };
-                    
-                    [THHttpManager POST:@"supply/supplyInfo/applySupplier" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
-                        [self stopLoadingHUD];
-                        if (returnCode == 200) {
-                            [self showSuccessMessageWithString:@"申请成功"];
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }
+                        
+                        NSDictionary *dica = @{@"areaCode":self.areaModel.code,
+                                               @"areaName":self.areaModel.name,
+                                               @"cityCode":self.cityModel.code,
+                                               @"cityName":self.cityModel.name,
+                                               @"contactsName":self.userName,
+                                               @"detailAddress":self.adddress,
+                                               @"idCardBack":idCardBack,
+                                               @"idCardFront":idCardFront,
+                                               @"idCardHand":idCardHand,
+                                               @"idCardPath":idCardPath,
+                                               @"otherCertificates":string,
+                                               @"phoneNumber":self.phone,
+                                               @"provinceCode":self.provinceModel.code,
+                                               @"provinceName":self.provinceModel.name,
+                                               @"socialNo":self.yingye,
+                                               @"supplyName":self.supplierName,
+                                               @"verificationCode":self.phoneCode,
+                        };
+                        
+                        [THHttpManager POST:@"supply/supplyInfo/applySupplier" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
+                            [self stopLoadingHUD];
+                            if (returnCode == 200) {
+                                [self showSuccessMessageWithString:@"申请成功"];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }
+                        }];
                     }];
                 }];
             }

@@ -128,12 +128,15 @@
         CJWeakSelf()
         THBaseViewController *vc = (THBaseViewController *)[AppTool currentVC];
         [vc startLoadingHUD];
-        [AppTool uploadImages:@[photos[0]] isAsync:YES callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
+        [AppTool uploadImages:@[photos[0]] isAsync:YES fileName:@"avatar" callback:^(BOOL success, NSString * _Nonnull msg, NSArray<NSString *> * _Nonnull keys) {
             CJStrongSelf();
-            [vc stopLoadingHUD];
-            if (_uploadImageBlock) {
-                _uploadImageBlock([NSString stringWithFormat:@"%@/%@",msg,[keys firstObject]]);
-            }
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [vc stopLoadingHUD];
+                NSString *fileName = [NSString stringWithFormat:@"%@/%@",msg,[keys firstObject]];
+                if (_uploadImageBlock) {
+                    _uploadImageBlock(fileName);
+                }
+            }];
         }];
     }];
     imagePickerVc.modalPresentationStyle = UIModalPresentationFullScreen;

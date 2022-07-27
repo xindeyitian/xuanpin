@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - AliyunOSSiOS (2.10.15)
   - AZTools (0.0.7)
   - HappyDNS (1.0.1)
   - HBDNavigationBar (1.9.5)
@@ -48,6 +49,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AliyunOSSiOS
   - AZTools
   - HBDNavigationBar
   - IQKeyboardManager
@@ -73,6 +75,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
     - AFNetworking
+    - AliyunOSSiOS
     - AZTools
     - HappyDNS
     - HBDNavigationBar
@@ -100,6 +103,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  AliyunOSSiOS: 5d7c50ce7b39b2b0b10f603a5971cccb0f25eee2
   AZTools: 6ad488ac0975c0d67b7f3cf80b15efd418ab5623
   HappyDNS: f42060e8712490088020c96d121786478e188fe7
   HBDNavigationBar: 5e8e93c1dfaf4195c54b6fcf55090cb3ea597e06
@@ -125,6 +129,6 @@ SPEC CHECKSUMS:
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 61a7722ca459902219d3cac2f16251da7a7d3935
+PODFILE CHECKSUM: 9cd6e135f9f7dbf9ee6b059fe28a89319cce45d5
 
 COCOAPODS: 1.11.2

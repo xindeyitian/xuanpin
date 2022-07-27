@@ -570,7 +570,6 @@
                            @"idCardHand":hand,
                            @"idCardPath":path,
                            @"realName":self.userName
-                           
     };
     [THHttpManager FormatPOST:@"shop/shopInfo/updateShopInfo" parameters:dica dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         [self stopLoadingHUD];

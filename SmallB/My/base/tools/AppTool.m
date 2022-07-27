@@ -13,6 +13,7 @@
 #import "QNResponseInfo.h"
 #import "WXApi.h"
 #import <CoreImage/CoreImage.h>
+#import <AliyunOSSiOS/OSSService.h>
 
 @implementation AppTool
 
@@ -192,75 +193,175 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"inviteCode"];
 }
 
-+ (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback {
-    [THHttpManager GET:@"system/file/getUpToken" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+//+ (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync fileName:(NSString *)fileName callback:(uploadCallblock)callback {
+//    [THHttpManager GET:@"system/file/getUpToken" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+//        if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
+//            [AppTool dealDataWithDic:data Images:images isAsync:isAsync callback:callback];
+//        }
+//    }];
+//}
+
+//七牛云
+//+ (void)dealDataWithDic:(NSDictionary *)data Images:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback{
+//    NSString *token = K_NotNullHolder([data objectForKey:@"token"], @"");
+//    NSString *secretKey = K_NotNullHolder([data objectForKey:@"secretKey"], @"");
+//    NSString *accessKey = K_NotNullHolder([data objectForKey:@"accessKey"], @"");
+//    NSString *baseUrl = K_NotNullHolder([data objectForKey:@"baseUrl"], @"");
+//
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    queue.maxConcurrentOperationCount = images.count;
+//
+//    NSMutableArray *callBackNames = [NSMutableArray array];
+//    int i = 0;
+//    for (UIImage *image in images) {
+//        if (image) {
+//            NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+//
+//                NSString *imageName = [NSString stringWithFormat:@"%@",[AppTool currentdateInterval]];
+//                NSData *data;
+//                if (UIImagePNGRepresentation(image) == nil)
+//                {
+//                    data = UIImageJPEGRepresentation(image, 1.0);
+//                    imageName = [imageName stringByAppendingString:[NSUUID UUID].UUIDString];
+//                }else{
+//                    data = UIImagePNGRepresentation(image);
+//                    imageName = [imageName stringByAppendingString:[NSUUID UUID].UUIDString];
+//                }
+//                [callBackNames addObject:imageName];
+//
+//                QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+////                    builder.zone = [QNFixedZone zone0];
+//                }];
+//                QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+//                [upManager putData:data key:imageName token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//
+//                    if(info.ok){
+//                        NSLog(@"请求成功");
+//                        if (isAsync) {
+//                            if (image == images.lastObject) {
+//                                NSLog(@"upload object finished!");
+//                                if (callback) {
+//                                    callback( YES, baseUrl , [callBackNames copy]);
+//                                }
+//                            }
+//                        }
+//                    }else{
+//                        NSLog(@"失败");
+//                        //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+//                    }
+//                } option:nil];
+//
+//            }];
+//            if (queue.operations.count != 0) {
+//                [operation addDependency:queue.operations.lastObject];
+//            }
+//            [queue addOperation:operation];
+//         }
+//        i++;
+//    }
+//    if (!isAsync) {
+//
+//        if (callback) {
+//            callback( YES, @"全部上传完成" , [callBackNames copy]);
+//        }
+//    }
+//}
+
++ (void)uploadImages:(NSArray *)images isAsync:(BOOL)isAsync fileName:(NSString *)fileName callback:(uploadCallblock)callback{
+    [THHttpManager POST:@"oss/getCredit" parameters:@{} dataBlock:^(NSInteger returnCode, THRequestStatus status, id data) {
         if (returnCode == 200 && [data isKindOfClass:[NSDictionary class]]) {
-            [AppTool dealDataWithDic:data Images:images isAsync:isAsync callback:callback];
+            [AppTool dealDataWithDic:data Images:images isAsync:isAsync fileName:fileName callback:callback];
+        }else{
+            THBaseViewController *vc = (THBaseViewController *)AppTool.currentVC;
+            [vc stopLoadingHUD];
         }
     }];
+//    [THHttpManager GET:@"oss/callback" parameters:@{} block:^(NSInteger returnCode, THRequestStatus status, id data) {
+//
+//        if (returnCode == 20000 && [data isKindOfClass:[NSDictionary class]]) {
+//            [AppTool dealDataWithDic:data Images:images isAsync:isAsync callback:callback];
+//        }
+//    }];
 }
 
-+ (void)dealDataWithDic:(NSDictionary *)data Images:(NSArray *)images isAsync:(BOOL)isAsync callback:(uploadCallblock)callback{
-    NSString *token = K_NotNullHolder([data objectForKey:@"token"], @"");
-    NSString *secretKey = K_NotNullHolder([data objectForKey:@"secretKey"], @"");
-    NSString *accessKey = K_NotNullHolder([data objectForKey:@"accessKey"], @"");
-    NSString *baseUrl = K_NotNullHolder([data objectForKey:@"baseUrl"], @"");
+//阿里云
++ (void)dealDataWithDic:(NSDictionary *)data Images:(NSArray *)images isAsync:(BOOL)isAsync fileName:(NSString *)fileName callback:(uploadCallblock)callback{
+    NSString *tAccessKey = K_NotNullHolder([data objectForKey:@"AccessKeyId"], @"");
+    NSString *bucket = K_NotNullHolder([data objectForKey:@"bucket"], @"");
+    NSString *tSecretKey = K_NotNullHolder([data objectForKey:@"AccessKeySecret"], @"");
+    NSString *tToken = K_NotNullHolder([data objectForKey:@"SecurityToken"], @"");
+    NSString *expirationTimeInGMTFormat = K_NotNullHolder([data objectForKey:@"Expiration"], @"");
+    NSString *region = K_NotNullHolder([data objectForKey:@"region"], @"");
+    NSString *file = K_NotNullHolder([data objectForKey:@"folder"], @"");
+    NSString *baseurl = K_NotNullHolder([data objectForKey:@"basePath"], @"");
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = images.count;
-
     NSMutableArray *callBackNames = [NSMutableArray array];
     int i = 0;
     for (UIImage *image in images) {
         if (image) {
             NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
 
-                NSString *imageName = [NSString stringWithFormat:@"%@",[AppTool currentdateInterval]];
-                NSData *data;
-                if (UIImagePNGRepresentation(image) == nil)
-                {
-                    data = UIImageJPEGRepresentation(image, 1.0);
-                    imageName = [imageName stringByAppendingString:[NSUUID UUID].UUIDString];
-                }else{
-                    data = UIImagePNGRepresentation(image);
-                    imageName = [imageName stringByAppendingString:[NSUUID UUID].UUIDString];
-                }
-                [callBackNames addObject:imageName];
+                NSString *imageName = [NSString stringWithFormat:@"%@",[AppTool getLocalDataWithKey:@"userID"]];
+                NSData *data = UIImageJPEGRepresentation(image,0.2);
+                imageName = [imageName stringByAppendingString:[AppTool currentdateInterval]];
+                imageName = [imageName stringByAppendingString:@".png"];
+                NSString *path = [NSString stringWithFormat:@"%@/%@/%@/%@",file,[AppTool getLocalDataWithKey:@"userID"],fileName,imageName];
+                [callBackNames addObject:path];
                 
-                QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
-//                    builder.zone = [QNFixedZone zone0];
+                NSString *endpoint = [NSString stringWithFormat:@"https://oss-%@.aliyuncs.com",region];
+                // 移动端建议使用STS方式初始化OSSClient。
+                id<OSSCredentialProvider> credential = [[OSSFederationCredentialProvider alloc] initWithFederationTokenGetter:^OSSFederationToken * _Nullable{
+                    OSSFederationToken *token = [OSSFederationToken new];
+                    // 从STS服务获取的临时访问密钥（AccessKey ID和AccessKey Secret）。
+                    token.tAccessKey = tAccessKey;
+                    token.tSecretKey = tSecretKey;
+                    // 从STS服务获取的安全令牌（SecurityToken）。
+                    token.tToken = tToken;
+                    // 临时访问凭证的过期时间。
+                    token.expirationTimeInGMTFormat = expirationTimeInGMTFormat;
+                    return token;
                 }];
-                QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
-                [upManager putData:data key:imageName token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
 
-                    if(info.ok){
-                        NSLog(@"请求成功");
-                        if (isAsync) {
-                            if (image == images.lastObject) {
-                                NSLog(@"upload object finished!");
-                                if (callback) {
-                                    callback( YES, baseUrl , [callBackNames copy]);
-                                }
-                            }
-                        }
-                    }else{
-                        NSLog(@"失败");
-                        //如果失败，这里可以把info信息上报自己的服务器，便于后面分析上传错误原因
+                OSSClient *client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
+                OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+                put.bucketName = bucket;
+                put.objectKey = path;
+                put.uploadingData = data;
+                put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+                    NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
+                };
+                OSSTask * putTask = [client putObject:put];
+                [putTask continueWithBlock:^id(OSSTask *task) {
+                    if (!task.error) {
+                        NSLog(@"upload object success!");
+                    } else {
+                        NSLog(@"upload object failed, error: %@" , task.error);
                     }
-                } option:nil];
-                
+                    return nil;
+                }];
+                [putTask waitUntilFinished];
+                if (isAsync) {
+                    if (image == images.lastObject) {
+                        NSLog(@"upload object finished!");
+                        if (callback) {
+                            callback( YES, baseurl, [callBackNames copy]);
+                        }
+                    }
+                }
             }];
             if (queue.operations.count != 0) {
                 [operation addDependency:queue.operations.lastObject];
             }
             [queue addOperation:operation];
-         }
+        }
         i++;
     }
     if (!isAsync) {
-    
+       // [queue waitUntilAllOperationsAreFinished];
         if (callback) {
-            callback( YES, @"全部上传完成" , [callBackNames copy]);
+            callback( YES, baseurl, [callBackNames copy]);
         }
     }
 }
